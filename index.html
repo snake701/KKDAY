@@ -46,6 +46,9 @@
         <div class="mt-8 bg-white/10 backdrop-blur-md p-6 rounded-xl max-w-4xl mx-auto border border-white/20">
             <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>您最在意什麼？(點擊幫您推薦)</h3>
             <div class="flex flex-wrap justify-center gap-3" id="filters">
+                <button onclick="highlight('price')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-orange-400 hover:text-white transition shadow">
+                    <i class="fas fa-dollar-sign mr-1"></i> CP值最高
+                </button>
                 <button onclick="highlight('food')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-yellow-400 hover:text-gray-900 transition shadow">
                     <i class="fas fa-utensils mr-1"></i> 必吃高級和牛
                 </button>
@@ -75,17 +78,24 @@
             <!-- Card 1 -->
             <div id="card-food" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-yellow-400">
                 <div class="bg-yellow-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    美食與划船首選
+                    預算較高 • 頂級享受
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-4">
+                    <div class="flex justify-between items-start mb-2">
                         <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 287625</span>
                         <div class="flex text-yellow-400 text-sm">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
                     </div>
+                    
+                    <!-- Price Tag -->
+                    <div class="mb-3">
+                        <span class="text-2xl font-bold text-gray-800">NT$ 3,500</span>
+                        <span class="text-xs text-gray-500">起/人</span>
+                    </div>
+
                     <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">和牛午餐＆保證划船版</h3>
-                    <p class="text-gray-500 text-sm mb-4">不想煩惱午餐與預約船票的最佳選擇。</p>
+                    <p class="text-gray-500 text-sm mb-4">含午餐與代訂船票服務，免排隊首選。</p>
                     
                     <div class="space-y-2 mb-6 flex-1">
                         <div class="flex items-center text-sm text-gray-700">
@@ -116,15 +126,22 @@
             <!-- Card 2 -->
             <div id="card-onsen" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
                 <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    療癒溫泉與動漫神社
+                    中價位 • 內容豐富
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-4">
+                    <div class="flex justify-between items-start mb-2">
                         <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 150994</span>
                         <div class="flex text-yellow-400 text-sm">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                         </div>
                     </div>
+
+                    <!-- Price Tag -->
+                    <div class="mb-3">
+                        <span class="text-2xl font-bold text-teal-600">NT$ 1,900</span>
+                        <span class="text-xs text-gray-500">起/人</span>
+                    </div>
+
                     <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">黑川溫泉＆秘境神社版</h3>
                     <p class="text-gray-500 text-sm mb-4">唯一不去高千穗，專注溫泉與氛圍的行程。</p>
                     
@@ -157,15 +174,22 @@
             <!-- Card 3 -->
             <div id="card-classic" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-blue-500">
                 <div class="bg-blue-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    經典高CP值首選
+                    高CP值 • 小資首選
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-4">
+                    <div class="flex justify-between items-start mb-2">
                         <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 266452</span>
                         <div class="flex text-yellow-400 text-sm">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
                         </div>
                     </div>
+
+                    <!-- Price Tag -->
+                    <div class="mb-3">
+                        <span class="text-2xl font-bold text-teal-600">NT$ 1,800</span>
+                        <span class="text-xs text-gray-500">起/人</span>
+                    </div>
+
                     <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">高千穗＆阿蘇經典版</h3>
                     <p class="text-gray-500 text-sm mb-4">只要去重點景點，不需供餐，經濟實惠。</p>
                     
@@ -198,15 +222,22 @@
             <!-- Card 4 -->
             <div id="card-all" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-red-500">
                 <div class="bg-red-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    貪心全覽特種兵
+                    高CP值 • 一票玩到底
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-4">
+                    <div class="flex justify-between items-start mb-2">
                         <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 285420</span>
                         <div class="flex text-yellow-400 text-sm">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                         </div>
                     </div>
+
+                    <!-- Price Tag -->
+                    <div class="mb-3">
+                        <span class="text-2xl font-bold text-teal-600">NT$ 1,800</span>
+                        <span class="text-xs text-gray-500">起/人</span>
+                    </div>
+
                     <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">三大景點全包版</h3>
                     <p class="text-gray-500 text-sm mb-4">一天跑完火山、峽谷與神社，體力好的選這。</p>
                     
@@ -256,6 +287,13 @@
                     </thead>
                     <tbody class="text-sm divide-y divide-gray-200">
                         <tr>
+                            <td class="p-4 font-bold bg-gray-50 text-gray-900"><i class="fas fa-coins mr-1 text-gray-500"></i> 預算參考 (每人)</td>
+                            <td class="p-4 bg-yellow-50/50 font-bold text-lg text-gray-800">~ NT$ 3,500<br><span class="text-xs font-normal text-gray-500">(含午餐費/代訂費)</span></td>
+                            <td class="p-4 bg-green-50/50 text-lg text-gray-800">~ NT$ 1,900</td>
+                            <td class="p-4 bg-blue-50/50 text-lg text-gray-800">~ NT$ 1,800</td>
+                            <td class="p-4 bg-red-50/50 text-lg text-gray-800">~ NT$ 1,800</td>
+                        </tr>
+                        <tr>
                             <td class="p-4 font-bold bg-gray-50">阿蘇火山</td>
                             <td class="p-4 bg-yellow-50/50">✅ (含草千里)</td>
                             <td class="p-4 bg-green-50/50">✅ (含草千里)</td>
@@ -303,7 +341,7 @@
         </div>
         
         <div class="mt-8 text-center text-gray-500 text-sm">
-            <p>※ 實際行程順序與景點開放狀況（如火山口氣體管制、划船水位）請依 KKday 官網即時資訊為主。</p>
+            <p>※ 金額為預估參考，實際價格會隨匯率與季節波動，請依 KKday 官網即時資訊為主。</p>
         </div>
 
     </div>
@@ -326,6 +364,7 @@
 
             // Map button types to card IDs
             const mapping = {
+                'price': ['card-classic', 'card-all'], // Low price options
                 'food': 'card-food',
                 'boat': 'card-food', // Boat is mainly the food one
                 'onsen': 'card-onsen',
