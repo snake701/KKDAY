@@ -37,13 +37,13 @@
 
     <!-- Hero Section -->
     <div class="bg-teal-700 text-white py-12 px-4 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold mb-4">找不到適合的阿蘇/高千穗行程？</h1>
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">阿蘇、高千穗、熊本、由布院怎麼選？</h1>
         <p class="text-teal-100 max-w-2xl mx-auto text-lg">
-            四款熱門行程深度解析，幫您在「和牛美食」、「黑川溫泉」與「神話神社」中做出最佳選擇。
+            除了經典的火山與神話路線，特別收錄「熊本城鐵道」與「親子動物園」行程，幫您找到最適合的九州一日遊。
         </p>
         
         <!-- Interactive Filter -->
-        <div class="mt-8 bg-white/10 backdrop-blur-md p-6 rounded-xl max-w-4xl mx-auto border border-white/20">
+        <div class="mt-8 bg-white/10 backdrop-blur-md p-6 rounded-xl max-w-5xl mx-auto border border-white/20">
             <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>您最在意什麼？(點擊幫您推薦)</h3>
             <div class="flex flex-wrap justify-center gap-3" id="filters">
                 <button onclick="highlight('price')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-orange-400 hover:text-white transition shadow">
@@ -61,8 +61,11 @@
                 <button onclick="highlight('anime')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow">
                     <i class="fas fa-torii-gate mr-1"></i> 螢火之森神社
                 </button>
-                <button onclick="highlight('all')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-red-500 hover:text-white transition shadow">
-                    <i class="fas fa-running mr-1"></i> 我全都要 (體力好)
+                <button onclick="highlight('train')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-indigo-500 hover:text-white transition shadow">
+                    <i class="fas fa-train mr-1"></i> 鐵道迷/熊本城
+                </button>
+                <button onclick="highlight('kids')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-pink-500 hover:text-white transition shadow">
+                    <i class="fas fa-paw mr-1"></i> 親子動物園
                 </button>
                 <button onclick="resetHighlight()" class="px-4 py-2 bg-gray-700 text-white rounded-full font-bold hover:bg-gray-600 transition shadow">
                     顯示全部
@@ -71,8 +74,15 @@
         </div>
     </div>
 
-    <!-- Cards Container -->
+    <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Section Title 1 -->
+        <div class="flex items-center mb-6">
+            <div class="h-8 w-2 bg-teal-500 rounded-full mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800">阿蘇火山 & 高千穗神話系列</h2>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="card-container">
             
             <!-- Card 1 -->
@@ -88,7 +98,6 @@
                         </div>
                     </div>
                     
-                    <!-- Price Tag -->
                     <div class="mb-3">
                         <span class="text-2xl font-bold text-gray-800">NT$ 3,500</span>
                         <span class="text-xs text-gray-500">起/人</span>
@@ -109,9 +118,6 @@
                         </div>
                         <div class="flex items-center text-sm text-gray-400">
                             <i class="fas fa-times-circle text-gray-300 w-5"></i> 黑川溫泉
-                        </div>
-                        <div class="flex items-center text-sm text-gray-400">
-                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 螢火之森神社
                         </div>
                     </div>
 
@@ -136,7 +142,6 @@
                         </div>
                     </div>
 
-                    <!-- Price Tag -->
                     <div class="mb-3">
                         <span class="text-2xl font-bold text-teal-600">NT$ 1,900</span>
                         <span class="text-xs text-gray-500">起/人</span>
@@ -157,9 +162,6 @@
                         </div>
                         <div class="flex items-center text-sm text-gray-700 font-bold bg-green-50 p-1 rounded">
                             <i class="fas fa-check-circle text-green-500 w-5"></i> 上色見熊野座神社
-                        </div>
-                        <div class="flex items-center text-sm text-gray-400">
-                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 含午餐 (自理)
                         </div>
                     </div>
 
@@ -184,7 +186,6 @@
                         </div>
                     </div>
 
-                    <!-- Price Tag -->
                     <div class="mb-3">
                         <span class="text-2xl font-bold text-teal-600">NT$ 1,800</span>
                         <span class="text-xs text-gray-500">起/人</span>
@@ -205,9 +206,6 @@
                         </div>
                          <div class="flex items-center text-sm text-gray-400">
                             <i class="fas fa-times-circle text-gray-300 w-5"></i> 黑川溫泉
-                        </div>
-                        <div class="flex items-center text-sm text-gray-400">
-                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 含午餐 (自理)
                         </div>
                     </div>
 
@@ -232,7 +230,6 @@
                         </div>
                     </div>
 
-                    <!-- Price Tag -->
                     <div class="mb-3">
                         <span class="text-2xl font-bold text-teal-600">NT$ 1,800</span>
                         <span class="text-xs text-gray-500">起/人</span>
@@ -254,9 +251,6 @@
                         <div class="flex items-center text-sm text-gray-500">
                             <i class="fas fa-times-circle text-red-500 w-5"></i> 無法划船 (太趕)
                         </div>
-                        <div class="flex items-center text-sm text-gray-400">
-                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 含午餐 (自理)
-                        </div>
                     </div>
 
                     <div class="mt-auto">
@@ -269,10 +263,112 @@
 
         </div>
 
+        <!-- Spacer -->
+        <div class="h-12"></div>
+
+        <!-- Section Title 2 -->
+        <div class="flex items-center mb-6">
+            <div class="h-8 w-2 bg-indigo-500 rounded-full mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800">同場加映：其他主題熱門行程</h2>
+        </div>
+
+        <!-- Extra Cards Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Card 5 (Train) -->
+            <div id="card-train" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-indigo-500">
+                <div class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    歷史名城 ＆ 特色火車
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 248950</span>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-2xl font-bold text-teal-600">NT$ 2,500</span>
+                        <span class="text-xs text-gray-500">起/人</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">熊本城＆阿蘇男孩號</h3>
+                    <p class="text-gray-500 text-sm mb-4">探訪日本三大名城，搭乘超人氣觀光列車。</p>
+                    
+                    <div class="space-y-2 mb-6 flex-1">
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-indigo-50 p-1 rounded">
+                            <i class="fas fa-train text-indigo-500 w-5"></i> 阿蘇男孩號 (體驗)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-indigo-50 p-1 rounded">
+                            <i class="fas fa-chess-rook text-indigo-500 w-5"></i> 熊本城 (歷史名城)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山/草千里
+                        </div>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 高千穗峽 (不去)
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="https://www.kkday.com/zh-tw/product/248950" target="_blank" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> 前往訂購 (248950)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 (Kids) -->
+            <div id="card-kids" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-pink-500">
+                <div class="bg-pink-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    親子最愛 ＆ 療癒動物
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 175897</span>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="text-2xl font-bold text-teal-600">NT$ 2,100</span>
+                        <span class="text-xs text-gray-500">起/人</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">九州自然動物園＆由布院</h3>
+                    <p class="text-gray-500 text-sm mb-4">搭乘叢林巴士餵食獅子，再去由布院逛街。</p>
+                    
+                    <div class="space-y-2 mb-6 flex-1">
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-pink-50 p-1 rounded">
+                            <i class="fas fa-paw text-pink-500 w-5"></i> 九州自然動物園
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-pink-50 p-1 rounded">
+                            <i class="fas fa-shopping-bag text-pink-500 w-5"></i> 由布院 (逛街/金鱗湖)
+                        </div>
+                         <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 別府地獄溫泉
+                        </div>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 阿蘇/高千穗 (不去)
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="https://www.kkday.com/zh-tw/product/175897" target="_blank" class="block w-full text-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> 前往訂購 (175897)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <!-- Detailed Comparison Table -->
         <div class="mt-16 bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="bg-gray-800 text-white px-6 py-4">
-                <h3 class="text-xl font-bold">詳細規格比較表</h3>
+                <h3 class="text-xl font-bold">阿蘇/高千穗系列：詳細規格比較表</h3>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
@@ -358,11 +454,13 @@
 
             // Map button types to card IDs
             const mapping = {
-                'price': ['card-classic', 'card-all'], // Low price options
+                'price': ['card-classic', 'card-all', 'card-kids'], 
                 'food': 'card-food',
-                'boat': 'card-food', // Boat is mainly the food one
-                'onsen': 'card-onsen',
-                'anime': ['card-onsen', 'card-all'], // Anime is in two cards
+                'boat': 'card-food', 
+                'onsen': ['card-onsen', 'card-kids'], // Yufuin also has onsen
+                'anime': ['card-onsen', 'card-all'], 
+                'train': 'card-train',
+                'kids': 'card-kids',
                 'all': 'card-all'
             };
 
