@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福岡一日遊行程大比拼 - KKday精選</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .card-highlight {
+            ring: 4px;
+            ring-opacity: 0.8;
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-teal-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-mountain text-2xl mr-2"></i>
+                    <span class="font-bold text-xl">九州一日遊攻略</span>
+                </div>
+                <div class="text-sm hidden sm:block">KKday 精選行程比較</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-teal-700 text-white py-12 px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">找不到適合的阿蘇/高千穗行程？</h1>
+        <p class="text-teal-100 max-w-2xl mx-auto text-lg">
+            四款熱門行程深度解析，幫您在「和牛美食」、「黑川溫泉」與「神話神社」中做出最佳選擇。
+        </p>
+        
+        <!-- Interactive Filter -->
+        <div class="mt-8 bg-white/10 backdrop-blur-md p-6 rounded-xl max-w-4xl mx-auto border border-white/20">
+            <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>您最在意什麼？(點擊幫您推薦)</h3>
+            <div class="flex flex-wrap justify-center gap-3" id="filters">
+                <button onclick="highlight('food')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-yellow-400 hover:text-gray-900 transition shadow">
+                    <i class="fas fa-utensils mr-1"></i> 必吃高級和牛
+                </button>
+                <button onclick="highlight('boat')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-blue-400 hover:text-white transition shadow">
+                    <i class="fas fa-ship mr-1"></i> 一定要划船
+                </button>
+                <button onclick="highlight('onsen')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-green-500 hover:text-white transition shadow">
+                    <i class="fas fa-hot-tub mr-1"></i> 想去黑川溫泉
+                </button>
+                <button onclick="highlight('anime')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow">
+                    <i class="fas fa-torii-gate mr-1"></i> 螢火之森神社
+                </button>
+                <button onclick="highlight('all')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-red-500 hover:text-white transition shadow">
+                    <i class="fas fa-running mr-1"></i> 我全都要 (體力好)
+                </button>
+                <button onclick="resetHighlight()" class="px-4 py-2 bg-gray-700 text-white rounded-full font-bold hover:bg-gray-600 transition shadow">
+                    顯示全部
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="card-container">
+            
+            <!-- Card 1 -->
+            <div id="card-food" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-yellow-400">
+                <div class="bg-yellow-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    美食與划船首選
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 287625</span>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">和牛午餐＆保證划船版</h3>
+                    <p class="text-gray-500 text-sm mb-4">不想煩惱午餐與預約船票的最佳選擇。</p>
+                    
+                    <div class="space-y-2 mb-6 flex-1">
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山/草千里
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-yellow-50 p-1 rounded">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 高千穗峽 (可選保證船位)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-yellow-50 p-1 rounded">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 含高級和牛午餐
+                        </div>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 黑川溫泉
+                        </div>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 螢火之森神社
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <button onclick="copyCode('287625')" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="far fa-copy mr-2"></i> 複製代碼 287625
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div id="card-onsen" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
+                <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    療癒溫泉與動漫神社
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 150994</span>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">黑川溫泉＆秘境神社版</h3>
+                    <p class="text-gray-500 text-sm mb-4">唯一不去高千穗，專注溫泉與氛圍的行程。</p>
+                    
+                    <div class="space-y-2 mb-6 flex-1">
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山/草千里
+                        </div>
+                         <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-red-300 w-5"></i> 高千穗峽 (不去)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-green-50 p-1 rounded">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 黑川溫泉 (散策/泡湯)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-green-50 p-1 rounded">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 上色見熊野座神社
+                        </div>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 含午餐 (自理)
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <button onclick="copyCode('150994')" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="far fa-copy mr-2"></i> 複製代碼 150994
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div id="card-classic" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-blue-500">
+                <div class="bg-blue-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    經典高CP值首選
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 266452</span>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">高千穗＆阿蘇經典版</h3>
+                    <p class="text-gray-500 text-sm mb-4">只要去重點景點，不需供餐，經濟實惠。</p>
+                    
+                    <div class="space-y-2 mb-6 flex-1">
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山/草千里
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700 font-bold bg-blue-50 p-1 rounded">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 高千穗峽 (重點)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-exclamation-circle text-yellow-500 w-5"></i> 划船 (需視現場狀況)
+                        </div>
+                         <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 黑川溫泉
+                        </div>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 含午餐 (自理)
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <button onclick="copyCode('266452')" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="far fa-copy mr-2"></i> 複製代碼 266452
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div id="card-all" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-red-500">
+                <div class="bg-red-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    貪心全覽特種兵
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">Code: 285420</span>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight">三大景點全包版</h3>
+                    <p class="text-gray-500 text-sm mb-4">一天跑完火山、峽谷與神社，體力好的選這。</p>
+                    
+                    <div class="space-y-2 mb-6 flex-1">
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山 (停留短)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 高千穗峽 (停留短)
+                        </div>
+                         <div class="flex items-center text-sm text-gray-700 font-bold bg-red-50 p-1 rounded">
+                            <i class="fas fa-check-circle text-green-500 w-5"></i> 上色見熊野座神社
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-times-circle text-red-500 w-5"></i> 無法划船 (太趕)
+                        </div>
+                        <div class="flex items-center text-sm text-gray-400">
+                            <i class="fas fa-times-circle text-gray-300 w-5"></i> 含午餐 (自理)
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <button onclick="copyCode('285420')" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="far fa-copy mr-2"></i> 複製代碼 285420
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Detailed Comparison Table -->
+        <div class="mt-16 bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="bg-gray-800 text-white px-6 py-4">
+                <h3 class="text-xl font-bold">詳細規格比較表</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700 text-sm uppercase tracking-wider">
+                            <th class="p-4 border-b">比較項目</th>
+                            <th class="p-4 border-b text-yellow-700 bg-yellow-50">和牛划船版 (287625)</th>
+                            <th class="p-4 border-b text-green-700 bg-green-50">溫泉神社版 (150994)</th>
+                            <th class="p-4 border-b text-blue-700 bg-blue-50">經典版 (266452)</th>
+                            <th class="p-4 border-b text-red-700 bg-red-50">全覽版 (285420)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-4 font-bold bg-gray-50">阿蘇火山</td>
+                            <td class="p-4 bg-yellow-50/50">✅ (含草千里)</td>
+                            <td class="p-4 bg-green-50/50">✅ (含草千里)</td>
+                            <td class="p-4 bg-blue-50/50">✅ (含草千里)</td>
+                            <td class="p-4 bg-red-50/50">✅ (僅火山口)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-gray-50">高千穗峽</td>
+                            <td class="p-4 bg-yellow-50/50 font-bold text-yellow-700">✅ 深度遊</td>
+                            <td class="p-4 bg-green-50/50 text-gray-400">❌ 不去</td>
+                            <td class="p-4 bg-blue-50/50 font-bold text-blue-700">✅ 深度遊</td>
+                            <td class="p-4 bg-red-50/50">✅ 沾醬油(短暫)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-gray-50">划船體驗</td>
+                            <td class="p-4 bg-yellow-50/50 font-bold text-yellow-700">✅ 保證有位(需選購)</td>
+                            <td class="p-4 bg-green-50/50 text-gray-400">-</td>
+                            <td class="p-4 bg-blue-50/50 text-gray-600">⚠️ 視現場運氣</td>
+                            <td class="p-4 bg-red-50/50 text-red-500">❌ 時間不夠</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-gray-50">特色景點</td>
+                            <td class="p-4 bg-yellow-50/50">-</td>
+                            <td class="p-4 bg-green-50/50 font-bold text-green-700">黑川溫泉 + 螢火之森神社</td>
+                            <td class="p-4 bg-blue-50/50">-</td>
+                            <td class="p-4 bg-red-50/50 font-bold text-red-700">螢火之森神社</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-gray-50">午餐</td>
+                            <td class="p-4 bg-yellow-50/50 font-bold text-yellow-700">✅ 高級和牛陶板燒</td>
+                            <td class="p-4 bg-green-50/50">自理 (溫泉街美食)</td>
+                            <td class="p-4 bg-blue-50/50">自理</td>
+                            <td class="p-4 bg-red-50/50">自理</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-gray-50">適合族群</td>
+                            <td class="p-4 bg-yellow-50/50">美食家、堅持要划船</td>
+                            <td class="p-4 bg-green-50/50">動漫迷、愛泡湯、怕走路</td>
+                            <td class="p-4 bg-blue-50/50">小資族、經典觀光客</td>
+                            <td class="p-4 bg-red-50/50">體力好、想一次打卡全九州</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            <p>※ 實際行程順序與景點開放狀況（如火山口氣體管制、划船水位）請依 KKday 官網即時資訊為主。</p>
+        </div>
+
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-y-20 transition-transform duration-300 z-50 flex items-center">
+        <i class="fas fa-check-circle text-green-400 mr-2"></i>
+        <span>代碼已複製！請至 KKday 搜尋。</span>
+    </div>
+
+    <script>
+        // Highlighting Logic
+        function highlight(type) {
+            // Reset all cards
+            const cards = document.querySelectorAll('.tour-card');
+            cards.forEach(card => {
+                card.classList.remove('card-highlight', 'opacity-50', 'opacity-100');
+                card.classList.add('opacity-100');
+            });
+
+            // Map button types to card IDs
+            const mapping = {
+                'food': 'card-food',
+                'boat': 'card-food', // Boat is mainly the food one
+                'onsen': 'card-onsen',
+                'anime': ['card-onsen', 'card-all'], // Anime is in two cards
+                'all': 'card-all'
+            };
+
+            const target = mapping[type];
+
+            if (type === 'all' && target === 'card-all') {
+                 // Special handling for "All" button matching "All" card
+                 cards.forEach(c => {
+                    if(c.id !== 'card-all') c.classList.add('opacity-50');
+                    else c.classList.add('card-highlight');
+                 });
+            } else if (Array.isArray(target)) {
+                // Handle multiple matches
+                cards.forEach(c => {
+                    if (target.includes(c.id)) {
+                        c.classList.add('card-highlight');
+                    } else {
+                        c.classList.add('opacity-50');
+                    }
+                });
+            } else if (target) {
+                // Single match
+                cards.forEach(c => {
+                    if (c.id === target) {
+                        c.classList.add('card-highlight');
+                    } else {
+                        c.classList.add('opacity-50');
+                    }
+                });
+            }
+        }
+
+        function resetHighlight() {
+            const cards = document.querySelectorAll('.tour-card');
+            cards.forEach(card => {
+                card.classList.remove('card-highlight', 'opacity-50');
+                card.classList.add('opacity-100');
+            });
+        }
+
+        // Copy to Clipboard Logic
+        function copyCode(code) {
+            // Fallback for clipboard
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Show Toast
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
