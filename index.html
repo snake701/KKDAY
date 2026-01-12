@@ -116,9 +116,9 @@
                     </div>
 
                     <div class="mt-auto">
-                        <button onclick="copyCode('287625')" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
-                            <i class="far fa-copy mr-2"></i> 複製代碼 287625
-                        </button>
+                        <a href="https://www.kkday.com/zh-tw/product/287625" target="_blank" class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> 前往訂購 (287625)
+                        </a>
                     </div>
                 </div>
             </div>
@@ -164,9 +164,9 @@
                     </div>
 
                     <div class="mt-auto">
-                        <button onclick="copyCode('150994')" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
-                            <i class="far fa-copy mr-2"></i> 複製代碼 150994
-                        </button>
+                        <a href="https://www.kkday.com/zh-tw/product/150994" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> 前往訂購 (150994)
+                        </a>
                     </div>
                 </div>
             </div>
@@ -212,9 +212,9 @@
                     </div>
 
                     <div class="mt-auto">
-                        <button onclick="copyCode('266452')" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
-                            <i class="far fa-copy mr-2"></i> 複製代碼 266452
-                        </button>
+                        <a href="https://www.kkday.com/zh-tw/product/266452" target="_blank" class="block w-full text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> 前往訂購 (266452)
+                        </a>
                     </div>
                 </div>
             </div>
@@ -260,9 +260,9 @@
                     </div>
 
                     <div class="mt-auto">
-                        <button onclick="copyCode('285420')" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
-                            <i class="far fa-copy mr-2"></i> 複製代碼 285420
-                        </button>
+                        <a href="https://www.kkday.com/zh-tw/product/285420" target="_blank" class="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                            <i class="fas fa-external-link-alt mr-2"></i> 前往訂購 (285420)
+                        </a>
                     </div>
                 </div>
             </div>
@@ -346,12 +346,6 @@
 
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-y-20 transition-transform duration-300 z-50 flex items-center">
-        <i class="fas fa-check-circle text-green-400 mr-2"></i>
-        <span>代碼已複製！請至 KKday 搜尋。</span>
-    </div>
-
     <script>
         // Highlighting Logic
         function highlight(type) {
@@ -407,24 +401,6 @@
                 card.classList.remove('card-highlight', 'opacity-50');
                 card.classList.add('opacity-100');
             });
-        }
-
-        // Copy to Clipboard Logic
-        function copyCode(code) {
-            // Fallback for clipboard
-            const textarea = document.createElement('textarea');
-            textarea.value = code;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-
-            // Show Toast
-            const toast = document.getElementById('toast');
-            toast.classList.remove('translate-y-20');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20');
-            }, 3000);
         }
     </script>
 </body>
