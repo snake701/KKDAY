@@ -626,7 +626,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = JSON.parse(__firebase_config);
@@ -646,21 +646,50 @@
         ];
 
         async function initPoll() {
-            await signInAnonymously(auth);
-            
-            const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-            
-            // Ensure doc exists
-            const snap = await getDoc(pollRef);
-            if (!snap.exists()) {
-                await setDoc(pollRef, {}, { merge: true });
-            }
+            try {
+                // Auth Flow
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
 
-            // Real-time listener
-            onSnapshot(pollRef, (doc) => {
-                const data = doc.data() || {};
-                renderPoll(data);
-            });
+                // Wait for user to be authenticated
+                await new Promise((resolve, reject) => {
+                    const unsubscribe = onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            unsubscribe();
+                            resolve(user);
+                        }
+                    }, reject);
+                });
+
+                const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+                
+                // Ensure doc exists
+                try {
+                    const snap = await getDoc(pollRef);
+                    if (!snap.exists()) {
+                        await setDoc(pollRef, {}, { merge: true });
+                    }
+                } catch (e) {
+                    console.error("Error accessing document:", e);
+                    // If permissions are strict, we might fail here. 
+                    // But usually, public/data/poll_results should be writable if authenticated.
+                    return; 
+                }
+
+                // Real-time listener
+                onSnapshot(pollRef, (doc) => {
+                    const data = doc.data() || {};
+                    renderPoll(data);
+                }, (error) => {
+                    console.error("Snapshot error:", error);
+                });
+
+            } catch (error) {
+                console.error("Auth or Init error:", error);
+            }
         }
 
         function renderPoll(data) {
