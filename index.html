@@ -35,6 +35,11 @@
         /* Mobile Card Interaction */
         .mobile-card { transition: all 0.2s; }
         .mobile-card:active { transform: scale(0.98); }
+
+        /* Poll Styles */
+        .poll-bar-container { background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; height: 1.5rem; position: relative; }
+        .poll-bar { height: 100%; transition: width 1s ease-in-out; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold; }
+        .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     </style>
     <script>
         function toggleDetail(id) {
@@ -105,6 +110,18 @@
 
     <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- SECTION 0: Voting Poll -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border border-gray-100">
+            <div class="bg-gradient-to-r from-pink-500 to-orange-400 p-4 text-white flex justify-between items-center">
+                <h2 class="text-xl font-bold"><i class="fas fa-poll mr-2"></i>大家最想去哪裡？(即時投票)</h2>
+                <span class="text-sm bg-white/20 px-3 py-1 rounded-full">已累積 <span id="total-votes">0</span> 票</span>
+            </div>
+            <div class="p-6" id="poll-container">
+                <div class="text-center text-gray-500 py-4">載入投票數據中...</div>
+                <!-- Poll items will be injected here -->
+            </div>
+        </div>
         
         <!-- SECTION 1: 卡片牆 (快速瀏覽) -->
         <div class="flex items-center mb-6">
@@ -607,6 +624,100 @@
         <span>已為您篩選！</span>
     </div>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        // Poll Data Structure
+        const pollOptions = [
+            { id: '287625', name: '和牛划船線', color: 'bg-yellow-500' },
+            { id: '181723', name: '高千穗深度線', color: 'bg-purple-600' },
+            { id: '150994', name: '溫泉神社線', color: 'bg-teal-600' },
+            { id: '266452', name: '經典觀光線', color: 'bg-blue-600' },
+            { id: '285420', name: '貪心全覽線', color: 'bg-red-600' },
+            { id: '248950', name: '鐵道名城線', color: 'bg-indigo-600' }
+        ];
+
+        async function initPoll() {
+            await signInAnonymously(auth);
+            
+            const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+            
+            // Ensure doc exists
+            const snap = await getDoc(pollRef);
+            if (!snap.exists()) {
+                await setDoc(pollRef, {}, { merge: true });
+            }
+
+            // Real-time listener
+            onSnapshot(pollRef, (doc) => {
+                const data = doc.data() || {};
+                renderPoll(data);
+            });
+        }
+
+        function renderPoll(data) {
+            const container = document.getElementById('poll-container');
+            const totalDisplay = document.getElementById('total-votes');
+            
+            let totalVotes = 0;
+            pollOptions.forEach(opt => {
+                totalVotes += (data['count_' + opt.id] || 0);
+            });
+            totalDisplay.innerText = totalVotes;
+
+            let html = '';
+            pollOptions.forEach(opt => {
+                const count = data['count_' + opt.id] || 0;
+                const percentage = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
+                const hasVoted = localStorage.getItem('voted_' + opt.id);
+                
+                html += `
+                    <div class="mb-3">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold text-gray-700 text-sm">${opt.name}</span>
+                            <span class="text-xs text-gray-500">${count} 票 (${percentage}%)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex-grow poll-bar-container">
+                                <div class="poll-bar ${opt.color}" style="width: ${percentage === 0 ? 2 : percentage}%"></div>
+                            </div>
+                            <button onclick="vote('${opt.id}')" 
+                                class="vote-btn px-3 py-1 rounded text-xs font-bold text-white ${opt.color} hover:brightness-110 transition shadow"
+                                ${hasVoted ? 'disabled' : ''}>
+                                ${hasVoted ? '已投' : '投票'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Expose vote function to window
+        window.vote = async (id) => {
+            if (localStorage.getItem('voted_' + id)) return;
+            
+            // Optimistic UI update (UX)
+            localStorage.setItem('voted_' + id, 'true');
+            
+            // Update Firestore
+            const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+            await updateDoc(pollRef, {
+                ['count_' + id]: increment(1)
+            });
+        };
+
+        initPoll();
+    </script>
+
     <script>
         // Highlighting Logic (Feature)
         function highlight(type) {
@@ -620,6 +731,7 @@
                 'onsen': 'card-onsen',
                 'anime': ['card-onsen', 'card-deep'], 
                 'train': ['card-train', 'card-deep'],
+                'kids': [], // Removed kids
             };
 
             const target = mapping[type];
