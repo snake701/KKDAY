@@ -76,7 +76,7 @@
     <div class="bg-teal-700 text-white py-12 px-4 text-center">
         <h1 class="text-3xl md:text-4xl font-bold mb-4">阿蘇、高千穗、熊本、小火車怎麼選？</h1>
         <p class="text-teal-100 max-w-2xl mx-auto text-lg">
-            KKday 6 款熱銷行程深度解析，新增「天空小火車」路線，幫您找到最適合的九州玩法。
+            KKday 7 款熱銷行程深度解析，新增「天空小火車」路線，幫您找到最適合的九州玩法。
         </p>
 
         <!-- Interactive Filter -->
@@ -131,9 +131,10 @@
             <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
                 <!-- Poll Bars -->
                 <div class="p-6 md:col-span-2" id="poll-container">
+                    <!-- Default Initial State -->
                     <div class="text-center text-gray-500 py-8 flex flex-col items-center justify-center">
                         <i class="fas fa-circle-notch fa-spin text-2xl mb-2 text-teal-500"></i>
-                        <span>載入投票數據中...</span>
+                        <span>初始化投票選項中...</span>
                     </div>
                 </div>
                 
@@ -632,7 +633,7 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 1.5</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 1.6</div>
             </div>
 
         </div>
@@ -654,13 +655,7 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-        // Poll Data Structure - Removed ID: 175897 (Kids)
+        // Configuration and Defaults
         const pollOptions = [
             { id: '287625', name: '和牛划船線', color: 'bg-yellow-500' },
             { id: '181723', name: '高千穗深度線', color: 'bg-purple-600' },
@@ -670,64 +665,13 @@
             { id: '248950', name: '鐵道名城線', color: 'bg-indigo-600' }
         ];
 
-        async function initPoll() {
-            const container = document.getElementById('poll-container');
-            const logsContainer = document.getElementById('poll-logs');
-            let timeoutId;
-
-            try {
-                // Timeout fallback if loading takes too long
-                timeoutId = setTimeout(() => {
-                    if (container.innerHTML.includes('載入投票數據中')) {
-                        container.innerHTML = `
-                            <div class="text-center py-8">
-                                <div class="text-red-500 mb-2"><i class="fas fa-exclamation-circle mr-1"></i> 連線逾時</div>
-                                <button onclick="location.reload()" class="px-4 py-2 bg-gray-200 rounded text-sm hover:bg-gray-300 transition">重新整理</button>
-                            </div>
-                        `;
-                    }
-                }, 5000); // 5 seconds timeout
-
-                // Auth Flow
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                // Wait for user to be authenticated
-                await new Promise((resolve, reject) => {
-                    const unsubscribe = onAuthStateChanged(auth, (user) => {
-                        if (user) {
-                            unsubscribe();
-                            resolve(user);
-                        }
-                    }, reject);
-                });
-
-                const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                
-                // Real-time listener
-                // We use onSnapshot immediately. If doc doesn't exist, data() is undefined, renderPoll handles it.
-                // This avoids blocking getDoc calls.
-                onSnapshot(pollRef, (docSnap) => {
-                    clearTimeout(timeoutId); // Clear timeout on success
-                    const data = docSnap.exists() ? docSnap.data() : {};
-                    renderPoll(data);
-                    renderLogs(data.logs || []);
-                }, (error) => {
-                    clearTimeout(timeoutId);
-                    console.error("Snapshot error:", error);
-                    container.innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-exclamation-triangle mr-2"></i>無法載入投票數據</div>';
-                });
-
-            } catch (error) {
-                clearTimeout(timeoutId);
-                console.error("Auth or Init error:", error);
-                container.innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-plug mr-2"></i>連接伺服器失敗</div>';
-            }
+        // 1. Render UI Immediately (Zero State)
+        function renderInitialUI() {
+             renderPoll({}); // Render with empty data
+             document.getElementById('poll-logs').innerHTML = '<div class="text-center text-gray-400 py-4">載入即時動態中...</div>';
         }
 
+        // 2. Render Functions
         function renderPoll(data) {
             const container = document.getElementById('poll-container');
             const totalDisplay = document.getElementById('total-votes');
@@ -736,7 +680,8 @@
             pollOptions.forEach(opt => {
                 totalVotes += (data['count_' + opt.id] || 0);
             });
-            totalDisplay.innerText = totalVotes;
+            
+            if(totalDisplay) totalDisplay.innerText = totalVotes;
 
             let html = '';
             pollOptions.forEach(opt => {
@@ -744,6 +689,9 @@
                 const percentage = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
                 const hasVoted = localStorage.getItem('voted_' + opt.id);
                 
+                // Safety check for width to avoid layout break
+                const barWidth = percentage < 1 ? 1 : percentage; 
+
                 html += `
                     <div class="mb-3">
                         <div class="flex justify-between items-center mb-1">
@@ -751,45 +699,58 @@
                             <span class="text-xs text-gray-500">${count} 票 (${percentage}%)</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="flex-grow poll-bar-container">
-                                <div class="poll-bar ${opt.color}" style="width: ${percentage === 0 ? 2 : percentage}%"></div>
+                            <div class="flex-grow poll-bar-container bg-gray-200 rounded-full h-4 overflow-hidden relative">
+                                <div class="poll-bar ${opt.color} h-full transition-all duration-1000 ease-out" style="width: ${barWidth}%"></div>
                             </div>
                             <button onclick="vote('${opt.id}')" 
-                                class="vote-btn px-3 py-1 rounded text-xs font-bold text-white ${opt.color} hover:brightness-110 transition shadow">
-                                投票
+                                class="vote-btn px-3 py-1 rounded text-xs font-bold text-white ${opt.color} hover:brightness-110 transition shadow opacity-90 hover:opacity-100"
+                                ${hasVoted ? 'disabled' : ''}>
+                                ${hasVoted ? '已投' : '投票'}
                             </button>
                         </div>
                     </div>
                 `;
             });
-            container.innerHTML = html;
+            if(container) container.innerHTML = html;
         }
 
         function renderLogs(logs) {
             const logsContainer = document.getElementById('poll-logs');
+            if (!logsContainer) return;
+            
             if (!logs || logs.length === 0) {
                 logsContainer.innerHTML = '<div class="text-center text-gray-400 py-4">暫無紀錄，快來投第一票！</div>';
                 return;
             }
 
-            // Sort logs by timestamp (descending) and take top 5
             const recentLogs = logs.sort((a, b) => b.timestamp - a.timestamp).slice(0, 5);
 
             let html = '';
             recentLogs.forEach(log => {
                 const option = pollOptions.find(o => o.id === log.optionId);
                 const colorClass = option ? option.color.replace('bg-', 'text-') : 'text-gray-600';
-                const timeAgo = Math.floor((Date.now() - log.timestamp) / 60000);
-                let timeText;
-                if (timeAgo < 1) timeText = '剛剛';
-                else if (timeAgo < 60) timeText = `${timeAgo} 分鐘前`;
-                else timeText = `${Math.floor(timeAgo/60)} 小時前`;
+                
+                // Time formatting
+                const now = Date.now();
+                const diffMs = now - log.timestamp;
+                const diffMins = Math.floor(diffMs / 60000);
+                let timeText = '剛剛';
+                if (diffMins > 0) {
+                    if (diffMins < 60) timeText = `${diffMins} 分鐘前`;
+                    else timeText = `${Math.floor(diffMins/60)} 小時前`;
+                }
+
+                // Sanitize input to prevent XSS (basic)
+                const safeName = (log.name || '匿名').replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
                 html += `
                     <div class="flex items-center justify-between border-b border-gray-100 pb-2 last:border-0">
-                        <div>
-                            <span class="font-bold text-gray-700">${log.name}</span>
-                            <span class="text-xs text-gray-400 ml-1">投給了</span>
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 rounded-full ${option ? option.color : 'bg-gray-400'} mr-2"></div>
+                            <div>
+                                <span class="font-bold text-gray-700 text-xs">${safeName}</span>
+                                <span class="text-xs text-gray-400 transform scale-90 origin-left inline-block">投給了</span>
+                            </div>
                         </div>
                         <div class="text-right">
                             <span class="font-bold text-xs ${colorClass}">${option ? option.name : '未知行程'}</span>
@@ -801,47 +762,94 @@
             logsContainer.innerHTML = html;
         }
 
-        // Expose vote function to window
-        window.vote = async (id) => {
-            const nameInput = document.getElementById('voter-name');
-            const name = nameInput.value.trim();
-
-            if (!name) {
-                alert('請先輸入您的暱稱，才能進行記名投票喔！');
-                nameInput.focus();
-                return;
-            }
-
-            // Check local restriction (One vote per option per browser FOR THIS NAME)
-            if (localStorage.getItem(`voted_${id}_${name}`)) {
-                alert(`${name} 已經投過這個行程囉！`);
-                return;
-            }
-            
-            // Optimistic UI update
-            localStorage.setItem(`voted_${id}_${name}`, 'true');
-            
-            const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-            
+        // 3. Initialize Firebase
+        async function initFirebase() {
             try {
-                // Use setDoc with merge = true. This creates the document if it doesn't exist,
-                // or updates it if it does. This avoids the need for a separate getDoc/create flow.
-                await setDoc(pollRef, {
-                    ['count_' + id]: increment(1),
-                    logs: arrayUnion({
-                        name: name,
-                        optionId: id,
-                        timestamp: Date.now()
-                    })
-                }, { merge: true });
-                
-            } catch (e) {
-                console.error("Vote failed", e);
-                alert("投票失敗，請稍後再試");
-            }
-        };
+                if (typeof __firebase_config === 'undefined') {
+                    console.warn("Firebase config not found. Running in offline mode.");
+                    return;
+                }
 
-        initPoll();
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                const db = getFirestore(app);
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+                // Auth
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Wait for Auth
+                await new Promise((resolve, reject) => {
+                    const unsubscribe = onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            unsubscribe();
+                            resolve(user);
+                        }
+                    }, reject);
+                });
+
+                // Attach vote function to window with DB closure
+                window.vote = async (id) => {
+                    const nameInput = document.getElementById('voter-name');
+                    const name = nameInput.value.trim();
+
+                    if (!name) {
+                        alert('請先輸入您的暱稱，才能進行記名投票喔！');
+                        nameInput.focus();
+                        return;
+                    }
+
+                    if (localStorage.getItem(`voted_${id}_${name}`)) {
+                        alert(`${name} 已經投過這個行程囉！`);
+                        return;
+                    }
+                    
+                    localStorage.setItem(`voted_${id}_${name}`, 'true');
+                    localStorage.setItem(`voted_${id}`, 'true'); // Also block generic vote
+                    
+                    // Optimistic UI Update
+                    // We can re-render immediately with local increment if we wanted, 
+                    // but onSnapshot is fast enough usually.
+                    
+                    const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+                    
+                    try {
+                        await setDoc(pollRef, {
+                            ['count_' + id]: increment(1),
+                            logs: arrayUnion({
+                                name: name,
+                                optionId: id,
+                                timestamp: Date.now()
+                            })
+                        }, { merge: true });
+                    } catch (e) {
+                        console.error("Vote failed", e);
+                        alert("投票連線失敗，請檢查網路");
+                    }
+                };
+
+                // Listen to data
+                const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+                onSnapshot(pollRef, (docSnap) => {
+                    const data = docSnap.exists() ? docSnap.data() : {};
+                    renderPoll(data);
+                    renderLogs(data.logs || []);
+                });
+
+            } catch (error) {
+                console.error("Firebase Init Error:", error);
+                document.getElementById('poll-logs').innerHTML = '<div class="text-center text-red-400 py-2 text-xs">連線失敗，僅顯示靜態內容</div>';
+            }
+        }
+
+        // Start
+        renderInitialUI(); // Show empty bars immediately
+        initFirebase();    // Try connecting to DB
     </script>
 
     <script>
