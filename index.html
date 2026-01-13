@@ -76,7 +76,7 @@
     <div class="bg-teal-700 text-white py-12 px-4 text-center">
         <h1 class="text-3xl md:text-4xl font-bold mb-4">阿蘇、高千穗、熊本、小火車怎麼選？</h1>
         <p class="text-teal-100 max-w-2xl mx-auto text-lg">
-            KKday 6 款熱銷行程深度解析，新增「天空小火車」路線，幫您找到最適合的九州玩法。
+            KKday 7 款熱銷行程深度解析，新增「天空小火車」路線，幫您找到最適合的九州玩法。
         </p>
 
         <!-- Interactive Filter -->
@@ -131,7 +131,10 @@
             <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
                 <!-- Poll Bars -->
                 <div class="p-6 md:col-span-2" id="poll-container">
-                    <div class="text-center text-gray-500 py-4"><i class="fas fa-circle-notch fa-spin mr-2"></i>載入投票數據中...</div>
+                    <div class="text-center text-gray-500 py-8 flex flex-col items-center justify-center">
+                        <i class="fas fa-circle-notch fa-spin text-2xl mb-2 text-teal-500"></i>
+                        <span>載入投票數據中...</span>
+                    </div>
                 </div>
                 
                 <!-- Recent Logs -->
@@ -256,6 +259,23 @@
                         <div class="font-bold bg-indigo-50 p-1 rounded"><i class="fas fa-chess-rook text-indigo-500 w-5"></i> 熊本城 (歷史名城)</div>
                     </div>
                     <a href="https://www.kkday.com/zh-tw/product/248950" target="_blank" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                </div>
+            </div>
+
+            <!-- 6. Kids (175897) -->
+            <div id="card-kids" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-pink-500">
+                <div class="bg-pink-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    親子動物 • 輕鬆休閒
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">175897</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-teal-600">NT$ 2,100</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">自然動物園＆由布院</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-pink-50 p-1 rounded"><i class="fas fa-paw text-pink-500 w-5"></i> 九州自然動物園</div>
+                        <div class="font-bold bg-pink-50 p-1 rounded"><i class="fas fa-shopping-bag text-pink-500 w-5"></i> 由布院 (逛街)</div>
+                    </div>
+                    <a href="https://www.kkday.com/zh-tw/product/175897" target="_blank" class="block w-full text-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
                 </div>
             </div>
 
@@ -433,6 +453,32 @@
                             <li><strong>💡 重點：</strong>唯一去熊本城的行程，含特色列車票。</li>
                         </ul>
                         <a href="https://www.kkday.com/zh-tw/product/248950" target="_blank" class="block w-full text-center bg-indigo-600 text-white py-2 rounded-lg font-bold">前往訂購</a>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden mobile-card border border-gray-100">
+                    <div class="p-4 cursor-pointer" onclick="toggleDetail('m6')">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-pink-500">7. 親子動物線 (175897)</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="badge badge-green">🦁 動物園</span>
+                            <span class="badge badge-blue">🛍️ 由布院</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <span>餵獅子・逛街・地獄溫泉</span>
+                            <i id="icon-m6" class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div id="detail-m6" class="hidden bg-gray-50 p-4 border-t border-gray-100 text-sm">
+                        <ul class="space-y-2 mb-4">
+                            <li><strong>📍 路線：</strong>九州自然動物園 ➜ 由布院 ➜ 海地獄。</li>
+                            <li><strong>⚡ 體力：</strong>低。適合帶小孩，主要是坐車與逛街。</li>
+                            <li><strong>🍱 餐食：</strong>自理 (由布院有很多小吃)。</li>
+                            <li><strong>💡 重點：</strong>不去阿蘇/高千穗。親子家庭首選。</li>
+                        </ul>
+                        <a href="https://www.kkday.com/zh-tw/product/175897" target="_blank" class="block w-full text-center bg-pink-500 text-white py-2 rounded-lg font-bold">前往訂購</a>
                     </div>
                 </div>
 
@@ -623,13 +669,42 @@
                             </td>
                         </tr>
 
+                         <!-- Row 6 -->
+                         <tr class="detail-row hover:bg-pink-50 transition">
+                            <td class="p-4 text-center font-mono font-bold">175897</td>
+                            <td class="p-4">
+                                <div class="font-bold text-gray-900 text-base">親子動物線</div>
+                                <div class="text-xs text-pink-600 mt-1">親子首選</div>
+                            </td>
+                            <td class="p-4">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>九州自然動物園</li>
+                                    <li>由布院 (逛街)</li>
+                                    <li>別府海地獄</li>
+                                </ul>
+                            </td>
+                            <td class="p-4 text-center">
+                                <span class="badge badge-green">🌿 輕鬆</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="mb-1"><span class="badge badge-blue">🦁 叢林巴士</span></div>
+                                <div class="text-xs">🍦 自理 (由布院)</div>
+                            </td>
+                            <td class="p-4 text-xs text-gray-500">
+                                專為親子設計，不去爬山走神社。
+                            </td>
+                            <td class="p-4 text-center">
+                                <a href="https://www.kkday.com/zh-tw/product/175897" target="_blank" class="text-pink-600 hover:text-pink-800 font-bold underline">查看</a>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 1.3</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 1.4</div>
             </div>
 
         </div>
@@ -657,7 +732,7 @@
         const db = getFirestore(app);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-        // Poll Data Structure
+        // Poll Data Structure - Removed ID: 175897 (Kids)
         const pollOptions = [
             { id: '287625', name: '和牛划船線', color: 'bg-yellow-500' },
             { id: '181723', name: '高千穗深度線', color: 'bg-purple-600' },
@@ -668,7 +743,23 @@
         ];
 
         async function initPoll() {
+            const container = document.getElementById('poll-container');
+            const logsContainer = document.getElementById('poll-logs');
+            let timeoutId;
+
             try {
+                // Timeout fallback if loading takes too long
+                timeoutId = setTimeout(() => {
+                    if (container.innerHTML.includes('載入投票數據中')) {
+                        container.innerHTML = `
+                            <div class="text-center py-8">
+                                <div class="text-red-500 mb-2"><i class="fas fa-exclamation-circle mr-1"></i> 連線逾時</div>
+                                <button onclick="location.reload()" class="px-4 py-2 bg-gray-200 rounded text-sm hover:bg-gray-300 transition">重新整理</button>
+                            </div>
+                        `;
+                    }
+                }, 5000); // 5 seconds timeout
+
                 // Auth Flow
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
@@ -689,19 +780,23 @@
                 const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
                 
                 // Real-time listener
+                // We use onSnapshot immediately. If doc doesn't exist, data() is undefined, renderPoll handles it.
+                // This avoids blocking getDoc calls.
                 onSnapshot(pollRef, (docSnap) => {
+                    clearTimeout(timeoutId); // Clear timeout on success
                     const data = docSnap.exists() ? docSnap.data() : {};
                     renderPoll(data);
                     renderLogs(data.logs || []);
                 }, (error) => {
+                    clearTimeout(timeoutId);
                     console.error("Snapshot error:", error);
-                    // Show error in UI
-                    document.getElementById('poll-container').innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-exclamation-triangle mr-2"></i>無法載入投票數據，請重新整理頁面。</div>';
+                    container.innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-exclamation-triangle mr-2"></i>無法載入投票數據</div>';
                 });
 
             } catch (error) {
+                clearTimeout(timeoutId);
                 console.error("Auth or Init error:", error);
-                document.getElementById('poll-container').innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-plug mr-2"></i>連接伺服器失敗。</div>';
+                container.innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-plug mr-2"></i>連接伺服器失敗</div>';
             }
         }
 
@@ -757,7 +852,10 @@
                 const option = pollOptions.find(o => o.id === log.optionId);
                 const colorClass = option ? option.color.replace('bg-', 'text-') : 'text-gray-600';
                 const timeAgo = Math.floor((Date.now() - log.timestamp) / 60000);
-                const timeText = timeAgo < 1 ? '剛剛' : `${timeAgo} 分鐘前`;
+                let timeText;
+                if (timeAgo < 1) timeText = '剛剛';
+                else if (timeAgo < 60) timeText = `${timeAgo} 分鐘前`;
+                else timeText = `${Math.floor(timeAgo/60)} 小時前`;
 
                 html += `
                     <div class="flex items-center justify-between border-b border-gray-100 pb-2 last:border-0">
@@ -786,39 +884,29 @@
                 return;
             }
 
-            // Check local restriction (One vote per option per browser FOR THIS NAME - simple check)
+            // Check local restriction (One vote per option per browser FOR THIS NAME)
             if (localStorage.getItem(`voted_${id}_${name}`)) {
                 alert(`${name} 已經投過這個行程囉！`);
                 return;
             }
             
-            // Optimistic UI update (UX) - prevent spam click
+            // Optimistic UI update
             localStorage.setItem(`voted_${id}_${name}`, 'true');
             
-            const option = pollOptions.find(o => o.id === id);
-
-            // Update Firestore
             const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
             
-            // Create doc if needed before updating
             try {
-                const snap = await getDoc(pollRef);
-                if (!snap.exists()) {
-                    await setDoc(pollRef, {}, { merge: true });
-                }
-            } catch (e) {
-                // Ignore existence check fail, let update try
-            }
-
-            try {
-                await updateDoc(pollRef, {
+                // Use setDoc with merge = true. This creates the document if it doesn't exist,
+                // or updates it if it does. This avoids the need for a separate getDoc/create flow.
+                await setDoc(pollRef, {
                     ['count_' + id]: increment(1),
                     logs: arrayUnion({
                         name: name,
                         optionId: id,
                         timestamp: Date.now()
                     })
-                });
+                }, { merge: true });
+                
             } catch (e) {
                 console.error("Vote failed", e);
                 alert("投票失敗，請稍後再試");
@@ -841,7 +929,7 @@
                 'onsen': 'card-onsen',
                 'anime': ['card-onsen', 'card-deep'], 
                 'train': ['card-train', 'card-deep'],
-                'kids': [], // Removed kids
+                'kids': ['card-kids'],
             };
 
             const target = mapping[type];
