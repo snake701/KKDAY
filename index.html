@@ -131,7 +131,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
                 <!-- Poll Bars -->
                 <div class="p-6 md:col-span-2" id="poll-container">
-                    <div class="text-center text-gray-500 py-4">載入投票數據中...</div>
+                    <div class="text-center text-gray-500 py-4"><i class="fas fa-circle-notch fa-spin mr-2"></i>載入投票數據中...</div>
                 </div>
                 
                 <!-- Recent Logs -->
@@ -687,30 +687,20 @@
 
                 const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
                 
-                // Ensure doc exists
-                try {
-                    const snap = await getDoc(pollRef);
-                    if (!snap.exists()) {
-                        await setDoc(pollRef, {}, { merge: true });
-                    }
-                } catch (e) {
-                    console.error("Error accessing document:", e);
-                    // If permissions are strict, we might fail here. 
-                    // But usually, public/data/poll_results should be writable if authenticated.
-                    return; 
-                }
-
                 // Real-time listener
-                onSnapshot(pollRef, (doc) => {
-                    const data = doc.data() || {};
+                onSnapshot(pollRef, (docSnap) => {
+                    const data = docSnap.exists() ? docSnap.data() : {};
                     renderPoll(data);
                     renderLogs(data.logs || []);
                 }, (error) => {
                     console.error("Snapshot error:", error);
+                    // Show error in UI
+                    document.getElementById('poll-container').innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-exclamation-triangle mr-2"></i>無法載入投票數據，請重新整理頁面。</div>';
                 });
 
             } catch (error) {
                 console.error("Auth or Init error:", error);
+                document.getElementById('poll-container').innerHTML = '<div class="text-center text-red-500 py-4"><i class="fas fa-plug mr-2"></i>連接伺服器失敗。</div>';
             }
         }
 
@@ -754,7 +744,7 @@
         function renderLogs(logs) {
             const logsContainer = document.getElementById('poll-logs');
             if (!logs || logs.length === 0) {
-                logsContainer.innerHTML = '<div class="text-center text-gray-400 py-4">暫無紀錄</div>';
+                logsContainer.innerHTML = '<div class="text-center text-gray-400 py-4">暫無紀錄，快來投第一票！</div>';
                 return;
             }
 
@@ -808,6 +798,17 @@
 
             // Update Firestore
             const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+            
+            // Create doc if needed before updating
+            try {
+                const snap = await getDoc(pollRef);
+                if (!snap.exists()) {
+                    await setDoc(pollRef, {}, { merge: true });
+                }
+            } catch (e) {
+                // Ignore existence check fail, let update try
+            }
+
             try {
                 await updateDoc(pollRef, {
                     ['count_' + id]: increment(1),
@@ -817,7 +818,6 @@
                         timestamp: Date.now()
                     })
                 });
-                // alert(`感謝 ${name} 的投票！`); // Optional feedback
             } catch (e) {
                 console.error("Vote failed", e);
                 alert("投票失敗，請稍後再試");
