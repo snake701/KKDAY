@@ -111,7 +111,7 @@
     <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-        <!-- SECTION 0: Voting Poll (Named) -->
+        <!-- SECTION 0: Voting Poll (Named + Fallback Mode) -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border border-gray-100">
             <div class="bg-gradient-to-r from-pink-500 to-orange-400 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center">
@@ -633,7 +633,7 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 1.6</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 1.7 (Stable)</div>
             </div>
 
         </div>
@@ -655,7 +655,7 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Configuration and Defaults
+        // Poll Options Configuration
         const pollOptions = [
             { id: '287625', name: '和牛划船線', color: 'bg-yellow-500' },
             { id: '181723', name: '高千穗深度線', color: 'bg-purple-600' },
@@ -665,13 +665,151 @@
             { id: '248950', name: '鐵道名城線', color: 'bg-indigo-600' }
         ];
 
-        // 1. Render UI Immediately (Zero State)
+        let db, auth, appId;
+        let isLocalMode = false;
+
+        // 1. Initial Render (Show UI immediately)
         function renderInitialUI() {
-             renderPoll({}); // Render with empty data
+             renderPoll({}); 
              document.getElementById('poll-logs').innerHTML = '<div class="text-center text-gray-400 py-4">載入即時動態中...</div>';
         }
 
-        // 2. Render Functions
+        // 2. Initialize System
+        async function initSystem() {
+            try {
+                // Check if Firebase config exists in environment
+                if (typeof __firebase_config === 'undefined' || typeof __app_id === 'undefined') {
+                    throw new Error("Local environment detected");
+                }
+
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                appId = __app_id;
+
+                // Auth Flow
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Wait for Auth
+                await new Promise((resolve, reject) => {
+                    const unsubscribe = onAuthStateChanged(auth, (user) => {
+                        if (user) { unsubscribe(); resolve(user); }
+                    }, (err) => reject(err));
+                });
+
+                // Listen to Real DB
+                const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+                
+                // Use onSnapshot immediately without blocking check
+                onSnapshot(pollRef, (docSnap) => {
+                    const data = docSnap.exists() ? docSnap.data() : {};
+                    renderPoll(data);
+                    renderLogs(data.logs || []);
+                }, (error) => {
+                    console.warn("Snapshot failed, falling back to local:", error);
+                    initLocalMode();
+                });
+
+            } catch (error) {
+                console.log("Firebase init failed or local mode requested:", error);
+                initLocalMode();
+            }
+        }
+
+        // 3. Local Mode Logic (Fallback)
+        function initLocalMode() {
+            isLocalMode = true;
+            console.log("Running in Local Mode");
+            
+            // Show indicator
+            const titleContainer = document.querySelector('#poll-container').previousElementSibling.querySelector('h2');
+            if(titleContainer && !titleContainer.innerHTML.includes('單機')) {
+                 titleContainer.innerHTML += ' <span class="text-xs bg-gray-700/50 px-2 py-1 rounded ml-2">(單機體驗版)</span>';
+            }
+
+            // Load data from localStorage
+            loadLocalData();
+        }
+
+        function loadLocalData() {
+            const localData = JSON.parse(localStorage.getItem('kkday_poll_data') || '{"logs": []}');
+            renderPoll(localData);
+            renderLogs(localData.logs || []);
+        }
+
+        // 4. Vote Handler
+        window.vote = async (id) => {
+            const nameInput = document.getElementById('voter-name');
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                alert('請先輸入您的暱稱，才能進行記名投票喔！');
+                nameInput.focus();
+                return;
+            }
+
+            // Local Check
+            if (localStorage.getItem(`voted_${id}_${name}`)) {
+                alert(`${name} 已經投過這個行程囉！`);
+                return;
+            }
+
+            // Optimistic UI update trigger
+            localStorage.setItem(`voted_${id}_${name}`, 'true');
+
+            if (isLocalMode) {
+                // Handle Local Vote
+                const localData = JSON.parse(localStorage.getItem('kkday_poll_data') || '{"logs": []}');
+                
+                // Increment count
+                localData['count_' + id] = (localData['count_' + id] || 0) + 1;
+                
+                // Add log
+                if (!localData.logs) localData.logs = [];
+                localData.logs.push({
+                    name: name,
+                    optionId: id,
+                    timestamp: Date.now()
+                });
+
+                localStorage.setItem('kkday_poll_data', JSON.stringify(localData));
+                loadLocalData(); // Re-render
+                
+            } else {
+                // Handle Firebase Vote
+                try {
+                    const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
+                    
+                    // Create doc if needed logic is handled by setDoc with merge
+                    await setDoc(pollRef, {
+                        ['count_' + id]: increment(1),
+                        logs: arrayUnion({
+                            name: name,
+                            optionId: id,
+                            timestamp: Date.now()
+                        })
+                    }, { merge: true });
+                } catch (e) {
+                    console.error("Vote failed", e);
+                    alert("連線失敗，切換為單機模式");
+                    initLocalMode(); // Fallback on failure
+                    // Retry vote locally
+                    const localData = JSON.parse(localStorage.getItem('kkday_poll_data') || '{"logs": []}');
+                    localData['count_' + id] = (localData['count_' + id] || 0) + 1;
+                    if (!localData.logs) localData.logs = [];
+                    localData.logs.push({ name: name, optionId: id, timestamp: Date.now() });
+                    localStorage.setItem('kkday_poll_data', JSON.stringify(localData));
+                    loadLocalData();
+                }
+            }
+        };
+
+        // Render Functions
         function renderPoll(data) {
             const container = document.getElementById('poll-container');
             const totalDisplay = document.getElementById('total-votes');
@@ -762,97 +900,6 @@
             logsContainer.innerHTML = html;
         }
 
-        // 3. Initialize Firebase
-        async function initFirebase() {
-            try {
-                if (typeof __firebase_config === 'undefined') {
-                    console.warn("Firebase config not found. Running in offline mode.");
-                    return;
-                }
-
-                const firebaseConfig = JSON.parse(__firebase_config);
-                const app = initializeApp(firebaseConfig);
-                const auth = getAuth(app);
-                const db = getFirestore(app);
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-                // Auth
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                // Wait for Auth
-                await new Promise((resolve, reject) => {
-                    const unsubscribe = onAuthStateChanged(auth, (user) => {
-                        if (user) {
-                            unsubscribe();
-                            resolve(user);
-                        }
-                    }, reject);
-                });
-
-                // Attach vote function to window with DB closure
-                window.vote = async (id) => {
-                    const nameInput = document.getElementById('voter-name');
-                    const name = nameInput.value.trim();
-
-                    if (!name) {
-                        alert('請先輸入您的暱稱，才能進行記名投票喔！');
-                        nameInput.focus();
-                        return;
-                    }
-
-                    if (localStorage.getItem(`voted_${id}_${name}`)) {
-                        alert(`${name} 已經投過這個行程囉！`);
-                        return;
-                    }
-                    
-                    localStorage.setItem(`voted_${id}_${name}`, 'true');
-                    localStorage.setItem(`voted_${id}`, 'true'); // Also block generic vote
-                    
-                    // Optimistic UI Update
-                    // We can re-render immediately with local increment if we wanted, 
-                    // but onSnapshot is fast enough usually.
-                    
-                    const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                    
-                    try {
-                        await setDoc(pollRef, {
-                            ['count_' + id]: increment(1),
-                            logs: arrayUnion({
-                                name: name,
-                                optionId: id,
-                                timestamp: Date.now()
-                            })
-                        }, { merge: true });
-                    } catch (e) {
-                        console.error("Vote failed", e);
-                        alert("投票連線失敗，請檢查網路");
-                    }
-                };
-
-                // Listen to data
-                const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                onSnapshot(pollRef, (docSnap) => {
-                    const data = docSnap.exists() ? docSnap.data() : {};
-                    renderPoll(data);
-                    renderLogs(data.logs || []);
-                });
-
-            } catch (error) {
-                console.error("Firebase Init Error:", error);
-                document.getElementById('poll-logs').innerHTML = '<div class="text-center text-red-400 py-2 text-xs">連線失敗，僅顯示靜態內容</div>';
-            }
-        }
-
-        // Start
-        renderInitialUI(); // Show empty bars immediately
-        initFirebase();    // Try connecting to DB
-    </script>
-
-    <script>
         // Highlighting Logic (Feature)
         function highlight(type) {
             resetStyles();
@@ -865,7 +912,7 @@
                 'onsen': 'card-onsen',
                 'anime': ['card-onsen', 'card-deep'], 
                 'train': ['card-train', 'card-deep'],
-                'kids': [], // Removed kids
+                'kids': [], 
             };
 
             const target = mapping[type];
@@ -898,6 +945,10 @@
                 card.classList.add('opacity-100');
             });
         }
+
+        // Start
+        renderInitialUI();
+        initSystem();
     </script>
 </body>
 </html>
