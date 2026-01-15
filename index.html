@@ -39,7 +39,7 @@
         /* Poll Styles */
         .poll-bar-container { background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; height: 1.5rem; position: relative; }
         .poll-bar { height: 100%; transition: width 1s ease-in-out; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold; }
-        .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; background-color: #9ca3af; color: #fff; }
     </style>
     <script>
         function toggleDetail(id) {
@@ -115,7 +115,6 @@
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border border-gray-100">
             <div class="bg-gradient-to-r from-pink-500 to-orange-400 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center">
-                    <!-- Added ID here for robust selection -->
                     <h2 id="poll-title" class="text-xl font-bold"><i class="fas fa-poll mr-2"></i>大家最想去哪裡？</h2>
                     <span class="ml-2 text-sm bg-white/20 px-3 py-1 rounded-full">累積 <span id="total-votes">0</span> 票</span>
                 </div>
@@ -634,7 +633,7 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 1.9 (Fix)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 2.0 (Resettable)</div>
             </div>
 
         </div>
@@ -656,6 +655,10 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // --- 設定與變數 ---
+        // 修改這個版本號來重置投票 (例如改為 'v2')
+        const POLL_VERSION = 'v1'; 
+        
         // Poll Options Configuration - 6 items
         const pollOptions = [
             { id: '287625', name: '和牛划船線', color: 'bg-yellow-500' },
@@ -692,8 +695,8 @@
                 auth = getAuth(app);
                 db = getFirestore(app);
                 
-                // Set a fixed ID for the voting data location
-                appId = 'fukuoka-public-vote'; 
+                // Use fixed ID + Version for data location
+                appId = 'fukuoka-public-vote-' + POLL_VERSION; 
 
                 // Auth Flow
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -744,7 +747,8 @@
         }
 
         function loadLocalData() {
-            const localData = JSON.parse(localStorage.getItem('kkday_poll_data') || '{"logs": []}');
+            // Include version in local storage key to support reset
+            const localData = JSON.parse(localStorage.getItem('kkday_poll_data_' + POLL_VERSION) || '{"logs": []}');
             renderPoll(localData);
             renderLogs(localData.logs || []);
         }
@@ -760,18 +764,20 @@
                 return;
             }
 
-            // Check local restriction
-            if (localStorage.getItem(`voted_${id}_${name}`)) {
-                alert(`${name} 已經投過這個行程囉！`);
+            // Check restriction: One vote per device (browser) for this POLL_VERSION
+            if (localStorage.getItem(`has_voted_${POLL_VERSION}`)) {
+                alert(`您已經在本裝置投過票囉！`);
                 return;
             }
 
             // Optimistic UI update trigger
-            localStorage.setItem(`voted_${id}_${name}`, 'true');
+            localStorage.setItem(`has_voted_${POLL_VERSION}`, 'true');
+            // Also set per-option for button UI state
+            localStorage.setItem(`voted_${id}_${POLL_VERSION}`, 'true');
 
             if (isLocalMode) {
                 // Handle Local Vote
-                const localData = JSON.parse(localStorage.getItem('kkday_poll_data') || '{"logs": []}');
+                const localData = JSON.parse(localStorage.getItem('kkday_poll_data_' + POLL_VERSION) || '{"logs": []}');
                 
                 // Increment count
                 localData['count_' + id] = (localData['count_' + id] || 0) + 1;
@@ -784,7 +790,7 @@
                     timestamp: Date.now()
                 });
 
-                localStorage.setItem('kkday_poll_data', JSON.stringify(localData));
+                localStorage.setItem('kkday_poll_data_' + POLL_VERSION, JSON.stringify(localData));
                 loadLocalData(); // Re-render
                 
             } else {
@@ -804,15 +810,10 @@
                 } catch (e) {
                     console.error("Vote failed", e);
                     alert("連線失敗，切換為單機模式");
-                    initLocalMode(); // Fallback on failure
+                    // Revert lock
+                    localStorage.removeItem(`has_voted_${POLL_VERSION}`);
                     
-                    // Retry vote locally
-                    const localData = JSON.parse(localStorage.getItem('kkday_poll_data') || '{"logs": []}');
-                    localData['count_' + id] = (localData['count_' + id] || 0) + 1;
-                    if (!localData.logs) localData.logs = [];
-                    localData.logs.push({ name: name, optionId: id, timestamp: Date.now() });
-                    localStorage.setItem('kkday_poll_data', JSON.stringify(localData));
-                    loadLocalData();
+                    initLocalMode(); // Fallback on failure
                 }
             }
         };
@@ -833,7 +834,10 @@
             pollOptions.forEach(opt => {
                 const count = data['count_' + opt.id] || 0;
                 const percentage = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-                const hasVoted = localStorage.getItem('voted_' + opt.id);
+                // Check if voted specifically for this option in this version (for UI highlight)
+                const hasVotedThis = localStorage.getItem(`voted_${opt.id}_${POLL_VERSION}`);
+                // Check if voted at all (to disable other buttons)
+                const hasVotedAny = localStorage.getItem(`has_voted_${POLL_VERSION}`);
                 
                 // Safety check for width to avoid layout break
                 const barWidth = percentage < 1 ? 1 : percentage; 
@@ -849,9 +853,9 @@
                                 <div class="poll-bar ${opt.color} h-full transition-all duration-1000 ease-out" style="width: ${barWidth}%"></div>
                             </div>
                             <button onclick="vote('${opt.id}')" 
-                                class="vote-btn px-3 py-1 rounded text-xs font-bold text-white ${opt.color} hover:brightness-110 transition shadow opacity-90 hover:opacity-100"
-                                ${hasVoted ? 'disabled' : ''}>
-                                ${hasVoted ? '已投' : '投票'}
+                                class="vote-btn px-3 py-1 rounded text-xs font-bold transition shadow ${hasVotedThis ? 'bg-gray-800 text-white' : (hasVotedAny ? 'bg-gray-300 text-gray-500' : 'text-white ' + opt.color + ' hover:brightness-110')}"
+                                ${hasVotedAny ? 'disabled' : ''}>
+                                ${hasVotedThis ? '已投' : '投票'}
                             </button>
                         </div>
                     </div>
