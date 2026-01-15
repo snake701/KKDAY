@@ -115,7 +115,8 @@
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border border-gray-100">
             <div class="bg-gradient-to-r from-pink-500 to-orange-400 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center">
-                    <h2 class="text-xl font-bold"><i class="fas fa-poll mr-2"></i>大家最想去哪裡？</h2>
+                    <!-- Added ID here for robust selection -->
+                    <h2 id="poll-title" class="text-xl font-bold"><i class="fas fa-poll mr-2"></i>大家最想去哪裡？</h2>
                     <span class="ml-2 text-sm bg-white/20 px-3 py-1 rounded-full">累積 <span id="total-votes">0</span> 票</span>
                 </div>
                 <!-- Name Input -->
@@ -633,7 +634,7 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 1.7 (Stable)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 1.9 (Fix)</div>
             </div>
 
         </div>
@@ -655,7 +656,7 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Poll Options Configuration
+        // Poll Options Configuration - 6 items
         const pollOptions = [
             { id: '287625', name: '和牛划船線', color: 'bg-yellow-500' },
             { id: '181723', name: '高千穗深度線', color: 'bg-purple-600' },
@@ -677,16 +678,22 @@
         // 2. Initialize System
         async function initSystem() {
             try {
-                // Check if Firebase config exists in environment
-                if (typeof __firebase_config === 'undefined' || typeof __app_id === 'undefined') {
-                    throw new Error("Local environment detected");
-                }
+                // User provided config
+                const firebaseConfig = {
+                    apiKey: "AIzaSyAGHMP1HLJJPRQD_9CXnwI6lQwkcbZNm8M",
+                    authDomain: "fukuoka-tour-vote.firebaseapp.com",
+                    projectId: "fukuoka-tour-vote",
+                    storageBucket: "fukuoka-tour-vote.firebasestorage.app",
+                    messagingSenderId: "997387578824",
+                    appId: "1:997387578824:web:1006cda95b7fe7508d24fd"
+                };
 
-                const firebaseConfig = JSON.parse(__firebase_config);
                 const app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
-                appId = __app_id;
+                
+                // Set a fixed ID for the voting data location
+                appId = 'fukuoka-public-vote'; 
 
                 // Auth Flow
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -726,10 +733,10 @@
             isLocalMode = true;
             console.log("Running in Local Mode");
             
-            // Show indicator
-            const titleContainer = document.querySelector('#poll-container').previousElementSibling.querySelector('h2');
+            // Show indicator safely using ID
+            const titleContainer = document.getElementById('poll-title');
             if(titleContainer && !titleContainer.innerHTML.includes('單機')) {
-                 titleContainer.innerHTML += ' <span class="text-xs bg-gray-700/50 px-2 py-1 rounded ml-2">(單機體驗版)</span>';
+                 titleContainer.innerHTML += ' <span class="text-xs bg-white/20 px-2 py-1 rounded ml-2 border border-white/30">(單機版)</span>';
             }
 
             // Load data from localStorage
@@ -753,7 +760,7 @@
                 return;
             }
 
-            // Local Check
+            // Check local restriction
             if (localStorage.getItem(`voted_${id}_${name}`)) {
                 alert(`${name} 已經投過這個行程囉！`);
                 return;
@@ -798,6 +805,7 @@
                     console.error("Vote failed", e);
                     alert("連線失敗，切換為單機模式");
                     initLocalMode(); // Fallback on failure
+                    
                     // Retry vote locally
                     const localData = JSON.parse(localStorage.getItem('kkday_poll_data') || '{"logs": []}');
                     localData['count_' + id] = (localData['count_' + id] || 0) + 1;
