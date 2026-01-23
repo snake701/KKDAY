@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KKday 福岡一日遊行程大比拼</title>
+    <title>KKday 福岡一日遊 (無阿蘇版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -28,6 +28,7 @@
         .badge-indigo { background-color: #e0e7ff; color: #3730a3; }
         .badge-pink { background-color: #fce7f3; color: #9d174d; }
         .badge-purple { background-color: #f3e8ff; color: #6b21a8; }
+        .badge-cyan { background-color: #cffafe; color: #0e7490; }
         
         /* Table Optimization */
         .detail-row td { vertical-align: top; padding-top: 1rem; padding-bottom: 1rem; }
@@ -60,46 +61,43 @@
 <body class="text-gray-800">
 
     <!-- Navbar -->
-    <nav class="bg-teal-600 text-white shadow-lg sticky top-0 z-50">
+    <nav class="bg-cyan-600 text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <i class="fas fa-mountain text-2xl mr-2 text-yellow-300"></i>
-                    <span class="font-bold text-xl">九州一日遊攻略 (KKday版)</span>
+                    <i class="fas fa-umbrella-beach text-2xl mr-2 text-yellow-300"></i>
+                    <span class="font-bold text-xl">九州一日遊 (無阿蘇版)</span>
                 </div>
-                <div class="text-sm hidden sm:block">精選熱門行程</div>
+                <div class="text-sm hidden sm:block">KKday 精選</div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-teal-700 text-white py-12 px-4 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold mb-4">阿蘇、高千穗、熊本、小火車怎麼選？</h1>
-        <p class="text-teal-100 max-w-2xl mx-auto text-lg">
-            KKday 7 款熱銷行程深度解析，新增「天空小火車」路線，幫您找到最適合的九州玩法。
+    <div class="bg-cyan-700 text-white py-12 px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">不去火山去哪玩？</h1>
+        <p class="text-cyan-100 max-w-2xl mx-auto text-lg">
+            精選 5 款「完全避開阿蘇火山」的熱門行程：海景糸島、懷舊門司港、水鄉柳川，還有最經典的由布院。
         </p>
 
         <!-- Interactive Filter -->
         <div class="mt-8 bg-white/10 backdrop-blur-md p-6 rounded-xl max-w-5xl mx-auto border border-white/20">
-            <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>您最在意什麼？(點擊幫您推薦)</h3>
+            <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>您喜歡哪種風格？</h3>
             <div class="flex flex-wrap justify-center gap-3" id="filters">
-                <button onclick="highlight('price')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-orange-400 hover:text-white transition shadow">
-                    <i class="fas fa-dollar-sign mr-1"></i> CP值最高
+                <button onclick="highlight('classic')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-green-500 hover:text-white transition shadow">
+                    <i class="fas fa-torii-gate mr-1"></i> 經典必遊 (由布院)
                 </button>
-                <button onclick="highlight('food')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-yellow-400 hover:text-gray-900 transition shadow">
-                    <i class="fas fa-utensils mr-1"></i> 必吃高級和牛
+                <button onclick="highlight('photo')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-pink-400 hover:text-white transition shadow">
+                    <i class="fas fa-camera mr-1"></i> 網美拍照 (糸島)
                 </button>
-                <button onclick="highlight('boat')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-blue-400 hover:text-white transition shadow">
-                    <i class="fas fa-ship mr-1"></i> 一定要划船
+                <button onclick="highlight('history')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-blue-500 hover:text-white transition shadow">
+                    <i class="fas fa-ship mr-1"></i> 懷舊港口 (門司港)
                 </button>
-                <button onclick="highlight('train')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-indigo-500 hover:text-white transition shadow">
-                    <i class="fas fa-train mr-1"></i> 鐵道/小火車
+                <button onclick="highlight('culture')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-orange-500 hover:text-white transition shadow">
+                    <i class="fas fa-water mr-1"></i> 文化體驗 (柳川)
                 </button>
-                <button onclick="highlight('onsen')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-green-500 hover:text-white transition shadow">
-                    <i class="fas fa-hot-tub mr-1"></i> 黑川溫泉
-                </button>
-                <button onclick="highlight('anime')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow">
-                    <i class="fas fa-torii-gate mr-1"></i> 螢火之森/神話
+                <button onclick="highlight('train')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow">
+                    <i class="fas fa-train mr-1"></i> 小火車 (高千穗)
                 </button>
                 <button onclick="resetHighlight()" class="px-4 py-2 bg-gray-700 text-white rounded-full font-bold hover:bg-gray-600 transition shadow">
                     顯示全部
@@ -113,12 +111,11 @@
 
         <!-- SECTION 0: Voting Poll (Named + Fallback Mode + Reset) -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border border-gray-100">
-            <div class="bg-gradient-to-r from-pink-500 to-orange-400 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center">
                     <h2 id="poll-title" class="text-xl font-bold"><i class="fas fa-poll mr-2"></i>大家最想去哪裡？</h2>
                     <span class="ml-2 text-sm bg-white/20 px-3 py-1 rounded-full">累積 <span id="total-votes">0</span> 票</span>
                     
-                    <!-- Reset Button -->
                     <button onclick="resetPoll()" class="ml-3 text-xs bg-black/20 hover:bg-red-600/80 text-white px-2 py-1 rounded transition flex items-center" title="重置所有投票數據">
                         <i class="fas fa-trash-alt mr-1"></i> 重置
                     </button>
@@ -136,9 +133,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
                 <!-- Poll Bars -->
                 <div class="p-6 md:col-span-2" id="poll-container">
-                    <!-- Default Initial State -->
                     <div class="text-center text-gray-500 py-8 flex flex-col items-center justify-center">
-                        <i class="fas fa-circle-notch fa-spin text-2xl mb-2 text-teal-500"></i>
+                        <i class="fas fa-circle-notch fa-spin text-2xl mb-2 text-cyan-500"></i>
                         <span>初始化投票選項中...</span>
                     </div>
                 </div>
@@ -155,32 +151,86 @@
         
         <!-- SECTION 1: 卡片牆 (快速瀏覽) -->
         <div class="flex items-center mb-6">
-            <div class="h-8 w-2 bg-teal-500 rounded-full mr-3"></div>
-            <h2 class="text-2xl font-bold text-gray-800">熱門行程卡片預覽</h2>
+            <div class="h-8 w-2 bg-cyan-500 rounded-full mr-3"></div>
+            <h2 class="text-2xl font-bold text-gray-800">精選行程卡片</h2>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-16" id="card-container">
             
-            <!-- 1. Food (287625) -->
-            <div id="card-food" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-yellow-400">
-                <div class="bg-yellow-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    頂級享受 • 美食首選
+            <!-- 1. Classic North (119732) -->
+            <div id="card-classic" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
+                <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    經典必遊 • 新手首選
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">287625</span></div>
-                    <div class="mb-3"><span class="text-2xl font-bold text-gray-800">NT$ 3,500</span> <span class="text-xs text-gray-500">起</span></div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">和牛午餐＆保證划船</h3>
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">119732</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-teal-600">NT$ 1,800</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">由布院＆別府＆太宰府</h3>
                     <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
-                        <div><i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山/草千里</div>
-                        <div class="font-bold bg-yellow-50 p-1 rounded"><i class="fas fa-check-circle text-green-500 w-5"></i> 高千穗 (保證船位)</div>
-                        <div class="font-bold bg-yellow-50 p-1 rounded"><i class="fas fa-check-circle text-green-500 w-5"></i> 高級和牛午餐</div>
+                        <div class="font-bold bg-green-50 p-1 rounded"><i class="fas fa-torii-gate text-green-600 w-5"></i> 太宰府天滿宮</div>
+                        <div class="font-bold bg-green-50 p-1 rounded"><i class="fas fa-shopping-bag text-green-600 w-5"></i> 由布院 (金鱗湖)</div>
+                        <div class="font-bold bg-green-50 p-1 rounded"><i class="fas fa-hot-tub text-green-600 w-5"></i> 別府灶地獄</div>
                     </div>
-                    <a href="https://www.kkday.com/zh-tw/product/287625" target="_blank" class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                    <a href="https://www.kkday.com/zh-tw/product/119732" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
                 </div>
             </div>
 
-            <!-- 7. Deep Takachiho (181723) - NEW! -->
-            <div id="card-deep" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-purple-500">
+            <!-- 2. Itoshima (305739) -->
+            <div id="card-photo" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-pink-400">
+                <div class="bg-pink-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    IG打卡 • 海景網美
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">305739</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-pink-500">NT$ 1,500</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">糸島絕景一日遊</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-pink-50 p-1 rounded"><i class="fas fa-camera text-pink-500 w-5"></i> 櫻井二見浦 (夫婦岩)</div>
+                        <div class="font-bold bg-pink-50 p-1 rounded"><i class="fas fa-tree text-pink-500 w-5"></i> 龍貓森林 (芥屋大門)</div>
+                        <div class="text-gray-500"><i class="fas fa-umbrella-beach w-5"></i> 椰子樹鞦韆</div>
+                    </div>
+                    <a href="https://www.kkday.com/zh-tw/product/305739" target="_blank" class="block w-full text-center bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                </div>
+            </div>
+
+            <!-- 3. Mojiko (304123) -->
+            <div id="card-history" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-blue-500">
+                <div class="bg-blue-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    懷舊港口 • 海鮮美食
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">304123</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-blue-600">NT$ 1,950</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">門司港＆唐戶市場</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-blue-50 p-1 rounded"><i class="fas fa-fish text-blue-600 w-5"></i> 唐戶市場 (吃壽司)</div>
+                        <div class="font-bold bg-blue-50 p-1 rounded"><i class="fas fa-archway text-blue-600 w-5"></i> 門司港懷舊區</div>
+                        <div class="text-gray-500"><i class="fas fa-water w-5"></i> 角島大橋 (絕景)</div>
+                    </div>
+                    <a href="https://www.kkday.com/zh-tw/product/304123" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                </div>
+            </div>
+
+            <!-- 4. Yanagawa (538560) -->
+            <div id="card-culture" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-orange-400">
+                <div class="bg-orange-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    水鄉遊船 • 深度文化
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">538560</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-orange-500">NT$ 2,200</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">柳川遊船＆雷山千如寺</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-orange-50 p-1 rounded"><i class="fas fa-ship text-orange-500 w-5"></i> 柳川遊船體驗</div>
+                        <div class="font-bold bg-orange-50 p-1 rounded"><i class="fas fa-vihara text-orange-500 w-5"></i> 雷山千如寺 (紅葉)</div>
+                        <div class="text-gray-500"><i class="fas fa-utensils w-5"></i> 鰻魚飯 (自理/推薦)</div>
+                    </div>
+                    <a href="https://www.kkday.com/zh-tw/product/538560" target="_blank" class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                </div>
+            </div>
+
+            <!-- 5. Deep Takachiho (181723) - KEPT -->
+            <div id="card-train" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-purple-500">
                 <div class="bg-purple-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
                     深度神話 • 天空小火車
                 </div>
@@ -191,445 +241,159 @@
                     <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
                         <div class="font-bold bg-purple-50 p-1 rounded"><i class="fas fa-train text-purple-600 w-5"></i> 天空小火車 (選購)</div>
                         <div class="font-bold bg-purple-50 p-1 rounded"><i class="fas fa-torii-gate text-purple-600 w-5"></i> 天岩戶神社 (深度)</div>
-                        <div class="text-gray-400"><i class="fas fa-times-circle text-gray-300 w-5"></i> 不去阿蘇火山</div>
+                        <div class="text-red-500 font-bold"><i class="fas fa-ban w-5"></i> 不去阿蘇火山</div>
                     </div>
                     <a href="https://www.kkday.com/zh-tw/product/181723" target="_blank" class="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
-                </div>
-            </div>
-
-            <!-- 2. Onsen (150994) -->
-            <div id="card-onsen" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
-                <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    溫泉神社 • 療癒首選
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">150994</span></div>
-                    <div class="mb-3"><span class="text-2xl font-bold text-teal-600">NT$ 1,900</span> <span class="text-xs text-gray-500">起</span></div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">黑川溫泉＆秘境神社</h3>
-                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
-                        <div><i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山/草千里</div>
-                        <div class="font-bold bg-green-50 p-1 rounded"><i class="fas fa-check-circle text-green-500 w-5"></i> 黑川溫泉 (散策)</div>
-                        <div class="font-bold bg-green-50 p-1 rounded"><i class="fas fa-check-circle text-green-500 w-5"></i> 上色見熊野座神社</div>
-                    </div>
-                    <a href="https://www.kkday.com/zh-tw/product/150994" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
-                </div>
-            </div>
-
-            <!-- 3. Classic (266452) -->
-            <div id="card-classic" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-blue-500">
-                <div class="bg-blue-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    經典觀光 • 小資首選
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">266452</span></div>
-                    <div class="mb-3"><span class="text-2xl font-bold text-teal-600">NT$ 1,800</span> <span class="text-xs text-gray-500">起</span></div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">高千穗＆阿蘇經典版</h3>
-                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
-                        <div><i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山/草千里</div>
-                        <div class="font-bold bg-blue-50 p-1 rounded"><i class="fas fa-check-circle text-green-500 w-5"></i> 高千穗峽 (重點)</div>
-                        <div class="text-gray-500"><i class="fas fa-exclamation-circle text-yellow-500 w-5"></i> 划船 (需視現場狀況)</div>
-                    </div>
-                    <a href="https://www.kkday.com/zh-tw/product/266452" target="_blank" class="block w-full text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
-                </div>
-            </div>
-
-            <!-- 4. All-in-one (285420) -->
-            <div id="card-all" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-red-500">
-                <div class="bg-red-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    全覽行程 • 體力挑戰
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">285420</span></div>
-                    <div class="mb-3"><span class="text-2xl font-bold text-teal-600">NT$ 1,800</span> <span class="text-xs text-gray-500">起</span></div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">三大景點全包版</h3>
-                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
-                        <div><i class="fas fa-check-circle text-green-500 w-5"></i> 阿蘇火山 (短暫)</div>
-                        <div><i class="fas fa-check-circle text-green-500 w-5"></i> 高千穗峽 (短暫)</div>
-                        <div class="font-bold bg-red-50 p-1 rounded"><i class="fas fa-check-circle text-green-500 w-5"></i> 上色見熊野座神社</div>
-                    </div>
-                    <a href="https://www.kkday.com/zh-tw/product/285420" target="_blank" class="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
-                </div>
-            </div>
-
-             <!-- 5. Train (248950) -->
-             <div id="card-train" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-indigo-500">
-                <div class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    歷史名城 • 鐵道體驗
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">248950</span></div>
-                    <div class="mb-3"><span class="text-2xl font-bold text-teal-600">NT$ 2,500</span> <span class="text-xs text-gray-500">起</span></div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">熊本城＆阿蘇男孩號</h3>
-                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
-                        <div class="font-bold bg-indigo-50 p-1 rounded"><i class="fas fa-train text-indigo-500 w-5"></i> 阿蘇男孩號 (體驗)</div>
-                        <div class="font-bold bg-indigo-50 p-1 rounded"><i class="fas fa-chess-rook text-indigo-500 w-5"></i> 熊本城 (歷史名城)</div>
-                    </div>
-                    <a href="https://www.kkday.com/zh-tw/product/248950" target="_blank" class="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
                 </div>
             </div>
 
         </div>
 
         <!-- SECTION 2: 進階詳細版比較表 -->
-        <div class="bg-teal-800 text-white p-4 rounded-t-xl shadow-lg text-center">
-            <h2 class="text-xl font-bold"><i class="fas fa-table mr-2"></i>KKday 行程．深度決策分析</h2>
-            <p class="text-teal-200 text-sm">體力消耗、餐食內容、注意事項一覽</p>
+        <div class="bg-cyan-800 text-white p-4 rounded-t-xl shadow-lg text-center">
+            <h2 class="text-xl font-bold"><i class="fas fa-table mr-2"></i>5大 無阿蘇行程 深度解析</h2>
+            <p class="text-cyan-200 text-sm">交通時間、體力消耗、適合對象一覽</p>
         </div>
 
         <div class="bg-white border-x border-b border-gray-200 rounded-b-xl p-4 md:p-6 shadow-lg">
             
-            <!-- Legend (圖例) -->
+            <!-- Legend -->
             <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mb-6 text-sm flex flex-wrap gap-4 items-center justify-center">
                 <span class="font-bold text-gray-900">指標說明：</span>
-                <span class="flex items-center"><i class="fas fa-shoe-prints text-yellow-500 mr-1"></i> 體力消耗</span>
-                <span class="flex items-center"><i class="fas fa-utensils text-green-500 mr-1"></i> 餐食內容</span>
-                <span class="flex items-center"><i class="fas fa-clock text-blue-500 mr-1"></i> 車程長度</span>
+                <span class="flex items-center"><i class="fas fa-shoe-prints text-yellow-500 mr-1"></i> 體力</span>
+                <span class="flex items-center"><i class="fas fa-clock text-blue-500 mr-1"></i> 車程(單程)</span>
+                <span class="flex items-center"><i class="fas fa-utensils text-green-500 mr-1"></i> 餐食</span>
             </div>
 
-            <!-- Mobile View (Expandable Cards) -->
-            <div class="md:hidden space-y-4">
-                
-                <!-- Card 1 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden mobile-card border border-gray-100">
-                    <div class="p-4 cursor-pointer" onclick="toggleDetail('m1')">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg text-yellow-600">1. 和牛划船線 (287625)</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="badge badge-blue">✅ 保證划船</span>
-                            <span class="badge badge-green">🥩 高級和牛</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm text-gray-500">
-                            <span>頂級享受・免排隊</span>
-                            <i id="icon-m1" class="fas fa-chevron-down text-gray-400"></i>
-                        </div>
-                    </div>
-                    <div id="detail-m1" class="hidden bg-gray-50 p-4 border-t border-gray-100 text-sm">
-                        <ul class="space-y-2 mb-4">
-                            <li><strong>📍 路線：</strong>阿蘇火山 ➜ 高千穗峽(深度) ➜ 划船。</li>
-                            <li><strong>🍱 餐食：</strong><span class="text-pink-600 font-bold">高級！</span>阿蘇牛/高千穗牛陶板燒。</li>
-                            <li><strong>⚡ 體力：</strong>中 (峽谷步道+阿蘇散步)。</li>
-                            <li><strong>💡 重點：</strong>唯一包含「代訂船票」與「高級午餐」的行程。</li>
-                        </ul>
-                        <a href="https://www.kkday.com/zh-tw/product/287625" target="_blank" class="block w-full text-center bg-yellow-500 text-white py-2 rounded-lg font-bold">前往訂購</a>
-                    </div>
-                </div>
-
-                <!-- Card 7: Deep Takachiho (New) -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden mobile-card border border-gray-100">
-                    <div class="p-4 cursor-pointer" onclick="toggleDetail('m7')">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg text-purple-600">2. 高千穗小火車線 (181723)</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="badge badge-indigo">🚂 天空小火車</span>
-                            <span class="badge badge-purple">⛩️ 深度神話</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm text-gray-500">
-                            <span>搭小火車・不去阿蘇</span>
-                            <i id="icon-m7" class="fas fa-chevron-down text-gray-400"></i>
-                        </div>
-                    </div>
-                    <div id="detail-m7" class="hidden bg-gray-50 p-4 border-t border-gray-100 text-sm">
-                        <ul class="space-y-2 mb-4">
-                            <li><strong>📍 路線：</strong>高千穗峽 ➜ 天岩戶神社 ➜ <strong>高千穗鐵道小火車</strong>。</li>
-                            <li><strong>⚡ 體力：</strong>中 (天岩戶神社需走一段)。</li>
-                            <li><strong>🍱 餐食：</strong>自理。</li>
-                            <li><strong>💡 重點：</strong>適合想搭火車看風景、深度玩高千穗的人。<strong>不去阿蘇火山。</strong></li>
-                        </ul>
-                        <a href="https://www.kkday.com/zh-tw/product/181723" target="_blank" class="block w-full text-center bg-purple-600 text-white py-2 rounded-lg font-bold">前往訂購</a>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden mobile-card border border-gray-100">
-                    <div class="p-4 cursor-pointer" onclick="toggleDetail('m2')">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg text-teal-700">3. 溫泉神社線 (150994)</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="badge badge-blue">♨️ 黑川溫泉</span>
-                            <span class="badge badge-blue">⛩️ 螢火之森</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm text-gray-500">
-                            <span>療癒氛圍・不去高千穗</span>
-                            <i id="icon-m2" class="fas fa-chevron-down text-gray-400"></i>
-                        </div>
-                    </div>
-                    <div id="detail-m2" class="hidden bg-gray-50 p-4 border-t border-gray-100 text-sm">
-                        <ul class="space-y-2 mb-4">
-                            <li><strong>📍 路線：</strong>上色見熊野座神社 ➜ 阿蘇 ➜ 黑川溫泉。</li>
-                            <li><strong>🍱 餐食：</strong>自理 (推薦黑川溫泉街吃甜點/釜飯)。</li>
-                            <li><strong>⚡ 體力：</strong>中 (上色見神社需爬200+階梯)。</li>
-                            <li><strong>💡 重點：</strong>唯一去黑川溫泉的行程，適合喜歡日式老街氛圍者。</li>
-                        </ul>
-                        <a href="https://www.kkday.com/zh-tw/product/150994" target="_blank" class="block w-full text-center bg-teal-600 text-white py-2 rounded-lg font-bold">前往訂購</a>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden mobile-card border border-gray-100">
-                    <div class="p-4 cursor-pointer" onclick="toggleDetail('m3')">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg text-blue-600">4. 經典觀光線 (266452)</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="badge badge-green">💰 CP值高</span>
-                            <span class="badge badge-red">🍣 午餐自理</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm text-gray-500">
-                            <span>標準路線・預算首選</span>
-                            <i id="icon-m3" class="fas fa-chevron-down text-gray-400"></i>
-                        </div>
-                    </div>
-                    <div id="detail-m3" class="hidden bg-gray-50 p-4 border-t border-gray-100 text-sm">
-                        <ul class="space-y-2 mb-4">
-                            <li><strong>📍 路線：</strong>阿蘇火山 ➜ 高千穗峽(深度)。</li>
-                            <li><strong>🍱 餐食：</strong>自理 (行程會停靠餐廳或休息站)。</li>
-                            <li><strong>⚡ 體力：</strong>中。</li>
-                            <li><strong>💡 重點：</strong>價格便宜，划船需視現場狀況加購。</li>
-                        </ul>
-                        <a href="https://www.kkday.com/zh-tw/product/266452" target="_blank" class="block w-full text-center bg-blue-500 text-white py-2 rounded-lg font-bold">前往訂購</a>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden mobile-card border border-gray-100">
-                    <div class="p-4 cursor-pointer" onclick="toggleDetail('m4')">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg text-red-700">5. 貪心全覽線 (285420)</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="badge badge-yellow">⚡ 趕行程</span>
-                            <span class="badge badge-blue">⛩️ 螢火之森</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm text-gray-500">
-                            <span>三大景點一次滿足</span>
-                            <i id="icon-m4" class="fas fa-chevron-down text-gray-400"></i>
-                        </div>
-                    </div>
-                    <div id="detail-m4" class="hidden bg-gray-50 p-4 border-t border-gray-100 text-sm">
-                        <ul class="space-y-2 mb-4">
-                            <li><strong>📍 路線：</strong>阿蘇 ➜ 高千穗峽 ➜ 上色見神社。</li>
-                            <li><strong>⚡ 體力：</strong><span class="text-red-600 font-bold">高</span>。一天跑三個點，走路多。</li>
-                            <li><strong>⚠️ 注意：</strong>絕對沒時間划船。</li>
-                            <li><strong>💡 重點：</strong>適合體力好、想一天打卡完所有重點的人。</li>
-                        </ul>
-                        <a href="https://www.kkday.com/zh-tw/product/285420" target="_blank" class="block w-full text-center bg-red-600 text-white py-2 rounded-lg font-bold">前往訂購</a>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden mobile-card border border-gray-100">
-                    <div class="p-4 cursor-pointer" onclick="toggleDetail('m5')">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-bold text-lg text-indigo-700">6. 鐵道名城線 (248950)</h3>
-                        </div>
-                        <div class="flex flex-wrap gap-2 mb-3">
-                            <span class="badge badge-indigo">🚂 阿蘇男孩</span>
-                            <span class="badge badge-indigo">🏯 熊本城</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm text-gray-500">
-                            <span>歷史與鐵道迷首選</span>
-                            <i id="icon-m5" class="fas fa-chevron-down text-gray-400"></i>
-                        </div>
-                    </div>
-                    <div id="detail-m5" class="hidden bg-gray-50 p-4 border-t border-gray-100 text-sm">
-                        <ul class="space-y-2 mb-4">
-                            <li><strong>📍 路線：</strong>熊本城 ➜ 阿蘇火山 ➜ 阿蘇男孩號(體驗)。</li>
-                            <li><strong>⚡ 體力：</strong>中 (熊本城很大需要走)。</li>
-                            <li><strong>🍱 餐食：</strong>自理。</li>
-                            <li><strong>💡 重點：</strong>唯一去熊本城的行程，含特色列車票。</li>
-                        </ul>
-                        <a href="https://www.kkday.com/zh-tw/product/248950" target="_blank" class="block w-full text-center bg-indigo-600 text-white py-2 rounded-lg font-bold">前往訂購</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Desktop View (Detailed Table) -->
+            <!-- Desktop View Table -->
             <div class="hidden md:block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-gray-100 text-gray-600 text-sm uppercase tracking-wider border-b border-gray-200">
-                            <th class="p-4 w-1/12 text-center">代號</th>
                             <th class="p-4 w-2/12">行程名稱</th>
-                            <th class="p-4 w-3/12">詳細景點 & 路線</th>
+                            <th class="p-4 w-3/12">詳細景點</th>
                             <th class="p-4 w-1/12 text-center">體力</th>
-                            <th class="p-4 w-2/12">餐食 & 體驗</th>
-                            <th class="p-4 w-2/12">關鍵注意事項</th>
+                            <th class="p-4 w-1/12 text-center">車程</th>
+                            <th class="p-4 w-2/12">特色體驗</th>
+                            <th class="p-4 w-2/12">適合對象</th>
                             <th class="p-4 w-1/12 text-center">連結</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
                         
-                        <!-- Row 1 -->
-                        <tr class="detail-row hover:bg-yellow-50 transition">
-                            <td class="p-4 text-center font-mono font-bold">287625</td>
+                        <!-- 1. Classic -->
+                        <tr class="detail-row hover:bg-green-50 transition">
                             <td class="p-4">
-                                <div class="font-bold text-gray-900 text-base">和牛划船線</div>
-                                <div class="text-xs text-yellow-600 mt-1">頂級享受</div>
-                            </td>
-                            <td class="p-4">
-                                <ul class="list-disc list-inside space-y-1">
-                                    <li>阿蘇火山/草千里</li>
-                                    <li><strong>高千穗峽</strong> (深度遊)</li>
-                                </ul>
-                            </td>
-                            <td class="p-4 text-center"><span class="badge badge-yellow">⚡ 中等</span></td>
-                            <td class="p-4">
-                                <div class="mb-1"><span class="badge badge-blue">✅ 保證划船</span></div>
-                                <div class="text-xs font-bold text-pink-600">🥩 高級和牛午餐</div>
-                            </td>
-                            <td class="p-4 text-xs text-gray-500">
-                                唯一包含「代訂船票」服務。價格最高，但省去排隊麻煩。
-                            </td>
-                            <td class="p-4 text-center">
-                                <a href="https://www.kkday.com/zh-tw/product/287625" target="_blank" class="text-yellow-600 hover:text-yellow-800 font-bold underline">查看</a>
-                            </td>
-                        </tr>
-
-                        <!-- Row 7: Deep Takachiho (New) -->
-                        <tr class="detail-row hover:bg-purple-50 transition">
-                            <td class="p-4 text-center font-mono font-bold">181723</td>
-                            <td class="p-4">
-                                <div class="font-bold text-gray-900 text-base">高千穗深度線</div>
-                                <div class="text-xs text-purple-600 mt-1">小火車之旅</div>
+                                <div class="font-bold text-gray-900 text-base">經典必遊線</div>
+                                <div class="text-xs text-green-600 mt-1">新手首選</div>
                             </td>
                             <td class="p-4">
                                 <ul class="list-disc list-inside space-y-1">
-                                    <li><strong>高千穗峽</strong> (深度遊)</li>
-                                    <li><strong>天空小火車</strong> (天照鐵道)</li>
-                                    <li>天岩戶神社</li>
+                                    <li>太宰府天滿宮</li>
+                                    <li>由布院 (金鱗湖)</li>
+                                    <li>別府灶地獄</li>
                                 </ul>
                             </td>
-                            <td class="p-4 text-center"><span class="badge badge-yellow">⚡ 中等</span></td>
+                            <td class="p-4 text-center"><span class="badge badge-green">🌿 輕鬆</span></td>
+                            <td class="p-4 text-center text-xs">約 2.0 hr</td>
                             <td class="p-4">
-                                <div class="mb-1"><span class="badge badge-indigo">🚂 天空小火車</span></div>
-                                <div class="text-xs">🍱 自理</div>
+                                <div class="mb-1"><span class="badge badge-green">♨️ 足湯</span></div>
+                                <div class="text-xs">逛街購物為主</div>
                             </td>
-                            <td class="p-4 text-xs text-gray-500">
-                                <span class="text-red-600 font-bold">不去阿蘇火山。</span><br>專注於高千穗神話與鐵道體驗。
-                            </td>
-                            <td class="p-4 text-center">
-                                <a href="https://www.kkday.com/zh-tw/product/181723" target="_blank" class="text-purple-600 hover:text-purple-800 font-bold underline">查看</a>
-                            </td>
+                            <td class="p-4 text-xs text-gray-500">第一次來福岡，想一次打卡最知名景點的人。</td>
+                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/119732" target="_blank" class="text-green-600 hover:text-green-800 font-bold underline">查看</a></td>
                         </tr>
 
-                        <!-- Row 2 -->
-                        <tr class="detail-row hover:bg-teal-50 transition">
-                            <td class="p-4 text-center font-mono font-bold">150994</td>
+                        <!-- 2. Itoshima -->
+                        <tr class="detail-row hover:bg-pink-50 transition">
                             <td class="p-4">
-                                <div class="font-bold text-gray-900 text-base">溫泉神社線</div>
-                                <div class="text-xs text-teal-600 mt-1">療癒氛圍</div>
+                                <div class="font-bold text-gray-900 text-base">糸島網美線</div>
+                                <div class="text-xs text-pink-500 mt-1">拍照打卡</div>
                             </td>
                             <td class="p-4">
                                 <ul class="list-disc list-inside space-y-1">
-                                    <li><strong>上色見熊野座神社</strong></li>
-                                    <li><strong>黑川溫泉</strong></li>
-                                    <li>阿蘇火山</li>
+                                    <li>櫻井二見浦 (海中鳥居)</li>
+                                    <li>龍貓森林 (芥屋大門)</li>
+                                    <li>椰子樹鞦韆</li>
                                 </ul>
                             </td>
-                            <td class="p-4 text-center">
-                                <span class="badge badge-yellow">⚡ 中等</span>
-                                <div class="text-[10px] text-gray-400 mt-1">爬神社階梯</div>
-                            </td>
+                            <td class="p-4 text-center"><span class="badge badge-green">🌿 輕鬆</span></td>
+                            <td class="p-4 text-center text-xs">約 0.8 hr</td>
                             <td class="p-4">
-                                <div class="mb-1"><span class="badge badge-red">❌ 無划船</span></div>
-                                <div class="text-xs">🍜 自理 (溫泉街)</div>
+                                <div class="mb-1"><span class="badge badge-pink">📷 網美照</span></div>
+                                <div class="text-xs">海邊散步</div>
                             </td>
-                            <td class="p-4 text-xs text-gray-500">
-                                完全不去高千穗峽。重點在溫泉氛圍與神社拍照。
-                            </td>
-                            <td class="p-4 text-center">
-                                <a href="https://www.kkday.com/zh-tw/product/150994" target="_blank" class="text-teal-600 hover:text-teal-800 font-bold underline">查看</a>
-                            </td>
+                            <td class="p-4 text-xs text-gray-500">喜歡拍照、看海，不想坐太久車的年輕族群/情侶。</td>
+                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/305739" target="_blank" class="text-pink-600 hover:text-pink-800 font-bold underline">查看</a></td>
                         </tr>
 
-                        <!-- Row 3 -->
+                        <!-- 3. Mojiko -->
                         <tr class="detail-row hover:bg-blue-50 transition">
-                            <td class="p-4 text-center font-mono font-bold">266452</td>
                             <td class="p-4">
-                                <div class="font-bold text-gray-900 text-base">經典觀光線</div>
-                                <div class="text-xs text-blue-600 mt-1">小資首選</div>
+                                <div class="font-bold text-gray-900 text-base">懷舊門司港</div>
+                                <div class="text-xs text-blue-600 mt-1">海鮮美食</div>
                             </td>
                             <td class="p-4">
                                 <ul class="list-disc list-inside space-y-1">
-                                    <li>阿蘇火山/草千里</li>
-                                    <li><strong>高千穗峽</strong> (深度遊)</li>
+                                    <li>唐戶市場 (週末限定)</li>
+                                    <li>門司港懷舊區</li>
+                                    <li>角島大橋 (絕景)</li>
                                 </ul>
                             </td>
                             <td class="p-4 text-center"><span class="badge badge-yellow">⚡ 中等</span></td>
+                            <td class="p-4 text-center text-xs">約 1.5 hr</td>
                             <td class="p-4">
-                                <div class="mb-1"><span class="badge badge-red">⚠️ 划船看運氣</span></div>
-                                <div class="text-xs">🍣 午餐自理</div>
+                                <div class="mb-1"><span class="badge badge-blue">🍣 吃海鮮</span></div>
+                                <div class="text-xs">跨越關門海峽</div>
                             </td>
-                            <td class="p-4 text-xs text-gray-500">
-                                價格親民。划船需視現場狀況加購，不保證有位。
-                            </td>
-                            <td class="p-4 text-center">
-                                <a href="https://www.kkday.com/zh-tw/product/266452" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold underline">查看</a>
-                            </td>
+                            <td class="p-4 text-xs text-gray-500">吃貨必去！想吃新鮮河豚、壽司，喜歡復古建築的人。</td>
+                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/304123" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold underline">查看</a></td>
                         </tr>
 
-                        <!-- Row 4 -->
-                        <tr class="detail-row hover:bg-red-50 transition">
-                            <td class="p-4 text-center font-mono font-bold">285420</td>
+                        <!-- 4. Yanagawa -->
+                        <tr class="detail-row hover:bg-orange-50 transition">
                             <td class="p-4">
-                                <div class="font-bold text-gray-900 text-base">貪心全覽線</div>
-                                <div class="text-xs text-red-600 mt-1">三大景點</div>
+                                <div class="font-bold text-gray-900 text-base">柳川水鄉線</div>
+                                <div class="text-xs text-orange-500 mt-1">深度文化</div>
                             </td>
                             <td class="p-4">
                                 <ul class="list-disc list-inside space-y-1">
-                                    <li>阿蘇火山</li>
-                                    <li>高千穗峽 (短暫)</li>
-                                    <li><strong>上色見熊野座神社</strong></li>
+                                    <li>柳川遊船 (船夫吟唱)</li>
+                                    <li>雷山千如寺 (或大興善寺)</li>
+                                    <li>鰻魚飯名店</li>
                                 </ul>
                             </td>
-                            <td class="p-4 text-center">
-                                <span class="badge badge-red">💦 累</span>
-                                <div class="text-[10px] text-gray-400 mt-1">走路多</div>
-                            </td>
+                            <td class="p-4 text-center"><span class="badge badge-green">🌿 輕鬆</span></td>
+                            <td class="p-4 text-center text-xs">約 1.2 hr</td>
                             <td class="p-4">
-                                <div class="mb-1"><span class="badge badge-red">❌ 無法划船</span></div>
-                                <div class="text-xs">🍱 午餐自理</div>
+                                <div class="mb-1"><span class="badge badge-orange">🚣 遊船</span></div>
+                                <div class="text-xs">古蹟巡禮</div>
                             </td>
-                            <td class="p-4 text-xs text-gray-500">
-                                行程非常趕，每個點停留時間短。適合想一次打卡完的人。
-                            </td>
-                            <td class="p-4 text-center">
-                                <a href="https://www.kkday.com/zh-tw/product/285420" target="_blank" class="text-red-600 hover:text-red-800 font-bold underline">查看</a>
-                            </td>
+                            <td class="p-4 text-xs text-gray-500">喜歡安靜氛圍、日式庭園、想體驗小船遊河的長輩或文青。</td>
+                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/538560" target="_blank" class="text-orange-600 hover:text-orange-800 font-bold underline">查看</a></td>
                         </tr>
 
-                         <!-- Row 5 -->
-                         <tr class="detail-row hover:bg-indigo-50 transition">
-                            <td class="p-4 text-center font-mono font-bold">248950</td>
+                        <!-- 5. Deep Takachiho -->
+                        <tr class="detail-row hover:bg-purple-50 transition">
                             <td class="p-4">
-                                <div class="font-bold text-gray-900 text-base">鐵道名城線</div>
-                                <div class="text-xs text-indigo-600 mt-1">鐵道迷</div>
+                                <div class="font-bold text-gray-900 text-base">高千穗深度</div>
+                                <div class="text-xs text-purple-600 mt-1">神話/鐵道</div>
                             </td>
                             <td class="p-4">
                                 <ul class="list-disc list-inside space-y-1">
-                                    <li><strong>熊本城</strong></li>
-                                    <li>阿蘇火山</li>
-                                    <li>阿蘇男孩號(體驗)</li>
+                                    <li>高千穗峽 (深度)</li>
+                                    <li>天岩戶神社 (能量景點)</li>
+                                    <li><strong>天空小火車</strong></li>
                                 </ul>
                             </td>
-                            <td class="p-4 text-center">
-                                <span class="badge badge-yellow">⚡ 中等</span>
-                                <div class="text-[10px] text-gray-400 mt-1">熊本城範圍大</div>
-                            </td>
+                            <td class="p-4 text-center"><span class="badge badge-yellow">⚡ 中等</span></td>
+                            <td class="p-4 text-center text-xs">約 3.0 hr</td>
                             <td class="p-4">
-                                <div class="mb-1"><span class="badge badge-indigo">🚂 阿蘇男孩號</span></div>
-                                <div class="text-xs">🍱 自理</div>
+                                <div class="mb-1"><span class="badge badge-indigo">🚂 小火車</span></div>
+                                <div class="text-xs">高空鐵橋</div>
                             </td>
-                            <td class="p-4 text-xs text-gray-500">
-                                唯一包含熊本城的行程。拉車距離較遠。
-                            </td>
-                            <td class="p-4 text-center">
-                                <a href="https://www.kkday.com/zh-tw/product/248950" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-bold underline">查看</a>
-                            </td>
+                            <td class="p-4 text-xs text-gray-500"><strong>唯一不去阿蘇的深山行程。</strong>想深度玩高千穗，且願意坐長途車的人。</td>
+                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/181723" target="_blank" class="text-purple-600 hover:text-purple-800 font-bold underline">查看</a></td>
                         </tr>
 
                     </tbody>
@@ -638,7 +402,7 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 2.1 (Admin Fix)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 2.0 (Non-Aso Edition)</div>
             </div>
 
         </div>
@@ -662,16 +426,15 @@
 
         // --- 設定與變數 ---
         // 修改這個版本號來重置投票 (例如改為 'v2')
-        const POLL_VERSION = 'v1'; 
+        const POLL_VERSION = 'v2'; 
         
-        // Poll Options Configuration - 6 items
+        // Poll Options Configuration - 5 items (Non-Aso)
         const pollOptions = [
-            { id: '287625', name: '和牛划船線', color: 'bg-yellow-500' },
-            { id: '181723', name: '高千穗深度線', color: 'bg-purple-600' },
-            { id: '150994', name: '溫泉神社線', color: 'bg-teal-600' },
-            { id: '266452', name: '經典觀光線', color: 'bg-blue-600' },
-            { id: '285420', name: '貪心全覽線', color: 'bg-red-600' },
-            { id: '248950', name: '鐵道名城線', color: 'bg-indigo-600' }
+            { id: '119732', name: '經典必遊線 (由布院)', color: 'bg-green-600' },
+            { id: '305739', name: '糸島網美線', color: 'bg-pink-500' },
+            { id: '304123', name: '懷舊門司港', color: 'bg-blue-600' },
+            { id: '538560', name: '柳川水鄉線', color: 'bg-orange-500' },
+            { id: '181723', name: '高千穗深度＆小火車', color: 'bg-purple-600' }
         ];
 
         let db, auth, appId;
@@ -951,13 +714,11 @@
             
             // Map button types to card IDs
             const mapping = {
-                'price': ['card-classic', 'card-all', 'card-deep'], 
-                'food': 'card-food',
-                'boat': 'card-food', 
-                'onsen': 'card-onsen',
-                'anime': ['card-onsen', 'card-deep'], 
-                'train': ['card-train', 'card-deep'],
-                'kids': [], 
+                'classic': ['card-classic'], 
+                'photo': ['card-photo'],
+                'history': ['card-history'], 
+                'culture': ['card-culture'],
+                'train': ['card-train'], // Deep Takachiho
             };
 
             const target = mapping[type];
@@ -997,3 +758,5 @@
     </script>
 </body>
 </html>
+
+
