@@ -17,6 +17,12 @@
             ring-opacity: 0.8;
             transform: scale(1.02);
             transition: all 0.3s ease;
+            opacity: 1 !important;
+        }
+        .card-dimmed {
+            opacity: 0.4;
+            transform: scale(0.98);
+            transition: all 0.3s ease;
         }
         
         /* Advanced Table Badges */
@@ -33,30 +39,11 @@
         /* Table Optimization */
         .detail-row td { vertical-align: top; padding-top: 1rem; padding-bottom: 1rem; }
         
-        /* Mobile Card Interaction */
-        .mobile-card { transition: all 0.2s; }
-        .mobile-card:active { transform: scale(0.98); }
-
         /* Poll Styles */
         .poll-bar-container { background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; height: 1.5rem; position: relative; }
         .poll-bar { height: 100%; transition: width 1s ease-in-out; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold; }
         .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; background-color: #9ca3af; color: #fff; }
     </style>
-    <script>
-        function toggleDetail(id) {
-            const detail = document.getElementById('detail-' + id);
-            const icon = document.getElementById('icon-' + id);
-            if (detail.classList.contains('hidden')) {
-                detail.classList.remove('hidden');
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            } else {
-                detail.classList.add('hidden');
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            }
-        }
-    </script>
 </head>
 <body class="text-gray-800">
 
@@ -75,26 +62,26 @@
 
     <!-- Hero Section -->
     <div class="bg-indigo-800 text-white py-12 px-4 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold mb-4">神話景點自由選</h1>
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">尋找「天安河原」與「螢火之森」</h1>
         <p class="text-indigo-200 max-w-2xl mx-auto text-lg">
-            想一次收集「天安河原」與「上色見熊野座神社」，還是想分開玩深度遊？這裡都有。
+            為您找出包含【天安河原】與【上色見熊野座神社】的特殊行程，體驗九州最強能量景點。
         </p>
 
         <!-- Interactive Filter -->
         <div class="mt-8 bg-white/10 backdrop-blur-md p-6 rounded-xl max-w-5xl mx-auto border border-white/20">
-            <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>依「神話景點」篩選</h3>
+            <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>您想去哪裡？(點擊篩選)</h3>
             <div class="flex flex-wrap justify-center gap-3" id="filters">
-                <button onclick="highlight('both')" class="filter-btn px-4 py-2 bg-white text-indigo-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow border-2 border-purple-500">
-                    <i class="fas fa-star mr-1"></i> 我全都要 (兩個都去)
+                <button onclick="highlight('myth-full')" class="px-4 py-2 bg-white text-indigo-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow border-2 border-purple-500">
+                    <i class="fas fa-star mr-1"></i> 神話全覽 (兩個都去)
                 </button>
-                <button onclick="highlight('iwato')" class="filter-btn px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-teal-500 hover:text-white transition shadow">
+                <button onclick="highlight('myth-iwato')" class="px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-teal-500 hover:text-white transition shadow">
                     <i class="fas fa-dungeon mr-1"></i> 只去天安河原 (+小火車)
                 </button>
-                <button onclick="highlight('shrine')" class="filter-btn px-4 py-2 bg-white text-green-700 rounded-full font-bold hover:bg-green-500 hover:text-white transition shadow">
-                    <i class="fas fa-torii-gate mr-1"></i> 只去上色見神社 (+溫泉)
+                <button onclick="highlight('myth-shrine')" class="px-4 py-2 bg-white text-green-700 rounded-full font-bold hover:bg-green-500 hover:text-white transition shadow">
+                    <i class="fas fa-torii-gate mr-1"></i> 只去上色見 (+溫泉)
                 </button>
                 <div class="w-full h-0 md:hidden"></div> <!-- Break line on mobile -->
-                <button onclick="highlight('classic')" class="filter-btn px-4 py-2 bg-white text-blue-700 rounded-full font-bold hover:bg-blue-500 hover:text-white transition shadow">
+                <button onclick="highlight('classic')" class="px-4 py-2 bg-white text-blue-700 rounded-full font-bold hover:bg-blue-500 hover:text-white transition shadow">
                     <i class="fas fa-umbrella-beach mr-1"></i> 其他觀光 (無神話)
                 </button>
                 <button onclick="resetHighlight()" class="px-4 py-2 bg-gray-700 text-white rounded-full font-bold hover:bg-gray-600 transition shadow">
@@ -149,8 +136,8 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-16" id="card-container">
             
-            <!-- 1. Myth Both (182363) -->
-            <div id="card-both" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border-2 border-purple-500 ring-4 ring-purple-100 transform scale-[1.01]">
+            <!-- 1. Myth Full (182363) -->
+            <div id="card-myth-full" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border-2 border-purple-500 ring-4 ring-purple-100 transform scale-[1.01]">
                 <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
                     ★ 許願款：兩個願望一次滿足
                 </div>
@@ -167,8 +154,8 @@
                 </div>
             </div>
 
-            <!-- 2. Iwato Only (181723) -->
-            <div id="card-iwato" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-teal-400">
+            <!-- 2. Myth Iwato (181723) -->
+            <div id="card-myth-iwato" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-teal-400">
                 <div class="bg-teal-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
                     只去天安河原 ＋ 小火車
                 </div>
@@ -185,8 +172,8 @@
                 </div>
             </div>
 
-            <!-- 3. Shrine Only (150994) -->
-            <div id="card-shrine" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
+            <!-- 3. Myth Shrine (150994) -->
+            <div id="card-myth-shrine" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
                 <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
                     只去上色見 ＋ 黑川溫泉
                 </div>
@@ -221,39 +208,39 @@
                 </div>
             </div>
 
-            <!-- 5. Classic (119732) -->
-            <div id="card-classic" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-blue-500">
+            <!-- 5. Mojiko (304123) -->
+            <div id="card-history" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-blue-500">
                 <div class="bg-blue-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    其他觀光 • 經典必遊
-                </div>
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">119732</span></div>
-                    <div class="mb-3"><span class="text-2xl font-bold text-blue-600">NT$ 1,800</span> <span class="text-xs text-gray-500">起</span></div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">由布院＆別府＆太宰府</h3>
-                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
-                        <div class="font-bold bg-blue-50 p-1 rounded"><i class="fas fa-torii-gate text-blue-600 w-5"></i> 太宰府天滿宮</div>
-                        <div class="text-gray-600"><i class="fas fa-shopping-bag w-5"></i> 由布院</div>
-                        <div class="text-gray-400"><i class="fas fa-ban w-5"></i> 無秘境神社</div>
-                    </div>
-                    <a href="https://www.kkday.com/zh-tw/product/119732" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
-                </div>
-            </div>
-
-            <!-- 6. Mojiko (304123) -->
-            <div id="card-history" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-orange-500">
-                <div class="bg-orange-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
                     其他觀光 • 懷舊港口
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
                     <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">304123</span></div>
-                    <div class="mb-3"><span class="text-2xl font-bold text-orange-600">NT$ 1,950</span> <span class="text-xs text-gray-500">起</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-blue-600">NT$ 1,950</span> <span class="text-xs text-gray-500">起</span></div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">門司港＆唐戶市場</h3>
                     <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
-                        <div class="font-bold bg-orange-50 p-1 rounded"><i class="fas fa-fish text-orange-600 w-5"></i> 唐戶市場</div>
+                        <div class="font-bold bg-blue-50 p-1 rounded"><i class="fas fa-fish text-blue-600 w-5"></i> 唐戶市場</div>
                         <div class="text-gray-600"><i class="fas fa-archway w-5"></i> 門司港懷舊區</div>
                         <div class="text-gray-400"><i class="fas fa-ban w-5"></i> 無神話景點</div>
                     </div>
-                    <a href="https://www.kkday.com/zh-tw/product/304123" target="_blank" class="block w-full text-center bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                    <a href="https://www.kkday.com/zh-tw/product/304123" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                </div>
+            </div>
+
+            <!-- 6. Classic (119732) -->
+            <div id="card-classic" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
+                <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    其他觀光 • 經典必遊
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">119732</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-green-600">NT$ 1,800</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">由布院＆別府＆太宰府</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-green-50 p-1 rounded"><i class="fas fa-torii-gate text-green-600 w-5"></i> 太宰府天滿宮</div>
+                        <div class="text-gray-600"><i class="fas fa-shopping-bag w-5"></i> 由布院</div>
+                        <div class="text-gray-400"><i class="fas fa-ban w-5"></i> 無秘境神社</div>
+                    </div>
+                    <a href="https://www.kkday.com/zh-tw/product/119732" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
                 </div>
             </div>
 
@@ -348,7 +335,7 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 2.2 (Myth Specific)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 2.3 (Fix)</div>
             </div>
 
         </div>
@@ -371,7 +358,7 @@
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- 設定與變數 ---
-        const POLL_VERSION = 'v2.2'; // Changed to allow fresh votes for new structure
+        const POLL_VERSION = 'v2.3'; 
         
         // Poll Options Configuration
         const pollOptions = [
@@ -380,7 +367,7 @@
             { id: '150994', name: '秘境溫泉 (上色見only)', color: 'bg-green-500' },
             { id: '305739', name: '糸島網美線', color: 'bg-pink-500' },
             { id: '304123', name: '門司港懷舊線', color: 'bg-blue-600' },
-            { id: '119732', name: '經典由布院', color: 'bg-green-600' } // Reuse green for classic
+            { id: '119732', name: '經典由布院', color: 'bg-green-600' }
         ];
 
         let db, auth, appId;
@@ -576,7 +563,10 @@
             pollOptions.forEach(opt => {
                 const count = data['count_' + opt.id] || 0;
                 const percentage = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-                const hasVoted = localStorage.getItem('voted_' + opt.id);
+                // Check if voted specifically for this option in this version (for UI highlight)
+                const hasVotedThis = localStorage.getItem(`voted_${opt.id}_${POLL_VERSION}`);
+                // Check if voted at all (to disable other buttons)
+                const hasVotedAny = localStorage.getItem(`has_voted_${POLL_VERSION}`);
                 
                 // Safety check for width to avoid layout break
                 const barWidth = percentage < 1 ? 1 : percentage; 
@@ -592,9 +582,9 @@
                                 <div class="poll-bar ${opt.color} h-full transition-all duration-1000 ease-out" style="width: ${barWidth}%"></div>
                             </div>
                             <button onclick="vote('${opt.id}')" 
-                                class="vote-btn px-3 py-1 rounded text-xs font-bold transition shadow ${hasVoted ? 'bg-gray-800 text-white' : 'text-white ' + opt.color + ' hover:brightness-110'}"
-                                ${hasVoted ? 'disabled' : ''}>
-                                ${hasVoted ? '已投' : '投票'}
+                                class="vote-btn px-3 py-1 rounded text-xs font-bold transition shadow ${hasVotedThis ? 'bg-gray-800 text-white' : (hasVotedAny ? 'bg-gray-300 text-gray-500' : 'text-white ' + opt.color + ' hover:brightness-110')}"
+                                ${hasVotedAny ? 'disabled' : ''}>
+                                ${hasVotedThis ? '已投' : '投票'}
                             </button>
                         </div>
                     </div>
@@ -655,31 +645,40 @@
         function highlight(type) {
             resetStyles();
             
-            // Map button types to card IDs
+            // CORRECTED MAP button types to card IDs
             const mapping = {
-                'both': ['card-both'], 
-                'iwato': ['card-iwato'], 
-                'shrine': ['card-shrine'], 
-                'classic': ['card-classic'], 
+                'myth-full': ['card-myth-full'], 
+                'myth-iwato': ['card-myth-iwato'], 
+                'myth-shrine': ['card-myth-shrine'], 
+                'classic': ['card-classic', 'card-photo', 'card-history'], 
                 'photo': ['card-photo'],
                 'history': ['card-history'], 
             };
 
+            // If user selects "Other", highlight all non-myth
+            if (type === 'classic') {
+               mapping['classic'].forEach(id => document.getElementById(id)?.classList.add('card-highlight'));
+               // Dim others
+               document.querySelectorAll('.tour-card').forEach(c => {
+                   if(!mapping['classic'].includes(c.id)) c.classList.add('card-dimmed');
+               });
+               return;
+            }
+
             const target = mapping[type];
+            if (!target) return;
 
             const cards = document.querySelectorAll('.tour-card');
             cards.forEach(c => {
                 let shouldHighlight = false;
-                if (Array.isArray(target)) {
-                    if (target.includes(c.id)) shouldHighlight = true;
-                } else if (c.id === target) {
+                if (target.includes(c.id)) {
                     shouldHighlight = true;
                 }
 
                 if (shouldHighlight) {
                     c.classList.add('card-highlight');
                 } else {
-                    c.classList.add('opacity-40');
+                    c.classList.add('card-dimmed');
                 }
             });
         }
@@ -691,8 +690,8 @@
         function resetStyles() {
             const cards = document.querySelectorAll('.tour-card');
             cards.forEach(card => {
-                card.classList.remove('card-highlight', 'opacity-40');
-                card.classList.add('opacity-100');
+                card.classList.remove('card-highlight', 'card-dimmed');
+                // Removed opacity classes logic as we use CSS classes now
             });
         }
 
