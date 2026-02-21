@@ -44,6 +44,10 @@
         .poll-bar-container { background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; height: 1.5rem; position: relative; }
         .poll-bar { height: 100%; transition: width 1s ease-in-out; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold; }
         .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; background-color: #9ca3af; color: #fff; }
+
+        /* Modal Animation */
+        .modal-enter { opacity: 1 !important; pointer-events: auto !important; }
+        .modal-enter .modal-content { transform: scale(1) !important; }
     </style>
     <script>
         function toggleDetail(id) {
@@ -71,7 +75,7 @@
                     <i class="fas fa-moon text-2xl mr-2 text-yellow-400"></i>
                     <span class="font-bold text-xl">九州神話 & 秘境特搜</span>
                 </div>
-                <div class="text-sm hidden sm:block">KKday 精選 (無阿蘇/無由布院)</div>
+                <div class="text-sm hidden sm:block">KKday 精選 (無阿蘇)</div>
             </div>
         </div>
     </nav>
@@ -165,7 +169,9 @@
                         <div class="font-bold bg-indigo-50 p-1 rounded"><i class="fas fa-dungeon text-indigo-600 w-5"></i> 天岩戶神社 (天安河原)</div>
                         <div class="text-gray-500"><i class="fas fa-water w-5"></i> 高千穗峽 (散策)</div>
                     </div>
-                    <a href="https://www.kkday.com/zh-tw/product/32511" target="_blank" class="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg">前往訂購</a>
+                    <button onclick="openTourModal('32511')" class="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition">
+                        <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
+                    </button>
                 </div>
             </div>
 
@@ -183,7 +189,9 @@
                         <div class="font-bold bg-teal-50 p-1 rounded"><i class="fas fa-train text-teal-600 w-5"></i> 天空小火車 (選購)</div>
                         <div class="text-gray-400"><i class="fas fa-times-circle text-gray-300 w-5"></i> 不去上色見神社</div>
                     </div>
-                    <a href="https://www.kkday.com/zh-tw/product/181723" target="_blank" class="block w-full text-center bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                    <button onclick="openTourModal('181723')" class="block w-full text-center bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
+                    </button>
                 </div>
             </div>
 
@@ -201,7 +209,9 @@
                         <div class="font-bold bg-green-50 p-1 rounded"><i class="fas fa-hot-tub text-green-600 w-5"></i> 黑川溫泉 (散策)</div>
                         <div class="text-gray-400"><i class="fas fa-times-circle text-gray-300 w-5"></i> 不去天安河原</div>
                     </div>
-                    <a href="https://www.kkday.com/zh-tw/product/150994" target="_blank" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                    <button onclick="openTourModal('150994')" class="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
+                    </button>
                 </div>
             </div>
 
@@ -217,9 +227,11 @@
                     <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
                         <div class="font-bold bg-orange-50 p-1 rounded"><i class="fas fa-eye text-orange-500 w-5"></i> 南藏院 (超大臥佛)</div>
                         <div class="font-bold bg-orange-50 p-1 rounded"><i class="fas fa-tree text-orange-500 w-5"></i> 糸島 (龍貓森林)</div>
-                        <div class="text-gray-500"><i class="fas fa-camera w-5"></i> 夫婦岩</div>
+                        <div class="text-gray-500"><i class="fas fa-camera w-5"></i> 櫻井二見浦</div>
                     </div>
-                    <a href="https://www.kkday.com/zh-tw/product/268144" target="_blank" class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg">前往訂購</a>
+                    <button onclick="openTourModal('268144')" class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
+                    </button>
                 </div>
             </div>
 
@@ -251,7 +263,7 @@
                             <th class="p-4 w-1/12 text-center bg-teal-50">天安河原</th>
                             <th class="p-4 w-1/12 text-center bg-orange-50">臥佛秘境</th>
                             <th class="p-4 w-3/12">其他景點/特色</th>
-                            <th class="p-4 w-1/12 text-center">連結</th>
+                            <th class="p-4 w-1/12 text-center">操作</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
@@ -265,10 +277,10 @@
                             <td class="p-4 text-xs">
                                 <strong>高效率！</strong>一天跑完兩個最遠的能量景點。
                             </td>
-                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/32511" target="_blank" class="text-purple-600 underline">查看</a></td>
+                            <td class="p-4 text-center"><button onclick="openTourModal('32511')" class="text-purple-600 underline hover:text-purple-800">詳情</button></td>
                         </tr>
 
-                        <!-- 2. Myth Train (181723) -->
+                        <!-- 2. Train (181723) -->
                         <tr class="detail-row hover:bg-teal-50 transition">
                             <td class="p-4 font-bold text-teal-700">鐵道深度線 (181723)</td>
                             <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
@@ -277,7 +289,7 @@
                             <td class="p-4 text-xs">
                                 <strong>親子推薦。</strong>高千穗深度遊 + 天空小火車。
                             </td>
-                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/181723" target="_blank" class="text-teal-600 underline">查看</a></td>
+                            <td class="p-4 text-center"><button onclick="openTourModal('181723')" class="text-teal-600 underline hover:text-teal-800">詳情</button></td>
                         </tr>
 
                         <!-- 3. Unique (268144) -->
@@ -289,7 +301,7 @@
                             <td class="p-4 text-xs">
                                 <strong>特殊行程。</strong>南藏院超大臥佛 + 糸島龍貓森林。
                             </td>
-                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/268144" target="_blank" class="text-orange-600 underline">查看</a></td>
+                            <td class="p-4 text-center"><button onclick="openTourModal('268144')" class="text-orange-600 underline hover:text-orange-800">詳情</button></td>
                         </tr>
 
                         <!-- 4. Shrine (150994) -->
@@ -301,7 +313,7 @@
                             <td class="p-4 text-xs">
                                 <strong>療癒放鬆。</strong>上色見神社 + 黑川溫泉散策。
                             </td>
-                            <td class="p-4 text-center"><a href="https://www.kkday.com/zh-tw/product/150994" target="_blank" class="text-green-600 underline">查看</a></td>
+                            <td class="p-4 text-center"><button onclick="openTourModal('150994')" class="text-green-600 underline hover:text-green-800">詳情</button></td>
                         </tr>
 
                     </tbody>
@@ -310,15 +322,53 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 3.1 (Myth & Unique Only)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 3.2 (Details Modal Added)</div>
             </div>
 
         </div>
 
-        <div class="mt-8 text-center text-gray-500 text-sm">
-            <p>※ 金額為預估參考，實際價格會隨匯率與季節波動，請依 KKday 官網即時資訊為主。</p>
-        </div>
+    </div>
 
+    <!-- 彈出式行程介紹 Modal -->
+    <div id="tour-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <!-- 遮罩背景 -->
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="modal-backdrop" onclick="closeTourModal()"></div>
+        
+        <!-- Modal 內容 -->
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-all duration-300 opacity-0 relative z-10" id="modal-content">
+            <button onclick="closeTourModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 focus:outline-none transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="p-6 md:p-8">
+                <div id="modal-tag" class="text-xs font-bold px-3 py-1 rounded inline-block mb-3 text-white"></div>
+                <h2 id="modal-title" class="text-2xl font-bold text-gray-900 mb-1"></h2>
+                <div class="text-sm text-gray-500 mb-6 font-mono font-bold" id="modal-id"></div>
+                
+                <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100">
+                    <div class="flex items-start mb-3">
+                        <i class="fas fa-clock text-blue-500 mt-1 w-6"></i>
+                        <div><strong class="text-gray-700 text-sm">所需時間：</strong><br><span id="modal-time" class="text-gray-600 text-sm"></span></div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-map-marked-alt text-green-500 mt-1 w-6"></i>
+                        <div><strong class="text-gray-700 text-sm">包含景點：</strong><br><span id="modal-spots" class="text-gray-600 text-sm leading-relaxed"></span></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <strong class="text-gray-800 block mb-2 text-lg"><i class="fas fa-star text-yellow-500 mr-2"></i>行程特色亮點</strong>
+                    <p id="modal-desc" class="text-gray-600 text-sm leading-relaxed whitespace-pre-line"></p>
+                </div>
+            </div>
+            
+            <!-- 底部按鈕區 -->
+            <div class="bg-gray-50 px-6 py-4 flex justify-end items-center border-t border-gray-100">
+                <button onclick="closeTourModal()" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg font-bold hover:bg-gray-100 transition mr-3 shadow-sm">返回比較</button>
+                <a id="modal-link" href="#" target="_blank" class="px-5 py-2.5 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition shadow-md flex items-center">
+                    前往 KKday 訂購 <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- Notification Toast -->
@@ -327,35 +377,123 @@
         <span>已為您篩選！</span>
     </div>
 
+    <!-- 行程詳細資料定義區 -->
+    <script>
+        const tourData = {
+            '32511': {
+                title: '神話全覽：上色見＋天安河原',
+                tag: '★ 許願款：神話大滿貫',
+                tagColor: 'bg-purple-600',
+                time: '約 11 小時',
+                spots: '高千穗峽散步、天岩戶神社 (天安河原)、上色見熊野座神社',
+                desc: '這是一條高效率的行程，帶您一次走訪熊本與宮崎最難抵達的兩大能量景點。\n\n您將先穿越【上色見熊野座神社】宛如螢火之森的神秘參道，感受神聖的異世界氛圍；接著前往宮崎縣的高千穗，探索日本神話的發源地【天岩戶神社】與堆滿祈願石頭的【天安河原】洞窟，是追求身心靈療癒與神話傳說的絕佳選擇。'
+            },
+            '181723': {
+                title: '高千穗深度遊＆天空小火車',
+                tag: '小火車 ＋ 天安河原',
+                tagColor: 'bg-teal-500',
+                time: '約 10.5 小時',
+                spots: '高千穗峽、天岩戶神社 (天安河原)、天空小火車 (天照鐵道)',
+                desc: '專注於高千穗區域的深度體驗行程。\n\n不僅能漫步於壯麗的高千穗峽谷，前往充滿靈氣的天安河原，最大亮點是能搭乘超人氣的【高千穗天照鐵道 Grand Super Cart】！可愛的無頂露天小火車將行駛在 105 公尺高的高空鐵橋上，讓您以最刺激、獨特的方式俯瞰群山絕景，非常適合親子或鐵道迷。'
+            },
+            '150994': {
+                title: '秘境神社＆黑川溫泉散策',
+                tag: '上色見 ＋ 黑川溫泉',
+                tagColor: 'bg-green-600',
+                time: '約 10 小時',
+                spots: '上色見熊野座神社、阿蘇草千里 (僅路過欣賞)、黑川溫泉',
+                desc: '遠離塵囂的秘境與溫泉療癒之旅，適合想慢慢走的旅客。\n\n早上先前往打卡聖地【上色見熊野座神社】，在參天古木間拍出空靈美照；午後則前往日本最美溫泉街之一的【黑川溫泉】。您可以在古色古香的溫泉街上享用甜點、購買溫泉手形泡個日歸溫泉，享受最純正的日式慢活步調。'
+            },
+            '268144': {
+                title: '南藏院臥佛＆糸島秘境',
+                tag: '特殊福岡 • 臥佛與龍貓',
+                tagColor: 'bg-orange-500',
+                time: '約 9 小時',
+                spots: '南藏院 (世界最大青銅臥佛)、櫻井二見浦 (夫婦岩)、芥屋大門 (龍貓森林)',
+                desc: '探索福岡近郊最特殊的視覺震撼與網美景點！\n\n行程先帶您前往【南藏院】，親眼目睹長達 41 公尺、氣勢磅礴的世界最大青銅臥佛，感受莊嚴與震撼；隨後前往以無敵海景聞名的【糸島】，打卡潔白的櫻井二見浦夫婦岩，並走進宛如宮崎駿動畫場景般的「龍貓森林」，一趟行程囊括文化震撼與自然美景。'
+            }
+        };
+
+        // Modal Control Functions
+        function openTourModal(id) {
+            const data = tourData[id];
+            if (!data) return;
+
+            // 填充資料
+            document.getElementById('modal-id').innerText = '行程代號：' + id;
+            document.getElementById('modal-title').innerText = data.title;
+            
+            const tagEl = document.getElementById('modal-tag');
+            tagEl.innerText = data.tag;
+            tagEl.className = `text-xs font-bold px-3 py-1 rounded inline-block mb-3 text-white ${data.tagColor}`;
+            
+            document.getElementById('modal-time').innerText = data.time;
+            document.getElementById('modal-spots').innerText = data.spots;
+            document.getElementById('modal-desc').innerText = data.desc;
+            document.getElementById('modal-link').href = `https://www.kkday.com/zh-tw/product/${id}`;
+
+            // 顯示 Modal (包含動畫)
+            const modal = document.getElementById('tour-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            // 觸發重繪以確保動畫生效
+            void modal.offsetWidth; 
+            
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+            
+            content.classList.remove('opacity-0', 'scale-95');
+            content.classList.add('opacity-100', 'scale-100');
+        }
+
+        function closeTourModal() {
+            const modal = document.getElementById('tour-modal');
+            const backdrop = document.getElementById('modal-backdrop');
+            const content = document.getElementById('modal-content');
+            
+            // 反向動畫
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            
+            content.classList.remove('opacity-100', 'scale-100');
+            content.classList.add('opacity-0', 'scale-95');
+            
+            // 等待動畫結束後隱藏
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+
+    <!-- Firebase & Poll Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- 設定與變數 ---
-        const POLL_VERSION = 'v3.1'; // New version
+        const POLL_VERSION = 'v3.2'; // Version update
         
         // Poll Options Configuration (4 items)
         const pollOptions = [
             { id: '32511', name: '神話全覽線 (上色見+天安河原)', color: 'bg-purple-600' },
             { id: '181723', name: '鐵道深度線 (小火車+天安河原)', color: 'bg-teal-500' },
-            { id: '268144', name: '福岡雙秘境 (臥佛+糸島)', color: 'bg-orange-500' },
-            { id: '150994', name: '秘境溫泉線 (上色見+黑川)', color: 'bg-green-600' }
+            { id: '150994', name: '秘境溫泉線 (上色見+黑川)', color: 'bg-green-600' },
+            { id: '268144', name: '福岡雙秘境 (臥佛+糸島)', color: 'bg-orange-500' }
         ];
 
         let db, auth, appId;
         let isLocalMode = false;
 
-        // 1. Initial Render (Show UI immediately)
         function renderInitialUI() {
              renderPoll({}); 
              document.getElementById('poll-logs').innerHTML = '<div class="text-center text-gray-400 py-4">載入即時動態中...</div>';
         }
 
-        // 2. Initialize System
         async function initSystem() {
             try {
-                // User provided config
                 const firebaseConfig = {
                     apiKey: "AIzaSyAGHMP1HLJJPRQD_9CXnwI6lQwkcbZNm8M",
                     authDomain: "fukuoka-tour-vote.firebaseapp.com",
@@ -368,28 +506,22 @@
                 const app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
-                
-                // Use fixed ID + Version for data location
                 appId = 'fukuoka-public-vote-' + POLL_VERSION; 
 
-                // Auth Flow
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
                     await signInAnonymously(auth);
                 }
 
-                // Wait for Auth
                 await new Promise((resolve, reject) => {
                     const unsubscribe = onAuthStateChanged(auth, (user) => {
                         if (user) { unsubscribe(); resolve(user); }
                     }, (err) => reject(err));
                 });
 
-                // Listen to Real DB
                 const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
                 
-                // Use onSnapshot immediately without blocking check
                 onSnapshot(pollRef, (docSnap) => {
                     const data = docSnap.exists() ? docSnap.data() : {};
                     renderPoll(data);
@@ -405,48 +537,35 @@
             }
         }
 
-        // 3. Local Mode Logic (Fallback)
         function initLocalMode() {
             isLocalMode = true;
-            console.log("Running in Local Mode");
-            
-            // Show indicator safely using ID
             const titleContainer = document.getElementById('poll-title');
             if(titleContainer && !titleContainer.innerHTML.includes('單機')) {
                  titleContainer.innerHTML += ' <span class="text-xs bg-white/20 px-2 py-1 rounded ml-2 border border-white/30">(單機版)</span>';
             }
-
-            // Load data from localStorage
             loadLocalData();
         }
 
         function loadLocalData() {
-            // Include version in local storage key to support reset
             const localData = JSON.parse(localStorage.getItem('kkday_poll_data_' + POLL_VERSION) || '{"logs": []}');
             renderPoll(localData);
             renderLogs(localData.logs || []);
         }
 
-        // 4. Reset Function (Global/Local)
         window.resetPoll = async () => {
             if(!confirm('確定要重置所有投票數據嗎？這將清除所有人的投票紀錄。')) return;
 
-            // Clear local locks
             localStorage.removeItem(`has_voted_${POLL_VERSION}`);
             pollOptions.forEach(opt => localStorage.removeItem(`voted_${opt.id}_${POLL_VERSION}`));
 
             if(isLocalMode) {
-                // Local Mode Reset
                 localStorage.removeItem('kkday_poll_data_' + POLL_VERSION);
                 loadLocalData();
                 alert('本地數據已重置！');
             } else {
-                // Firebase Reset
                 try {
                     const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                    // Reset doc to empty or initial state - overwrite with empty logs
                     await setDoc(pollRef, { logs: [] }); 
-                    // Note: count fields will be removed by setDoc without merge:true
                     alert('全域投票數據已重置！');
                 } catch(e) {
                     console.error(e);
@@ -455,7 +574,6 @@
             }
         };
 
-        // 5. Vote Handler
         window.vote = async (id) => {
             const nameInput = document.getElementById('voter-name');
             const name = nameInput.value.trim();
@@ -466,79 +584,51 @@
                 return;
             }
 
-            // Check restriction: One vote per device (browser) for this POLL_VERSION
             if (localStorage.getItem(`has_voted_${POLL_VERSION}`)) {
                 alert(`您已經在本裝置投過票囉！若要重投請點擊標題旁的重置按鈕。`);
                 return;
             }
 
-            // Optimistic UI update trigger
             localStorage.setItem(`has_voted_${POLL_VERSION}`, 'true');
-            // Also set per-option for button UI state
             localStorage.setItem(`voted_${id}_${POLL_VERSION}`, 'true');
 
             if (isLocalMode) {
-                // Handle Local Vote
                 const localData = JSON.parse(localStorage.getItem('kkday_poll_data_' + POLL_VERSION) || '{"logs": []}');
-                
-                // Increment count
                 localData['count_' + id] = (localData['count_' + id] || 0) + 1;
-                
-                // Add log
                 if (!localData.logs) localData.logs = [];
-                localData.logs.push({
-                    name: name,
-                    optionId: id,
-                    timestamp: Date.now()
-                });
-
+                localData.logs.push({ name: name, optionId: id, timestamp: Date.now() });
                 localStorage.setItem('kkday_poll_data_' + POLL_VERSION, JSON.stringify(localData));
-                loadLocalData(); // Re-render
-                
+                loadLocalData(); 
             } else {
-                // Handle Firebase Vote
                 try {
                     const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                    
-                    // Create doc if needed logic is handled by setDoc with merge
                     await setDoc(pollRef, {
                         ['count_' + id]: increment(1),
-                        logs: arrayUnion({
-                            name: name,
-                            optionId: id,
-                            timestamp: Date.now()
-                        })
+                        logs: arrayUnion({ name: name, optionId: id, timestamp: Date.now() })
                     }, { merge: true });
                 } catch (e) {
                     console.error("Vote failed", e);
                     alert("連線失敗，切換為單機模式");
-                    // Revert lock
                     localStorage.removeItem(`has_voted_${POLL_VERSION}`);
-                    
-                    initLocalMode(); // Fallback on failure
+                    initLocalMode(); 
                 }
             }
         };
 
-        // Render Functions
         function renderPoll(data) {
             const container = document.getElementById('poll-container');
             const totalDisplay = document.getElementById('total-votes');
             
             let totalVotes = 0;
-            pollOptions.forEach(opt => {
-                totalVotes += (data['count_' + opt.id] || 0);
-            });
-            
+            pollOptions.forEach(opt => { totalVotes += (data['count_' + opt.id] || 0); });
             if(totalDisplay) totalDisplay.innerText = totalVotes;
 
             let html = '';
             pollOptions.forEach(opt => {
                 const count = data['count_' + opt.id] || 0;
                 const percentage = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-                const hasVoted = localStorage.getItem('voted_' + opt.id + '_' + POLL_VERSION);
-                
-                // Safety check for width to avoid layout break
+                const hasVotedThis = localStorage.getItem(`voted_${opt.id}_${POLL_VERSION}`);
+                const hasVotedAny = localStorage.getItem(`has_voted_${POLL_VERSION}`);
                 const barWidth = percentage < 1 ? 1 : percentage; 
 
                 html += `
@@ -552,9 +642,9 @@
                                 <div class="poll-bar ${opt.color} h-full transition-all duration-1000 ease-out" style="width: ${barWidth}%"></div>
                             </div>
                             <button onclick="vote('${opt.id}')" 
-                                class="vote-btn px-3 py-1 rounded text-xs font-bold transition shadow ${hasVoted ? 'bg-gray-800 text-white' : 'text-white ' + opt.color + ' hover:brightness-110'}"
-                                ${localStorage.getItem('has_voted_' + POLL_VERSION) && !hasVoted ? 'disabled' : ''}>
-                                ${hasVoted ? '已投' : '投票'}
+                                class="vote-btn px-3 py-1 rounded text-xs font-bold transition shadow ${hasVotedThis ? 'bg-gray-800 text-white' : (hasVotedAny ? 'bg-gray-300 text-gray-500' : 'text-white ' + opt.color + ' hover:brightness-110')}"
+                                ${hasVotedAny ? 'disabled' : ''}>
+                                ${hasVotedThis ? '已投' : '投票'}
                             </button>
                         </div>
                     </div>
@@ -566,30 +656,24 @@
         function renderLogs(logs) {
             const logsContainer = document.getElementById('poll-logs');
             if (!logsContainer) return;
-            
             if (!logs || logs.length === 0) {
                 logsContainer.innerHTML = '<div class="text-center text-gray-400 py-4">暫無紀錄，快來投第一票！</div>';
                 return;
             }
 
             const recentLogs = logs.sort((a, b) => b.timestamp - a.timestamp).slice(0, 5);
-
             let html = '';
             recentLogs.forEach(log => {
                 const option = pollOptions.find(o => o.id === log.optionId);
                 const colorClass = option ? option.color.replace('bg-', 'text-') : 'text-gray-600';
                 
-                // Time formatting
-                const now = Date.now();
-                const diffMs = now - log.timestamp;
-                const diffMins = Math.floor(diffMs / 60000);
+                const diffMins = Math.floor((Date.now() - log.timestamp) / 60000);
                 let timeText = '剛剛';
                 if (diffMins > 0) {
                     if (diffMins < 60) timeText = `${diffMins} 分鐘前`;
                     else timeText = `${Math.floor(diffMins/60)} 小時前`;
                 }
 
-                // Sanitize input to prevent XSS (basic)
                 const safeName = (log.name || '匿名').replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
                 html += `
@@ -611,20 +695,14 @@
             logsContainer.innerHTML = html;
         }
 
-        // Highlighting Logic (Feature)
-        function highlight(type) {
+        // Filter Logic
+        window.highlight = function(type) {
             resetStyles();
-            
-            // Map button types to card IDs
             const mapping = {
                 'myth-all': ['card-myth-all'], 
                 'iwato': ['card-myth-train'], 
                 'shrine': ['card-myth-shrine'], 
-                'unique': ['card-unique'], 
-                'classic': [], // No classic left, or we can use it to reset?
-                // Actually button 'classic' is labeled "Other" in filter, let's remove or map to something else?
-                // Prompt asked to remove Yufuin. So "Classic" button should probably be removed or reset.
-                // I will remove the "Classic" button from HTML in future, but for now let's map it to empty or reset.
+                'unique': ['card-unique']
             };
 
             const target = mapping[type];
@@ -632,12 +710,7 @@
 
             const cards = document.querySelectorAll('.tour-card');
             cards.forEach(c => {
-                let shouldHighlight = false;
                 if (target.includes(c.id)) {
-                    shouldHighlight = true;
-                }
-
-                if (shouldHighlight) {
                     c.classList.add('card-highlight');
                 } else {
                     c.classList.add('card-dimmed');
@@ -645,7 +718,7 @@
             });
         }
 
-        function resetHighlight() {
+        window.resetHighlight = function() {
             resetStyles();
         }
 
@@ -656,9 +729,10 @@
             });
         }
 
-        // Start
         renderInitialUI();
         initSystem();
     </script>
 </body>
 </html>
+
+
