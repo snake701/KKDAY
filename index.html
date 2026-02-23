@@ -79,7 +79,7 @@
     <div class="bg-slate-700 text-white py-12 px-4 text-center">
         <h1 class="text-3xl md:text-4xl font-bold mb-4">阿蘇火山口 vs 神話能量秘境</h1>
         <p class="text-slate-300 max-w-2xl mx-auto text-lg">
-            想直達火山口感受震撼？還是想深入天安河原與上色見神社？為您嚴選最頂級的 5 條路線。
+            想直達火山口感受震撼？還是想深入天安河原與上色見神社？為您嚴選最頂級的 7 條路線。
         </p>
 
         <!-- Interactive Filter -->
@@ -95,12 +95,17 @@
                 <button onclick="highlight('iwato')" class="px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-teal-500 hover:text-white transition shadow">
                     <i class="fas fa-train mr-1"></i> 天安河原 (+小火車)
                 </button>
-                <div class="w-full h-0 md:hidden"></div>
                 <button onclick="highlight('shrine')" class="px-4 py-2 bg-white text-green-700 rounded-full font-bold hover:bg-green-500 hover:text-white transition shadow">
                     <i class="fas fa-hot-tub mr-1"></i> 上色見 (+黑川溫泉)
                 </button>
                 <button onclick="highlight('unique')" class="px-4 py-2 bg-white text-orange-700 rounded-full font-bold hover:bg-orange-500 hover:text-white transition shadow">
                     <i class="fas fa-eye mr-1"></i> 福岡特殊秘境 (大臥佛)
+                </button>
+                <button onclick="highlight('ocean')" class="px-4 py-2 bg-white text-blue-700 rounded-full font-bold hover:bg-blue-500 hover:text-white transition shadow">
+                    <i class="fas fa-water mr-1"></i> 絕景海上鳥居
+                </button>
+                 <button onclick="highlight('castle')" class="px-4 py-2 bg-white text-amber-700 rounded-full font-bold hover:bg-amber-600 hover:text-white transition shadow">
+                    <i class="fab fa-fort-awesome mr-1"></i> 歷史名城遊船
                 </button>
                 <button onclick="resetHighlight()" class="px-4 py-2 bg-gray-600 text-white rounded-full font-bold hover:bg-gray-500 transition shadow">
                     顯示全部
@@ -220,6 +225,46 @@
                 </div>
             </div>
 
+            <!-- 5. Tsunoshima (51866) -->
+            <div id="card-ocean" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-blue-500">
+                <div class="bg-blue-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    絕景海景 • 山口秘境
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">51866</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-blue-600">NT$ 1,980</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">角島大橋＆元乃隅神社</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-blue-50 p-1 rounded"><i class="fas fa-bridge text-blue-600 w-5"></i> 角島大橋 (絕美海景)</div>
+                        <div class="font-bold bg-red-50 p-1 rounded"><i class="fas fa-torii-gate text-red-600 w-5"></i> 元乃隅神社 (千本鳥居)</div>
+                        <div class="text-gray-500"><i class="fas fa-fish w-5"></i> 唐戶市場</div>
+                    </div>
+                    <button onclick="openTourModal('51866')" class="block w-full text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 6. Kumamoto & Yanagawa (266858) -->
+            <div id="card-castle" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-amber-500">
+                <div class="bg-amber-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    歷史文化 • 水鄉遊船
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">266858</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-amber-600">NT$ 2,250</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">熊本城＆柳川遊船</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-amber-50 p-1 rounded"><i class="fab fa-fort-awesome text-amber-600 w-5"></i> 熊本城 (三大名城)</div>
+                        <div class="font-bold bg-blue-50 p-1 rounded"><i class="fas fa-ship text-blue-600 w-5"></i> 柳川遊船 (日本威尼斯)</div>
+                        <div class="text-gray-500"><i class="fas fa-leaf w-5"></i> 熊本櫻之馬場 城彩苑</div>
+                    </div>
+                    <button onclick="openTourModal('266858')" class="block w-full text-center bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-lg transition">
+                        <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
+                    </button>
+                </div>
+            </div>
+
         </div>
 
         <!-- SECTION 2: 進階詳細版比較表 -->
@@ -238,8 +283,8 @@
                         <th class="p-4 w-1/12 text-center bg-red-50 text-red-700"><i class="fas fa-volcano mr-1"></i> 阿蘇火山口</th>
                         <th class="p-4 w-1/12 text-center bg-purple-50 text-purple-700"><i class="fas fa-torii-gate mr-1"></i> 上色見神社</th>
                         <th class="p-4 w-1/12 text-center bg-teal-50 text-teal-700"><i class="fas fa-dungeon mr-1"></i> 天安河原</th>
-                        <th class="p-4 w-2/12 text-center bg-gray-50">特殊 / 溫泉</th>
-                        <th class="p-4 w-3/12">其他亮點</th>
+                        <th class="p-4 w-2/12 text-center bg-gray-50">特色 / 其他</th>
+                        <th class="p-4 w-3/12">亮點簡介</th>
                         <th class="p-4 w-1/12 text-center">操作</th>
                     </tr>
                 </thead>
@@ -264,7 +309,7 @@
                         <td class="p-4 text-center text-gray-300 bg-red-50">❌</td>
                         <td class="p-4 text-center text-lg bg-purple-50">✅</td>
                         <td class="p-4 text-center text-lg bg-teal-50">✅</td>
-                        <td class="p-4 text-center text-gray-300 bg-gray-50">❌</td>
+                        <td class="p-4 text-center text-gray-500 bg-gray-50">高千穗峽</td>
                         <td class="p-4 text-xs">
                             一天跑完兩個最遠的能量景點 (上色見+天安河原)。
                         </td>
@@ -309,13 +354,39 @@
                         </td>
                         <td class="p-4 text-center"><button onclick="openTourModal('268144')" class="text-orange-600 underline hover:text-orange-800">詳情</button></td>
                     </tr>
+                    
+                     <!-- 5. Tsunoshima (51866) -->
+                    <tr class="detail-row hover:bg-blue-50 transition">
+                        <td class="p-4 font-bold text-blue-700">海景絕景線 (51866)</td>
+                        <td class="p-4 text-center text-gray-300 bg-red-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-teal-50">❌</td>
+                        <td class="p-4 text-center font-bold text-blue-600 bg-gray-50"><i class="fas fa-water"></i> 角島大橋</td>
+                        <td class="p-4 text-xs">
+                            絕美角島大橋 + 元乃隅神社 (海岸千本鳥居)。
+                        </td>
+                        <td class="p-4 text-center"><button onclick="openTourModal('51866')" class="text-blue-600 underline hover:text-blue-800">詳情</button></td>
+                    </tr>
+                    
+                     <!-- 6. Kumamoto (266858) -->
+                    <tr class="detail-row hover:bg-amber-50 transition">
+                        <td class="p-4 font-bold text-amber-700">歷史水鄉線 (266858)</td>
+                        <td class="p-4 text-center text-gray-300 bg-red-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-teal-50">❌</td>
+                        <td class="p-4 text-center font-bold text-amber-600 bg-gray-50"><i class="fab fa-fort-awesome"></i> 熊本城</td>
+                        <td class="p-4 text-xs">
+                            熊本名城巡禮 + 日本威尼斯「柳川」浪漫遊船。
+                        </td>
+                        <td class="p-4 text-center"><button onclick="openTourModal('266858')" class="text-amber-600 underline hover:text-amber-800">詳情</button></td>
+                    </tr>
 
                 </tbody>
             </table>
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 5.0 (No Poll Edition)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 6.0 (Extended Edition)</div>
             </div>
 
         </div>
@@ -372,7 +443,7 @@
             },
             '32511': {
                 title: '神話全覽：上色見＋天安河原',
-                tag: '★ 許願款：神話大滿貫',
+                tag: '★ 神話大滿貫',
                 tagColor: 'bg-purple-600',
                 time: '約 11 小時',
                 spots: '高千穗峽散步、天岩戶神社 (天安河原)、上色見熊野座神社',
@@ -401,6 +472,22 @@
                 time: '約 9 小時',
                 spots: '南藏院 (世界最大青銅臥佛)、櫻井二見浦 (夫婦岩)、芥屋大門 (龍貓森林)',
                 desc: '探索福岡近郊最特殊的視覺震撼與網美景點！\n\n行程先帶您前往【南藏院】，親眼目睹長達 41 公尺、氣勢磅礴的世界最大青銅臥佛，感受莊嚴與震撼；隨後前往以無敵海景聞名的【糸島】，打卡潔白的櫻井二見浦夫婦岩，並走進宛如宮崎駿動畫場景般的「龍貓森林」，一趟行程囊括文化震撼與自然美景。'
+            },
+            '51866': {
+                title: '絕景海景：角島大橋＆元乃隅神社',
+                tag: '山口秘境 • 海景鳥居',
+                tagColor: 'bg-blue-500',
+                time: '約 11 小時',
+                spots: '角島大橋、元乃隅神社、唐戶市場',
+                desc: '帶您跨越關門海峽，前往山口縣的絕美海岸線！\n\n行程將造訪被譽為「死前必去的世界絕景」的【元乃隅神社】，123座紅色鳥居沿著海岸線綿延，非常壯觀；接著前往風景如畫的【角島大橋】，欣賞鈷藍色的海水與白色沙灘。途中還會經過著名的唐戶市場，讓您有機會品嚐新鮮的海產。'
+            },
+             '266858': {
+                title: '歷史名城與水鄉：熊本城＆柳川遊船',
+                tag: '歷史名城 • 水鄉遊船',
+                tagColor: 'bg-amber-500',
+                time: '約 9.5 小時',
+                spots: '熊本城、櫻之馬場城彩苑、柳川遊船',
+                desc: '結合歷史文化與悠閒水鄉的經典之旅。\n\n上午前往日本三大名城之一的【熊本城】，欣賞其宏偉的建築與修復後的風貌，並在充滿江戶時代風情的城彩苑品嚐當地小吃。午後前往被稱為「日本威尼斯」的水鄉【柳川】，搭乘傳統的「搖櫓船」，在船夫的歌聲中沿著運河悠閒欣賞兩岸風光，度過愜意的午後。'
             }
         };
 
@@ -458,7 +545,9 @@
                 'myth-all': ['card-myth-all'], 
                 'iwato': ['card-myth-train'], 
                 'shrine': ['card-myth-shrine'], 
-                'unique': ['card-unique']
+                'unique': ['card-unique'],
+                'ocean': ['card-ocean'],
+                'castle': ['card-castle']
             };
 
             const target = mapping[type];
