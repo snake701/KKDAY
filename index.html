@@ -40,11 +40,6 @@
         /* Table Optimization */
         .detail-row td { vertical-align: top; padding-top: 1rem; padding-bottom: 1rem; }
         
-        /* Poll Styles */
-        .poll-bar-container { background-color: #e5e7eb; border-radius: 9999px; overflow: hidden; height: 1.5rem; position: relative; }
-        .poll-bar { height: 100%; transition: width 1s ease-in-out; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; color: white; font-size: 0.75rem; font-weight: bold; }
-        .vote-btn:disabled { opacity: 0.5; cursor: not-allowed; background-color: #9ca3af; color: #fff; }
-
         /* Modal Animation */
         .modal-enter { opacity: 1 !important; pointer-events: auto !important; }
         .modal-enter .modal-content { transform: scale(1) !important; }
@@ -116,40 +111,6 @@
 
     <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-        <!-- SECTION 0: Voting Poll -->
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border border-gray-100">
-            <div class="bg-gradient-to-r from-red-500 to-indigo-600 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="flex items-center">
-                    <h2 id="poll-title" class="text-xl font-bold"><i class="fas fa-poll mr-2"></i>大家最想去哪裡？</h2>
-                    <span class="ml-2 text-sm bg-white/20 px-3 py-1 rounded-full">累積 <span id="total-votes">0</span> 票</span>
-                    <button onclick="resetPoll()" class="ml-3 text-xs bg-black/20 hover:bg-red-600/80 text-white px-2 py-1 rounded transition flex items-center" title="重置">
-                        <i class="fas fa-trash-alt mr-1"></i> 重置
-                    </button>
-                </div>
-                <div class="flex items-center w-full md:w-auto">
-                    <div class="relative w-full">
-                        <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="text" id="voter-name" placeholder="請輸入您的暱稱 (記名投票)" 
-                            class="pl-10 pr-4 py-2 rounded-full text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white/50 w-full md:w-64 border-none shadow-inner bg-white/90">
-                    </div>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
-                <div class="p-6 md:col-span-2" id="poll-container">
-                    <div class="text-center text-gray-500 py-8 flex flex-col items-center justify-center">
-                        <i class="fas fa-circle-notch fa-spin text-2xl mb-2 text-indigo-500"></i>
-                        <span>初始化投票選項中...</span>
-                    </div>
-                </div>
-                <div class="p-6 bg-gray-50/50">
-                    <h3 class="text-sm font-bold text-gray-500 uppercase mb-3"><i class="fas fa-history mr-1"></i> 最新投票動態</h3>
-                    <div id="poll-logs" class="space-y-3 text-sm">
-                        <div class="text-center text-gray-400 py-4">暫無紀錄</div>
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <!-- SECTION 1: 卡片牆 -->
         <div class="flex items-center mb-6">
@@ -354,7 +315,7 @@
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 4.1 (Aso + Myth Edition)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 5.0 (No Poll Edition)</div>
             </div>
 
         </div>
@@ -399,7 +360,6 @@
         </div>
     </div>
 
-    <!-- 行程詳細資料定義區 -->
     <script>
         const tourData = {
             '175701': {
@@ -444,7 +404,6 @@
             }
         };
 
-        // Modal Control Functions
         function openTourModal(id) {
             const data = tourData[id];
             if (!data) return;
@@ -490,237 +449,6 @@
                 modal.classList.add('hidden');
             }, 300);
         }
-    </script>
-
-    <!-- Firebase & Poll Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- 設定與變數 ---
-        const POLL_VERSION = 'v4.1'; // Updated version for new list with correct Aso ID
-        
-        // Poll Options Configuration (5 items)
-        const pollOptions = [
-            { id: '175701', name: '阿蘇火山直達線 (黑川/熊本城)', color: 'bg-red-600' },
-            { id: '32511', name: '神話全覽線 (上色見+天安河原)', color: 'bg-purple-600' },
-            { id: '181723', name: '鐵道深度線 (小火車+天安河原)', color: 'bg-teal-500' },
-            { id: '150994', name: '秘境溫泉線 (上色見+黑川)', color: 'bg-green-600' },
-            { id: '268144', name: '福岡雙秘境 (臥佛+糸島)', color: 'bg-orange-500' }
-        ];
-
-        let db, auth, appId;
-        let isLocalMode = false;
-
-        function renderInitialUI() {
-             renderPoll({}); 
-             document.getElementById('poll-logs').innerHTML = '<div class="text-center text-gray-400 py-4">載入即時動態中...</div>';
-        }
-
-        async function initSystem() {
-            try {
-                const firebaseConfig = {
-                    apiKey: "AIzaSyAGHMP1HLJJPRQD_9CXnwI6lQwkcbZNm8M",
-                    authDomain: "fukuoka-tour-vote.firebaseapp.com",
-                    projectId: "fukuoka-tour-vote",
-                    storageBucket: "fukuoka-tour-vote.firebasestorage.app",
-                    messagingSenderId: "997387578824",
-                    appId: "1:997387578824:web:1006cda95b7fe7508d24fd"
-                };
-
-                const app = initializeApp(firebaseConfig);
-                auth = getAuth(app);
-                db = getFirestore(app);
-                
-                appId = 'fukuoka-public-vote-' + POLL_VERSION; 
-
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                await new Promise((resolve, reject) => {
-                    const unsubscribe = onAuthStateChanged(auth, (user) => {
-                        if (user) { unsubscribe(); resolve(user); }
-                    }, (err) => reject(err));
-                });
-
-                const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                
-                onSnapshot(pollRef, (docSnap) => {
-                    const data = docSnap.exists() ? docSnap.data() : {};
-                    renderPoll(data);
-                    renderLogs(data.logs || []);
-                }, (error) => {
-                    console.warn("Snapshot failed, falling back to local:", error);
-                    initLocalMode();
-                });
-
-            } catch (error) {
-                console.log("Firebase init failed or local mode requested:", error);
-                initLocalMode();
-            }
-        }
-
-        function initLocalMode() {
-            isLocalMode = true;
-            const titleContainer = document.getElementById('poll-title');
-            if(titleContainer && !titleContainer.innerHTML.includes('單機')) {
-                 titleContainer.innerHTML += ' <span class="text-xs bg-white/20 px-2 py-1 rounded ml-2 border border-white/30">(單機版)</span>';
-            }
-            loadLocalData();
-        }
-
-        function loadLocalData() {
-            const localData = JSON.parse(localStorage.getItem('kkday_poll_data_' + POLL_VERSION) || '{"logs": []}');
-            renderPoll(localData);
-            renderLogs(localData.logs || []);
-        }
-
-        window.resetPoll = async () => {
-            if(!confirm('確定要重置所有投票數據嗎？這將清除所有人的投票紀錄。')) return;
-
-            localStorage.removeItem(`has_voted_${POLL_VERSION}`);
-            pollOptions.forEach(opt => localStorage.removeItem(`voted_${opt.id}_${POLL_VERSION}`));
-
-            if(isLocalMode) {
-                localStorage.removeItem('kkday_poll_data_' + POLL_VERSION);
-                loadLocalData();
-                alert('本地數據已重置！');
-            } else {
-                try {
-                    const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                    await setDoc(pollRef, { logs: [] }); 
-                    alert('全域投票數據已重置！');
-                } catch(e) {
-                    console.error(e);
-                    alert('重置失敗，請檢查權限');
-                }
-            }
-        };
-
-        window.vote = async (id) => {
-            const nameInput = document.getElementById('voter-name');
-            const name = nameInput.value.trim();
-
-            if (!name) {
-                alert('請先輸入您的暱稱，才能進行記名投票喔！');
-                nameInput.focus();
-                return;
-            }
-
-            if (localStorage.getItem(`has_voted_${POLL_VERSION}`)) {
-                alert(`您已經在本裝置投過票囉！若要重投請點擊標題旁的重置按鈕。`);
-                return;
-            }
-
-            localStorage.setItem(`has_voted_${POLL_VERSION}`, 'true');
-            localStorage.setItem(`voted_${id}_${POLL_VERSION}`, 'true');
-
-            if (isLocalMode) {
-                const localData = JSON.parse(localStorage.getItem('kkday_poll_data_' + POLL_VERSION) || '{"logs": []}');
-                localData['count_' + id] = (localData['count_' + id] || 0) + 1;
-                if (!localData.logs) localData.logs = [];
-                localData.logs.push({ name: name, optionId: id, timestamp: Date.now() });
-                localStorage.setItem('kkday_poll_data_' + POLL_VERSION, JSON.stringify(localData));
-                loadLocalData(); 
-            } else {
-                try {
-                    const pollRef = doc(db, 'artifacts', appId, 'public', 'data', 'poll_results', 'current');
-                    await setDoc(pollRef, {
-                        ['count_' + id]: increment(1),
-                        logs: arrayUnion({ name: name, optionId: id, timestamp: Date.now() })
-                    }, { merge: true });
-                } catch (e) {
-                    console.error("Vote failed", e);
-                    alert("連線失敗，切換為單機模式");
-                    localStorage.removeItem(`has_voted_${POLL_VERSION}`);
-                    initLocalMode(); 
-                }
-            }
-        };
-
-        function renderPoll(data) {
-            const container = document.getElementById('poll-container');
-            const totalDisplay = document.getElementById('total-votes');
-            
-            let totalVotes = 0;
-            pollOptions.forEach(opt => { totalVotes += (data['count_' + opt.id] || 0); });
-            if(totalDisplay) totalDisplay.innerText = totalVotes;
-
-            let html = '';
-            pollOptions.forEach(opt => {
-                const count = data['count_' + opt.id] || 0;
-                const percentage = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-                const hasVotedThis = localStorage.getItem(`voted_${opt.id}_${POLL_VERSION}`);
-                const hasVotedAny = localStorage.getItem(`has_voted_${POLL_VERSION}`);
-                const barWidth = percentage < 1 ? 1 : percentage; 
-
-                html += `
-                    <div class="mb-3">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="font-bold text-gray-700 text-sm">${opt.name}</span>
-                            <span class="text-xs text-gray-500">${count} 票 (${percentage}%)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="flex-grow poll-bar-container bg-gray-200 rounded-full h-4 overflow-hidden relative">
-                                <div class="poll-bar ${opt.color} h-full transition-all duration-1000 ease-out" style="width: ${barWidth}%"></div>
-                            </div>
-                            <button onclick="vote('${opt.id}')" 
-                                class="vote-btn px-3 py-1 rounded text-xs font-bold transition shadow ${hasVotedThis ? 'bg-gray-800 text-white' : (hasVotedAny ? 'bg-gray-300 text-gray-500' : 'text-white ' + opt.color + ' hover:brightness-110')}"
-                                ${hasVotedAny ? 'disabled' : ''}>
-                                ${hasVotedThis ? '已投' : '投票'}
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            if(container) container.innerHTML = html;
-        }
-
-        function renderLogs(logs) {
-            const logsContainer = document.getElementById('poll-logs');
-            if (!logsContainer) return;
-            if (!logs || logs.length === 0) {
-                logsContainer.innerHTML = '<div class="text-center text-gray-400 py-4">暫無紀錄，快來投第一票！</div>';
-                return;
-            }
-
-            const recentLogs = logs.sort((a, b) => b.timestamp - a.timestamp).slice(0, 5);
-            let html = '';
-            recentLogs.forEach(log => {
-                const option = pollOptions.find(o => o.id === log.optionId);
-                const colorClass = option ? option.color.replace('bg-', 'text-') : 'text-gray-600';
-                
-                const diffMins = Math.floor((Date.now() - log.timestamp) / 60000);
-                let timeText = '剛剛';
-                if (diffMins > 0) {
-                    if (diffMins < 60) timeText = `${diffMins} 分鐘前`;
-                    else timeText = `${Math.floor(diffMins/60)} 小時前`;
-                }
-
-                const safeName = (log.name || '匿名').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-                html += `
-                    <div class="flex items-center justify-between border-b border-gray-100 pb-2 last:border-0">
-                        <div class="flex items-center">
-                            <div class="w-2 h-2 rounded-full ${option ? option.color : 'bg-gray-400'} mr-2"></div>
-                            <div>
-                                <span class="font-bold text-gray-700 text-xs">${safeName}</span>
-                                <span class="text-xs text-gray-400 transform scale-90 origin-left inline-block">投給了</span>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="font-bold text-xs ${colorClass}">${option ? option.name : '未知行程'}</span>
-                            <div class="text-[10px] text-gray-400">${timeText}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            logsContainer.innerHTML = html;
-        }
 
         // Filter Logic
         window.highlight = function(type) {
@@ -756,9 +484,6 @@
                 card.classList.remove('card-highlight', 'card-dimmed');
             });
         }
-
-        renderInitialUI();
-        initSystem();
     </script>
 </body>
 </html>
