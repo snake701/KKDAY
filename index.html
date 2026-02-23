@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KKday 福岡一日遊 (神話與秘境版)</title>
+    <title>KKday 福岡一日遊 (綜合精選版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f5f3ff; /* Mystery Vibe */
+            background-color: #f8fafc; 
         }
         .card-highlight {
             ring: 4px;
@@ -68,42 +68,46 @@
 <body class="text-gray-800">
 
     <!-- Navbar -->
-    <nav class="bg-purple-900 text-white shadow-lg sticky top-0 z-50">
+    <nav class="bg-slate-800 text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <i class="fas fa-moon text-2xl mr-2 text-yellow-400"></i>
-                    <span class="font-bold text-xl">九州神話 & 秘境特搜</span>
+                    <i class="fas fa-mountain text-2xl mr-2 text-red-400"></i>
+                    <span class="font-bold text-xl">九州深度一日遊 終極決策</span>
                 </div>
-                <div class="text-sm hidden sm:block">KKday 精選 (無阿蘇)</div>
+                <div class="text-sm hidden sm:block">KKday 精選</div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-purple-800 text-white py-12 px-4 text-center">
-        <h1 class="text-3xl md:text-4xl font-bold mb-4">尋找「天岩戶」與「南藏院」</h1>
-        <p class="text-purple-200 max-w-2xl mx-auto text-lg">
-            避開大眾觀光區，專注於最具靈氣的 4 條特殊路線：上色見、天安河原、臥佛、黑川溫泉。
+    <div class="bg-slate-700 text-white py-12 px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">阿蘇火山口 vs 神話能量秘境</h1>
+        <p class="text-slate-300 max-w-2xl mx-auto text-lg">
+            想直達火山口感受震撼？還是想深入天安河原與上色見神社？為您嚴選最頂級的 5 條路線。
         </p>
 
         <!-- Interactive Filter -->
         <div class="mt-8 bg-white/10 backdrop-blur-md p-6 rounded-xl max-w-5xl mx-auto border border-white/20">
-            <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>點擊篩選您的願望：</h3>
+            <h3 class="text-lg font-bold mb-4"><i class="fas fa-magic mr-2"></i>您這次最想看什麼？(點擊篩選)</h3>
             <div class="flex flex-wrap justify-center gap-3" id="filters">
-                <button onclick="highlight('myth-all')" class="px-4 py-2 bg-white text-indigo-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow border-2 border-purple-500">
+                <button onclick="highlight('aso')" class="px-4 py-2 bg-white text-red-700 rounded-full font-bold hover:bg-red-600 hover:text-white transition shadow border-2 border-red-500">
+                    <i class="fas fa-volcano mr-1"></i> 直達阿蘇火山口
+                </button>
+                <button onclick="highlight('myth-all')" class="px-4 py-2 bg-white text-indigo-700 rounded-full font-bold hover:bg-purple-500 hover:text-white transition shadow">
                     <i class="fas fa-star mr-1"></i> 神話全覽 (上色見+天岩戶)
                 </button>
                 <button onclick="highlight('iwato')" class="px-4 py-2 bg-white text-teal-700 rounded-full font-bold hover:bg-teal-500 hover:text-white transition shadow">
-                    <i class="fas fa-train mr-1"></i> 鐵道+天安河原
+                    <i class="fas fa-train mr-1"></i> 天安河原 (+小火車)
                 </button>
+                <div class="w-full h-0 md:hidden"></div>
                 <button onclick="highlight('shrine')" class="px-4 py-2 bg-white text-green-700 rounded-full font-bold hover:bg-green-500 hover:text-white transition shadow">
-                    <i class="fas fa-hot-tub mr-1"></i> 溫泉+上色見
+                    <i class="fas fa-hot-tub mr-1"></i> 上色見 (+黑川溫泉)
                 </button>
                 <button onclick="highlight('unique')" class="px-4 py-2 bg-white text-orange-700 rounded-full font-bold hover:bg-orange-500 hover:text-white transition shadow">
-                    <i class="fas fa-eye mr-1"></i> 臥佛+糸島秘境
+                    <i class="fas fa-eye mr-1"></i> 福岡特殊秘境 (大臥佛)
                 </button>
-                <button onclick="resetHighlight()" class="px-4 py-2 bg-gray-700 text-white rounded-full font-bold hover:bg-gray-600 transition shadow">
+                <button onclick="resetHighlight()" class="px-4 py-2 bg-gray-600 text-white rounded-full font-bold hover:bg-gray-500 transition shadow">
                     顯示全部
                 </button>
             </div>
@@ -115,7 +119,7 @@
 
         <!-- SECTION 0: Voting Poll -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-12 border border-gray-100">
-            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="bg-gradient-to-r from-red-500 to-indigo-600 p-4 text-white flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center">
                     <h2 id="poll-title" class="text-xl font-bold"><i class="fas fa-poll mr-2"></i>大家最想去哪裡？</h2>
                     <span class="ml-2 text-sm bg-white/20 px-3 py-1 rounded-full">累積 <span id="total-votes">0</span> 票</span>
@@ -149,16 +153,36 @@
         
         <!-- SECTION 1: 卡片牆 -->
         <div class="flex items-center mb-6">
-            <div class="h-8 w-2 bg-indigo-500 rounded-full mr-3"></div>
+            <div class="h-8 w-2 bg-red-500 rounded-full mr-3"></div>
             <h2 class="text-2xl font-bold text-gray-800">精選行程卡片</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" id="card-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" id="card-container">
+
+            <!-- 0. Aso Crater (175701) -->
+            <div id="card-aso" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border-2 border-red-500 ring-4 ring-red-100 transform scale-[1.01]">
+                <div class="bg-gradient-to-r from-red-600 to-orange-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    ★ 震撼體驗：直達火山口
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">175701</span></div>
+                    <div class="mb-3"><span class="text-2xl font-bold text-red-600">NT$ 1,424</span> <span class="text-xs text-gray-500">起</span></div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">阿蘇活火山＆黑川/熊本城</h3>
+                    <div class="space-y-2 mb-6 flex-1 text-sm text-gray-700">
+                        <div class="font-bold bg-red-50 p-1 rounded"><i class="fas fa-volcano text-red-600 w-5"></i> 阿蘇火山口 (直達)</div>
+                        <div class="font-bold bg-orange-50 p-1 rounded"><i class="fas fa-torii-gate text-orange-600 w-5"></i> 阿蘇神社 & 草千里</div>
+                        <div class="text-gray-600 font-bold"><i class="fas fa-random w-5"></i> 黑川溫泉 or 熊本城 (二選一)</div>
+                    </div>
+                    <button onclick="openTourModal('175701')" class="block w-full text-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition">
+                        <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
+                    </button>
+                </div>
+            </div>
             
             <!-- 1. Myth All (32511) -->
-            <div id="card-myth-all" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border-2 border-purple-500 ring-4 ring-purple-100 transform scale-[1.01]">
-                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    ★ 許願款：神話大滿貫
+            <div id="card-myth-all" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-purple-400">
+                <div class="bg-purple-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
+                    神話大滿貫：雙神宮
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
                     <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">32511</span></div>
@@ -169,7 +193,7 @@
                         <div class="font-bold bg-indigo-50 p-1 rounded"><i class="fas fa-dungeon text-indigo-600 w-5"></i> 天岩戶神社 (天安河原)</div>
                         <div class="text-gray-500"><i class="fas fa-water w-5"></i> 高千穗峽 (散策)</div>
                     </div>
-                    <button onclick="openTourModal('32511')" class="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition">
+                    <button onclick="openTourModal('32511')" class="block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">
                         <i class="fas fa-info-circle mr-1"></i> 查看行程介紹
                     </button>
                 </div>
@@ -178,7 +202,7 @@
             <!-- 2. Myth Train (181723) -->
             <div id="card-myth-train" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-teal-400">
                 <div class="bg-teal-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    小火車 ＋ 天安河原
+                    高千穗：小火車 ＋ 天安河原
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
                     <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">181723</span></div>
@@ -198,7 +222,7 @@
             <!-- 3. Myth Shrine (150994) -->
             <div id="card-myth-shrine" class="tour-card bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col border border-gray-100 ring-green-500">
                 <div class="bg-green-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide text-center">
-                    上色見 ＋ 黑川溫泉
+                    阿蘇周邊：上色見 ＋ 黑川溫泉
                 </div>
                 <div class="p-6 flex-1 flex flex-col">
                     <div class="flex justify-between items-start mb-2"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-mono font-bold">150994</span></div>
@@ -238,91 +262,99 @@
         </div>
 
         <!-- SECTION 2: 進階詳細版比較表 -->
-        <div class="bg-indigo-800 text-white p-4 rounded-t-xl shadow-lg text-center">
-            <h2 class="text-xl font-bold"><i class="fas fa-table mr-2"></i>神話與秘境 深度比一比</h2>
-            <p class="text-indigo-200 text-sm">4 款精選行程，完全無阿蘇火山口</p>
+        <div class="bg-slate-800 text-white p-4 rounded-t-xl shadow-lg text-center">
+            <h2 class="text-xl font-bold"><i class="fas fa-table mr-2"></i>深度對決：火山口 vs 神話秘境</h2>
+            <p class="text-slate-300 text-sm">看看哪個行程的景點組合最符合您的需求</p>
         </div>
 
-        <div class="bg-white border-x border-b border-gray-200 rounded-b-xl p-4 md:p-6 shadow-lg">
+        <div class="bg-white border-x border-b border-gray-200 rounded-b-xl p-4 md:p-6 shadow-lg overflow-x-auto">
             
-            <!-- Legend -->
-            <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mb-6 text-sm flex flex-wrap gap-4 items-center justify-center">
-                <span class="font-bold text-gray-900">比較指標：</span>
-                <span class="flex items-center"><i class="fas fa-torii-gate text-purple-600 mr-1"></i> 上色見神社</span>
-                <span class="flex items-center"><i class="fas fa-dungeon text-teal-600 mr-1"></i> 天安河原</span>
-                <span class="flex items-center"><i class="fas fa-eye text-orange-600 mr-1"></i> 臥佛秘境</span>
-            </div>
-
             <!-- Desktop View Table -->
-            <div class="hidden md:block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-100 text-gray-600 text-sm uppercase tracking-wider border-b border-gray-200">
-                            <th class="p-4 w-2/12">行程名稱</th>
-                            <th class="p-4 w-1/12 text-center bg-purple-50">上色見神社</th>
-                            <th class="p-4 w-1/12 text-center bg-teal-50">天安河原</th>
-                            <th class="p-4 w-1/12 text-center bg-orange-50">臥佛秘境</th>
-                            <th class="p-4 w-3/12">其他景點/特色</th>
-                            <th class="p-4 w-1/12 text-center">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
-                        
-                        <!-- 1. Myth All (32511) -->
-                        <tr class="detail-row hover:bg-purple-50 transition bg-purple-50/30">
-                            <td class="p-4 font-bold text-purple-700">神話全覽線 (32511)</td>
-                            <td class="p-4 text-center text-lg bg-purple-50">✅</td>
-                            <td class="p-4 text-center text-lg bg-teal-50">✅</td>
-                            <td class="p-4 text-center text-gray-300 bg-orange-50">❌</td>
-                            <td class="p-4 text-xs">
-                                <strong>高效率！</strong>一天跑完兩個最遠的能量景點。
-                            </td>
-                            <td class="p-4 text-center"><button onclick="openTourModal('32511')" class="text-purple-600 underline hover:text-purple-800">詳情</button></td>
-                        </tr>
+            <table class="w-full text-left border-collapse min-w-[800px]">
+                <thead>
+                    <tr class="bg-gray-100 text-gray-600 text-sm uppercase tracking-wider border-b border-gray-200">
+                        <th class="p-4 w-2/12">行程名稱</th>
+                        <th class="p-4 w-1/12 text-center bg-red-50 text-red-700"><i class="fas fa-volcano mr-1"></i> 阿蘇火山口</th>
+                        <th class="p-4 w-1/12 text-center bg-purple-50 text-purple-700"><i class="fas fa-torii-gate mr-1"></i> 上色見神社</th>
+                        <th class="p-4 w-1/12 text-center bg-teal-50 text-teal-700"><i class="fas fa-dungeon mr-1"></i> 天安河原</th>
+                        <th class="p-4 w-2/12 text-center bg-gray-50">特殊 / 溫泉</th>
+                        <th class="p-4 w-3/12">其他亮點</th>
+                        <th class="p-4 w-1/12 text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                    
+                    <!-- 0. Aso Crater (175701) -->
+                    <tr class="detail-row hover:bg-red-50 transition bg-red-50/20">
+                        <td class="p-4 font-bold text-red-700">阿蘇火山直達線 (175701)</td>
+                        <td class="p-4 text-center text-lg bg-red-50">✅ 直達</td>
+                        <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-teal-50">❌</td>
+                        <td class="p-4 text-center font-bold text-orange-600 bg-gray-50">黑川 / 熊本城<br><span class="text-xs font-normal">(二選一)</span></td>
+                        <td class="p-4 text-xs">
+                            唯一帶您近距離觀賞活火山口的行程！還有阿蘇神社與草千里。
+                        </td>
+                        <td class="p-4 text-center"><button onclick="openTourModal('175701')" class="text-red-600 underline hover:text-red-800 font-bold">詳情</button></td>
+                    </tr>
 
-                        <!-- 2. Train (181723) -->
-                        <tr class="detail-row hover:bg-teal-50 transition">
-                            <td class="p-4 font-bold text-teal-700">鐵道深度線 (181723)</td>
-                            <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
-                            <td class="p-4 text-center text-lg bg-teal-50">✅</td>
-                            <td class="p-4 text-center text-gray-300 bg-orange-50">❌</td>
-                            <td class="p-4 text-xs">
-                                <strong>親子推薦。</strong>高千穗深度遊 + 天空小火車。
-                            </td>
-                            <td class="p-4 text-center"><button onclick="openTourModal('181723')" class="text-teal-600 underline hover:text-teal-800">詳情</button></td>
-                        </tr>
+                    <!-- 1. Myth All (32511) -->
+                    <tr class="detail-row hover:bg-purple-50 transition">
+                        <td class="p-4 font-bold text-purple-700">神話全覽線 (32511)</td>
+                        <td class="p-4 text-center text-gray-300 bg-red-50">❌</td>
+                        <td class="p-4 text-center text-lg bg-purple-50">✅</td>
+                        <td class="p-4 text-center text-lg bg-teal-50">✅</td>
+                        <td class="p-4 text-center text-gray-300 bg-gray-50">❌</td>
+                        <td class="p-4 text-xs">
+                            一天跑完兩個最遠的能量景點 (上色見+天安河原)。
+                        </td>
+                        <td class="p-4 text-center"><button onclick="openTourModal('32511')" class="text-purple-600 underline hover:text-purple-800">詳情</button></td>
+                    </tr>
 
-                        <!-- 3. Unique (268144) -->
-                        <tr class="detail-row hover:bg-orange-50 transition">
-                            <td class="p-4 font-bold text-orange-700">福岡雙秘境 (268144)</td>
-                            <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
-                            <td class="p-4 text-center text-gray-300 bg-teal-50">❌</td>
-                            <td class="p-4 text-center text-lg bg-orange-50">✅</td>
-                            <td class="p-4 text-xs">
-                                <strong>特殊行程。</strong>南藏院超大臥佛 + 糸島龍貓森林。
-                            </td>
-                            <td class="p-4 text-center"><button onclick="openTourModal('268144')" class="text-orange-600 underline hover:text-orange-800">詳情</button></td>
-                        </tr>
+                    <!-- 2. Train (181723) -->
+                    <tr class="detail-row hover:bg-teal-50 transition">
+                        <td class="p-4 font-bold text-teal-700">鐵道深度線 (181723)</td>
+                        <td class="p-4 text-center text-gray-300 bg-red-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
+                        <td class="p-4 text-center text-lg bg-teal-50">✅</td>
+                        <td class="p-4 text-center font-bold text-indigo-600 bg-gray-50"><i class="fas fa-train"></i> 小火車</td>
+                        <td class="p-4 text-xs">
+                            高千穗深度遊，搭乘天空小火車俯瞰鐵橋絕景。
+                        </td>
+                        <td class="p-4 text-center"><button onclick="openTourModal('181723')" class="text-teal-600 underline hover:text-teal-800">詳情</button></td>
+                    </tr>
 
-                        <!-- 4. Shrine (150994) -->
-                        <tr class="detail-row hover:bg-green-50 transition">
-                            <td class="p-4 font-bold text-green-700">秘境溫泉線 (150994)</td>
-                            <td class="p-4 text-center text-lg bg-purple-50">✅</td>
-                            <td class="p-4 text-center text-gray-300 bg-teal-50">❌</td>
-                            <td class="p-4 text-center text-gray-300 bg-orange-50">❌</td>
-                            <td class="p-4 text-xs">
-                                <strong>療癒放鬆。</strong>上色見神社 + 黑川溫泉散策。
-                            </td>
-                            <td class="p-4 text-center"><button onclick="openTourModal('150994')" class="text-green-600 underline hover:text-green-800">詳情</button></td>
-                        </tr>
+                    <!-- 3. Shrine (150994) -->
+                    <tr class="detail-row hover:bg-green-50 transition">
+                        <td class="p-4 font-bold text-green-700">秘境溫泉線 (150994)</td>
+                        <td class="p-4 text-center text-gray-400 bg-red-50 text-xs">草千里<br>(不看火山口)</td>
+                        <td class="p-4 text-center text-lg bg-purple-50">✅</td>
+                        <td class="p-4 text-center text-gray-300 bg-teal-50">❌</td>
+                        <td class="p-4 text-center font-bold text-green-600 bg-gray-50"><i class="fas fa-hot-tub"></i> 黑川溫泉</td>
+                        <td class="p-4 text-xs">
+                            上色見神社拍美照 + 日本最美黑川溫泉街散策。
+                        </td>
+                        <td class="p-4 text-center"><button onclick="openTourModal('150994')" class="text-green-600 underline hover:text-green-800">詳情</button></td>
+                    </tr>
 
-                    </tbody>
-                </table>
-            </div>
+                    <!-- 4. Unique (268144) -->
+                    <tr class="detail-row hover:bg-orange-50 transition">
+                        <td class="p-4 font-bold text-orange-700">福岡雙秘境 (268144)</td>
+                        <td class="p-4 text-center text-gray-300 bg-red-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-purple-50">❌</td>
+                        <td class="p-4 text-center text-gray-300 bg-teal-50">❌</td>
+                        <td class="p-4 text-center font-bold text-orange-600 bg-gray-50"><i class="fas fa-eye"></i> 南藏院臥佛</td>
+                        <td class="p-4 text-xs">
+                            世界最大青銅臥佛 + 糸島無敵海景 (龍貓森林)。
+                        </td>
+                        <td class="p-4 text-center"><button onclick="openTourModal('268144')" class="text-orange-600 underline hover:text-orange-800">詳情</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
             
             <div class="mt-6 text-center text-gray-400 text-xs">
                 資料來源：KKday 官網頁面整理，內容可能隨季節變動，請以訂購當下資訊為準。
-                <div class="mt-2 text-gray-500 font-bold">Ver 3.2 (Details Modal Added)</div>
+                <div class="mt-2 text-gray-500 font-bold">Ver 4.1 (Aso + Myth Edition)</div>
             </div>
 
         </div>
@@ -331,10 +363,7 @@
 
     <!-- 彈出式行程介紹 Modal -->
     <div id="tour-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
-        <!-- 遮罩背景 -->
         <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="modal-backdrop" onclick="closeTourModal()"></div>
-        
-        <!-- Modal 內容 -->
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-all duration-300 opacity-0 relative z-10" id="modal-content">
             <button onclick="closeTourModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 focus:outline-none transition">
                 <i class="fas fa-times text-xl"></i>
@@ -361,7 +390,6 @@
                 </div>
             </div>
             
-            <!-- 底部按鈕區 -->
             <div class="bg-gray-50 px-6 py-4 flex justify-end items-center border-t border-gray-100">
                 <button onclick="closeTourModal()" class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg font-bold hover:bg-gray-100 transition mr-3 shadow-sm">返回比較</button>
                 <a id="modal-link" href="#" target="_blank" class="px-5 py-2.5 bg-indigo-600 text-white rounded-lg font-bold hover:bg-indigo-700 transition shadow-md flex items-center">
@@ -371,15 +399,17 @@
         </div>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-y-20 transition-transform duration-300 z-50 flex items-center">
-        <i class="fas fa-check-circle text-green-400 mr-2"></i>
-        <span>已為您篩選！</span>
-    </div>
-
     <!-- 行程詳細資料定義區 -->
     <script>
         const tourData = {
+            '175701': {
+                title: '直達火山口：阿蘇火山＆黑川/熊本城',
+                tag: '★ 震撼體驗：直達火山口',
+                tagColor: 'bg-red-600',
+                time: '約 10 小時',
+                spots: '阿蘇山草千里、阿蘇火山 (火山口)、阿蘇神社、阿蘇道路驛站、黑川溫泉 或 熊本城 (預訂時二選一)',
+                desc: '這是喜愛壯麗自然景觀的首選行程！\n\n最大特色是帶您【直達阿蘇火山口】，近距離感受活火山的震撼魄力與裊裊白煙。除了漫步於絕美的阿蘇草千里、參拜歷史悠久的阿蘇神社外，最棒的是在行程尾聲，您可以根據喜好，自由選擇前往【黑川溫泉】享受日式古鎮的泡湯樂趣，或是前往日本三大名城之一的【熊本城】探索歷史。'
+            },
             '32511': {
                 title: '神話全覽：上色見＋天安河原',
                 tag: '★ 許願款：神話大滿貫',
@@ -419,7 +449,6 @@
             const data = tourData[id];
             if (!data) return;
 
-            // 填充資料
             document.getElementById('modal-id').innerText = '行程代號：' + id;
             document.getElementById('modal-title').innerText = data.title;
             
@@ -432,13 +461,11 @@
             document.getElementById('modal-desc').innerText = data.desc;
             document.getElementById('modal-link').href = `https://www.kkday.com/zh-tw/product/${id}`;
 
-            // 顯示 Modal (包含動畫)
             const modal = document.getElementById('tour-modal');
             const backdrop = document.getElementById('modal-backdrop');
             const content = document.getElementById('modal-content');
             
             modal.classList.remove('hidden');
-            // 觸發重繪以確保動畫生效
             void modal.offsetWidth; 
             
             backdrop.classList.remove('opacity-0');
@@ -453,14 +480,12 @@
             const backdrop = document.getElementById('modal-backdrop');
             const content = document.getElementById('modal-content');
             
-            // 反向動畫
             backdrop.classList.remove('opacity-100');
             backdrop.classList.add('opacity-0');
             
             content.classList.remove('opacity-100', 'scale-100');
             content.classList.add('opacity-0', 'scale-95');
             
-            // 等待動畫結束後隱藏
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 300);
@@ -474,10 +499,11 @@
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc, collection, arrayUnion } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- 設定與變數 ---
-        const POLL_VERSION = 'v3.2'; // Version update
+        const POLL_VERSION = 'v4.1'; // Updated version for new list with correct Aso ID
         
-        // Poll Options Configuration (4 items)
+        // Poll Options Configuration (5 items)
         const pollOptions = [
+            { id: '175701', name: '阿蘇火山直達線 (黑川/熊本城)', color: 'bg-red-600' },
             { id: '32511', name: '神話全覽線 (上色見+天安河原)', color: 'bg-purple-600' },
             { id: '181723', name: '鐵道深度線 (小火車+天安河原)', color: 'bg-teal-500' },
             { id: '150994', name: '秘境溫泉線 (上色見+黑川)', color: 'bg-green-600' },
@@ -506,6 +532,7 @@
                 const app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
+                
                 appId = 'fukuoka-public-vote-' + POLL_VERSION; 
 
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -699,6 +726,7 @@
         window.highlight = function(type) {
             resetStyles();
             const mapping = {
+                'aso': ['card-aso'], 
                 'myth-all': ['card-myth-all'], 
                 'iwato': ['card-myth-train'], 
                 'shrine': ['card-myth-shrine'], 
@@ -734,5 +762,3 @@
     </script>
 </body>
 </html>
-
-
