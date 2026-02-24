@@ -67,15 +67,26 @@
             margin-bottom: 1rem;
             border: 1px solid #e2e8f0;
         }
-        .spot-img-placeholder {
+        .spot-img-container {
             width: 100%;
             height: 200px;
-            background-color: #e2e8f0;
+            background-color: #f8fafc;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: #94a3b8;
+            overflow: hidden;
+        }
+        .spot-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .spot-img-fallback {
+            color: #64748b;
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem;
         }
     </style>
 </head>
@@ -160,6 +171,12 @@
                         <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-red-500 mr-2"></i>最大亮點：遊覽車直達火山口！</span>
                     </div>
                     
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>親眼感受活火山白煙的震撼</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>漫步絕美草原「阿蘇草千里」</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>行程最後可選去泡溫泉或逛熊本城</li>
+                    </ul>
+
                     <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
                         <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這是想看壯麗風景的首選！
 司機會直接開車帶您上去【阿蘇火山口】，不用自己爬山就能近距離感受活火山的白煙與震撼。接著會去很美的草原「草千里」。
@@ -171,28 +188,36 @@
                         <h4 class="text-2xl font-bold text-red-900 mb-4 border-b-2 border-red-200 pb-2"><i class="fas fa-camera retro mr-2"></i>沿途美景搶先看</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040333_1pZzH/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">阿蘇中岳火山口</h5>
                                     <p class="text-gray-600 text-sm">親眼目睹活火山的白煙與碧綠色的火山口湖，感受地球的脈動與震撼。(若遇警戒則改去火山博物館)</p>
                                 </div>
                             </div>
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040316_O6Q0a/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">阿蘇草千里</h5>
                                     <p class="text-gray-600 text-sm">位於火山旁的一大片翠綠草原，風景非常遼闊療癒，還可以看到牛馬在吃草，可自費體驗騎馬。</p>
                                 </div>
                             </div>
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040306_w1A9A/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">熊本城 (A方案)</h5>
                                     <p class="text-gray-600 text-sm">日本三大名城之一，以堅固的黑色外觀與宏偉石牆聞名，能深入了解日本歷史文化。</p>
                                 </div>
                             </div>
                              <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040356_l1Z1S/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">黑川溫泉 (B方案)</h5>
                                     <p class="text-gray-600 text-sm">被森林包圍的傳統日式溫泉街，氣氛非常古樸寧靜，可以買「入湯手形」泡湯或吃甜點散步。</p>
@@ -282,6 +307,12 @@
                         <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-purple-500 mr-2"></i>最大亮點：一天收集兩大最靈驗秘境！</span>
                     </div>
 
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>上色見熊野座神社 (像精靈的森林)</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>天岩戶神社 (充滿祈願石的神祕洞窟)</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>風景優美的高千穗峽散步</li>
+                    </ul>
+
                     <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
                         <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這個行程一天帶您跑完兩個最遠的秘境！
 先帶您去在網路上非常紅的【上色見熊野座神社】，參道兩旁都是高大的樹木，就像走進精靈的森林一樣。
@@ -293,21 +324,27 @@
                         <h4 class="text-2xl font-bold text-purple-900 mb-4 border-b-2 border-purple-200 pb-2"><i class="fas fa-camera retro mr-2"></i>沿途美景搶先看</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_32511/20191206030948_gMngb/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">上色見熊野座神社</h5>
                                     <p class="text-gray-600 text-sm">知名動畫《螢火之森》取景地。兩側佈滿青苔的石燈籠與參天神木，彷彿踏入神秘的異世界。</p>
                                 </div>
                             </div>
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_32511/20191206030939_B0zYv/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">天安河原</h5>
                                     <p class="text-gray-600 text-sm">日本神話發源地，一個巨大的神祕洞窟，裡面堆滿了成千上萬信眾祈願疊起的小石頭，氣氛莊嚴。</p>
                                 </div>
                             </div>
                              <div class="spot-card md:col-span-2">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_32511/20191206030953_4cRjV/jpg'); background-size: cover; background-position: center; height: 250px;"></div>
+                                <div class="spot-img-container" style="height: 250px;">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">高千穗峽</h5>
                                     <p class="text-gray-600 text-sm">由火山活動形成的深V字峽谷，瀑布從翠綠峭壁傾瀉而下，水面呈現碧綠色，是國家級名勝。</p>
@@ -362,6 +399,12 @@
                         <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-teal-500 mr-2"></i>最大亮點：搭乘超高空「露天小火車」！</span>
                     </div>
 
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>吹風看風景的觀光小火車，好玩不累</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>高千穗峽谷散步看絕美瀑布</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>參拜天安河原神秘石洞</li>
+                    </ul>
+
                     <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
                         <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這個行程除了看風景，還有好玩的設施！
 主要是去高千穗峽谷散步，以及神秘的天安河原洞窟。
@@ -373,14 +416,18 @@
                         <h4 class="text-2xl font-bold text-teal-900 mb-4 border-b-2 border-teal-200 pb-2"><i class="fas fa-camera retro mr-2"></i>沿途美景搶先看</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_181723/20240723062325_K6aXm/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">天空小火車 (天照鐵道)</h5>
                                     <p class="text-gray-600 text-sm">搭乘可愛的無頂露天車廂，行駛在 105 公尺高的鐵橋上，吹風俯瞰峽谷絕景，非常有趣。</p>
                                 </div>
                             </div>
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_181723/20240723062328_jZ6Qp/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">天安河原洞窟</h5>
                                     <p class="text-gray-600 text-sm">傳說中眾神聚集開會的地方。洞窟深處有一座鳥居，周圍疊滿了祈願的石頭，充滿神秘能量。</p>
@@ -401,7 +448,7 @@
                                 <strong class="text-blue-700">11:00</strong> 抵達 高千穗峽 (約停留 90 分鐘，散步看瀑布)
                             </div>
                             <div class="timeline-item">
-                                <strong class="text-blue-700">13:00</strong> 體驗 高千穗小火車 (門票需現場自費約2000日幣)
+                                <strong class="text-blue-700">13:00</strong> 體驗 高千穗小火車 (門票需現場自費購買約2000日幣)
                             </div>
                             <div class="timeline-item">
                                 <strong class="text-blue-700">15:00</strong> 抵達 天安河原 (約停留 60 分鐘)
@@ -434,6 +481,12 @@
                     <div class="mb-5 inline-block w-fit bg-green-50 border-2 border-green-200 text-green-800 px-5 py-3 rounded-2xl shadow-sm">
                         <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-green-500 mr-2"></i>最大亮點：漫步森林神社 ＋ 黑川溫泉！</span>
                     </div>
+                    
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>參觀深山裡的上色見熊野座神社</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>日本最美「黑川溫泉街」散步吃甜點</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>行程步調較慢，非常放鬆療癒</li>
+                    </ul>
 
                     <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
                         <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這是一個不趕時間、舒舒服服的行程。
@@ -446,14 +499,18 @@
                         <h4 class="text-2xl font-bold text-green-900 mb-4 border-b-2 border-green-200 pb-2"><i class="fas fa-camera retro mr-2"></i>沿途美景搶先看</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_150994/20230822013054_rV1o7/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">上色見熊野座神社</h5>
                                     <p class="text-gray-600 text-sm">沿著石階一步步攀登，兩側有近百座石燈籠，滿眼都是清新純粹的綠意，彷彿置身仙境。</p>
                                 </div>
                             </div>
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_150994/20230822013149_0hX2i/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">黑川溫泉街</h5>
                                     <p class="text-gray-600 text-sm">隱藏在山城中的秘境溫泉鄉，沿著溪流而建的傳統木造旅館，充滿濃濃的江戶時代風情。</p>
@@ -462,22 +519,22 @@
                         </div>
                     </div>
 
-                     <!-- 時間軸區塊 -->
+                     <!-- 時間軸區塊 (一般預估) -->
                      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
-                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間表 (約 10 小時)</h4>
+                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間概覽 (約 10 小時)</h4>
                         <div class="timeline-container text-xl text-gray-800 font-medium">
                             <div class="timeline-item">
                                 <strong class="text-blue-700 bg-blue-100 px-2 py-1 rounded">07:30 集合 / 07:40 準時出發</strong><br>
                                 <span class="inline-block mt-1">地點：博多站築紫口前 (請認JRT旗子)</span>
                             </div>
                             <div class="timeline-item">
-                                <strong class="text-blue-700">10:30</strong> 抵達 上色見熊野座神社 (約停留 45 分鐘)
+                                <strong class="text-blue-700">10:30</strong> 抵達 上色見熊野座神社 (約停留 45 分鐘，感受神秘氛圍)
                             </div>
                             <div class="timeline-item">
-                                <strong class="text-blue-700">12:00</strong> 抵達 阿蘇山中岳火山口 (約停留 20 分鐘看風景)
+                                <strong class="text-blue-700">12:00</strong> 抵達 阿蘇山中岳火山口 (約停留 20 分鐘)
                             </div>
                             <div class="timeline-item">
-                                <strong class="text-blue-700">12:30</strong> 抵達 阿蘇山草千里 (約停留 60 分鐘，可自費午餐)
+                                <strong class="text-blue-700">12:30</strong> 抵達 阿蘇山草千里 (約停留 60 分鐘，可自費享用午餐)
                             </div>
                             <div class="timeline-item">
                                 <strong class="text-blue-700">14:30</strong> 抵達 黑川溫泉 (約停留 90 分鐘，散步或泡湯)
@@ -509,6 +566,12 @@
                     <div class="mb-5 inline-block w-fit bg-orange-50 border-2 border-orange-200 text-orange-800 px-5 py-3 rounded-2xl shadow-sm">
                         <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-orange-500 mr-2"></i>最大亮點：看超壯觀臥佛 ＋ 海邊美照！</span>
                     </div>
+                    
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>震撼視覺！世界最大青銅臥佛像</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>前往海邊打卡「櫻井二見浦夫婦岩」</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>走進宛如童話場景的「龍貓森林」</li>
+                    </ul>
 
                     <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
                         <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">如果您不想跑山路，這個看佛像跟看海的行程最適合！
@@ -521,21 +584,27 @@
                         <h4 class="text-2xl font-bold text-orange-900 mb-4 border-b-2 border-orange-200 pb-2"><i class="fas fa-camera retro mr-2"></i>沿途美景搶先看</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card md:col-span-2">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_268144/20250212030141_w7kQ8/jpg'); background-size: cover; background-position: center; height: 250px;"></div>
+                                <div class="spot-img-container" style="height: 250px;">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">南藏院 大臥佛</h5>
                                     <p class="text-gray-600 text-sm">世界最大的青銅臥佛像，長達41公尺，親眼看到會覺得非常震撼且莊嚴平靜。</p>
                                 </div>
                             </div>
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_268144/20250212030154_1E0n2/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">櫻井二見浦</h5>
                                     <p class="text-gray-600 text-sm">糸島最知名的海景，白色的鳥居佇立在沙灘上，後方是神聖的「夫婦岩」。</p>
                                 </div>
                             </div>
                             <div class="spot-card">
-                                <div class="spot-img-placeholder" style="background-image: url('https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_268144/20250212030152_hZ3p8/jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="spot-img-container">
+                                    
+                                </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">龍貓森林 (芥屋大門)</h5>
                                     <p class="text-gray-600 text-sm">樹木交錯形成的天然隧道，走在裡面就像是進入了宮崎駿動畫中的魔法場景。</p>
@@ -544,9 +613,9 @@
                         </div>
                     </div>
 
-                     <!-- 時間軸區塊 -->
+                     <!-- 時間軸區塊 (一般預估) -->
                      <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
-                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間表 (約 10.5 小時)</h4>
+                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間概覽 (約 10.5 小時)</h4>
                         <div class="timeline-container text-xl text-gray-800 font-medium">
                             <div class="timeline-item">
                                 <strong class="text-blue-700 bg-blue-100 px-2 py-1 rounded">08:30 集合 / 08:45 準時出發</strong><br>
