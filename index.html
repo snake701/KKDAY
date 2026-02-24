@@ -26,6 +26,35 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* 時間軸樣式 */
+        .timeline-container {
+            position: relative;
+            padding-left: 20px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -19px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #3b82f6; /* Tailwind blue-500 */
+        }
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: -14px;
+            top: 18px;
+            bottom: -6px;
+            width: 2px;
+            background-color: #bfdbfe; /* Tailwind blue-200 */
+        }
     </style>
 </head>
 <body class="text-gray-900">
@@ -44,7 +73,7 @@
     <div class="bg-blue-800 text-white py-10 px-4 text-center">
         <h1 class="text-3xl md:text-5xl font-black mb-4 leading-tight">為您挑選的好行程</h1>
         <p class="text-blue-200 text-xl md:text-2xl max-w-2xl mx-auto mb-8">
-            不用自己轉車！專車接送，官方行程說明直接看。
+            不用自己轉車！專車接送，詳細時間表直接看。
         </p>
 
         <!-- Interactive Filter -->
@@ -57,6 +86,9 @@
                 <div class="flex flex-row overflow-x-auto pb-2 gap-3 md:justify-center hide-scrollbar" style="-webkit-overflow-scrolling: touch;">
                     <button onclick="highlight('aso')" class="shrink-0 whitespace-nowrap px-5 py-3 bg-red-100 text-red-800 rounded-xl text-xl font-bold hover:bg-red-600 hover:text-white transition shadow border-2 border-red-200">
                         🌋 看阿蘇火山
+                    </button>
+                    <button onclick="highlight('myth-all')" class="shrink-0 whitespace-nowrap px-5 py-3 bg-purple-100 text-purple-800 rounded-xl text-xl font-bold hover:bg-purple-600 hover:text-white transition shadow border-2 border-purple-200">
+                        ✨ 神話大滿貫
                     </button>
                     <button onclick="highlight('shrine')" class="shrink-0 whitespace-nowrap px-5 py-3 bg-green-100 text-green-800 rounded-xl text-xl font-bold hover:bg-green-600 hover:text-white transition shadow border-2 border-green-200">
                         ⛩️ 走森林神社
@@ -87,32 +119,60 @@
         <div class="flex flex-col gap-10 mb-16" id="card-container">
 
             <!-- 0. Aso Crater (175701) -->
-            <div id="card-aso" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-red-100 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start transition-all duration-300">
+            <div id="card-aso" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-red-100 p-6 md:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start transition-all duration-300">
                 <!-- 左側：圖示與價格 -->
-                <div class="md:w-1/3 w-full text-center flex flex-col items-center justify-center md:border-r-2 border-gray-100 md:pr-6 md:sticky top-24">
-                    <div class="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center text-5xl text-red-500 mb-4 shadow-inner mt-4">
-                        <i class="fas fa-volcano"></i>
+                <div class="lg:w-1/4 w-full text-center flex flex-col items-center justify-center lg:border-r-2 border-gray-100 lg:pr-6 lg:sticky top-24">
+                    <div class="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center text-6xl mb-4 shadow-inner mt-4">
+                        🌋
                     </div>
                     <div class="text-3xl font-black text-gray-900 mb-2 tracking-wide">阿蘇活火山</div>
                     <div class="text-xl font-bold text-gray-500 font-mono mb-2">KKday: 175701</div>
-                    <div class="text-2xl font-bold text-red-600 bg-red-50 px-6 py-2 rounded-full mt-2 mb-6 md:mb-0">NT$ 1,424 起</div>
+                    <div class="text-2xl font-bold text-red-600 bg-red-50 px-6 py-2 rounded-full mt-2 mb-6 lg:mb-0">NT$ 1,425 起</div>
                 </div>
                 
                 <!-- 右側：官方文案與連結 -->
-                <div class="md:w-2/3 w-full flex flex-col h-full">
+                <div class="lg:w-3/4 w-full flex flex-col h-full">
                     <div class="mb-5 inline-block w-fit bg-red-50 border-2 border-red-200 text-red-800 px-5 py-3 rounded-2xl shadow-sm">
-                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-red-500 mr-2"></i>KKday 官方行程說明</span>
+                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-red-500 mr-2"></i>最大亮點：遊覽車直達火山口！</span>
                     </div>
                     
-                    <!-- 官方詳細說明區塊 -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-8">
-                        <div class="text-xl text-gray-800 leading-relaxed space-y-4">
-                            <p>這款行程提供兩款九州一日遊套餐可供選擇：</p>
-                            <p><strong>【A套餐】</strong>從歷史的熊本城出發，探訪壯觀的阿蘇火山，漫步廣闊的阿蘇山草千里，最後在阿蘇道路驛站小憩。一路精彩，不容錯過！</p>
-                            <p><strong>【B套餐】</strong>深入阿蘇火山，感受大自然的震撼；隨後在阿蘇山草千里留下足跡，探訪神秘的阿蘇神社，最後在黑川溫泉放鬆身心。一次旅行，多重享受！</p>
-                        </div>
-                        <div class="mt-6 pt-5 border-t-2 border-gray-200 flex items-center text-xl text-gray-700 font-bold">
-                            <i class="fas fa-clock text-blue-500 mr-3 text-3xl"></i> 總花費時間：大約 10.5 小時
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>親眼感受活火山白煙的震撼</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>漫步絕美草原「阿蘇草千里」</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>行程最後可選去泡溫泉或逛熊本城</li>
+                    </ul>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
+                        <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這是想看壯麗風景的首選！
+
+司機會直接開車帶您上去【阿蘇火山口】，不用自己爬山就能近距離感受活火山的白煙與震撼。接著會去很美的草原「草千里」。
+
+最棒的是，行程最後可以自己選：想泡湯就選去【黑川溫泉】老街散步；喜歡歷史就選去日本三大名城之一的【熊本城】。</p>
+                    </div>
+
+                    <!-- 時間軸區塊 -->
+                    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
+                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間表 (約 10.5 小時)</h4>
+                        <div class="timeline-container text-xl text-gray-800 font-medium">
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">07:50</strong> 集合：羅森福岡東方飯店（博多站筑紫口前）
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">10:00</strong> 抵達 熊本城 (約90-110分鐘，門票自理)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">13:10</strong> 抵達 阿蘇火山 (約90-120分鐘，門票自理)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-gray-600">隨後</strong> 順遊 阿蘇山草千里 (推薦騎馬體驗或參觀博物館)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">15:30</strong> 抵達 阿蘇道路驛站 (休息15分鐘)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">18:00</strong> 預計返回 博多站 解散
+                            </div>
+                            <p class="text-base text-gray-500 mt-3">* 若遇阿蘇火山發布禁止進入通知，將依現場狀況調整行程。<br>* 這是A方案(熊本城)的時間表，B方案為下午改去黑川溫泉。</p>
                         </div>
                     </div>
 
@@ -123,29 +183,55 @@
             </div>
 
             <!-- 1. Myth All (32511) -->
-            <div id="card-myth-all" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-purple-100 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start transition-all duration-300">
-                <div class="md:w-1/3 w-full text-center flex flex-col items-center justify-center md:border-r-2 border-gray-100 md:pr-6 md:sticky top-24">
-                    <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center text-5xl text-purple-600 mb-4 shadow-inner mt-4">
-                        <i class="fas fa-star"></i>
+            <div id="card-myth-all" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-purple-100 p-6 md:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start transition-all duration-300">
+                <div class="lg:w-1/4 w-full text-center flex flex-col items-center justify-center lg:border-r-2 border-gray-100 lg:pr-6 lg:sticky top-24">
+                    <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center text-6xl mb-4 shadow-inner mt-4">
+                        ✨
                     </div>
                     <div class="text-3xl font-black text-gray-900 mb-2 tracking-wide">神話大滿貫</div>
                     <div class="text-xl font-bold text-gray-500 font-mono mb-2">KKday: 32511</div>
-                    <div class="text-2xl font-bold text-purple-600 bg-purple-50 px-6 py-2 rounded-full mt-2 mb-6 md:mb-0">NT$ 1,550 起</div>
+                    <div class="text-2xl font-bold text-purple-600 bg-purple-50 px-6 py-2 rounded-full mt-2 mb-6 lg:mb-0">NT$ 1,550 起</div>
                 </div>
                 
-                <div class="md:w-2/3 w-full flex flex-col h-full">
+                <div class="lg:w-3/4 w-full flex flex-col h-full">
                     <div class="mb-5 inline-block w-fit bg-purple-50 border-2 border-purple-200 text-purple-800 px-5 py-3 rounded-2xl shadow-sm">
-                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-purple-500 mr-2"></i>KKday 官方行程說明</span>
+                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-purple-500 mr-2"></i>最大亮點：一天收集兩大最靈驗秘境！</span>
                     </div>
 
-                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-8">
-                        <div class="text-xl text-gray-800 leading-relaxed space-y-4">
-                            <p><strong>【高千穗峽】</strong>位於宮崎縣北端，因是日本古代神話的舞臺而廣為人知。該處有由於太古時代阿蘇山的火山活動而形成的V字深峽谷，還可以乘坐出租的遊艇遊覽谷底。</p>
-                            <p><strong>【天岩戶神社】</strong>是擁有天照大神傳說的神社。從神社沿著河川上游走，穿過靜謐的山林小徑就能看到當初聚集八百萬大神的天安河原聖地。</p>
-                            <p><strong>【上色見熊野座神社】</strong>位於熊本縣阿蘇地區深山中，參道兩側排列著高聳石燈籠，周圍環繞原始森林，氣氛神秘靜謐。此地因被認為是動漫電影《螢火之森》的取景地之一而廣受關注，也被視為充滿能量的靈性景點。</p>
-                        </div>
-                        <div class="mt-6 pt-5 border-t-2 border-gray-200 flex items-center text-xl text-gray-700 font-bold">
-                            <i class="fas fa-clock text-blue-500 mr-3 text-3xl"></i> 總花費時間：大約 11 小時
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>上色見熊野座神社 (像精靈的森林)</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>天岩戶神社 (充滿祈願石的神祕洞窟)</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>風景優美的高千穗峽散步</li>
+                    </ul>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
+                        <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這個行程一天帶您跑完兩個最遠的秘境！
+
+先帶您去在網路上非常紅的【上色見熊野座神社】，參道兩旁都是高大的樹木，就像走進精靈的森林一樣。
+
+下午前往高千穗，除了看峽谷，還會去有名的【天安河原】洞窟，裡面疊滿了大家祈願的小石頭，是非常特別的體驗。</p>
+                    </div>
+
+                     <!-- 時間軸區塊 -->
+                     <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
+                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間表 (約 11 小時)</h4>
+                        <div class="timeline-container text-xl text-gray-800 font-medium">
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">07:50</strong> 集合：JR博多站筑紫口LAWSON便利商店前
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">10:20</strong> 抵達 上色見熊野座神社 (約停留 40 分鐘)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">11:35</strong> 抵達 高千穗峽谷 (用餐及觀光，約 110 分鐘)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">14:00</strong> 抵達 天岩戶神社＆天安河原 (自由活動約 50~60 分鐘)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">18:00</strong> 預計返回 博多站 解散
+                            </div>
+                            <p class="text-base text-gray-500 mt-3">* 櫻花季期間(約3月下旬)可能會將神社改為前往淨專寺賞櫻。</p>
                         </div>
                     </div>
 
@@ -156,29 +242,55 @@
             </div>
 
             <!-- 2. Myth Train (181723) -->
-            <div id="card-myth-train" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-teal-100 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start transition-all duration-300">
-                <div class="md:w-1/3 w-full text-center flex flex-col items-center justify-center md:border-r-2 border-gray-100 md:pr-6 md:sticky top-24">
-                    <div class="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center text-5xl text-teal-600 mb-4 shadow-inner mt-4">
-                        <i class="fas fa-train"></i>
+            <div id="card-myth-train" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-teal-100 p-6 md:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start transition-all duration-300">
+                <div class="lg:w-1/4 w-full text-center flex flex-col items-center justify-center lg:border-r-2 border-gray-100 lg:pr-6 lg:sticky top-24">
+                    <div class="w-24 h-24 bg-teal-100 rounded-full flex items-center justify-center text-6xl mb-4 shadow-inner mt-4">
+                        🚂
                     </div>
                     <div class="text-3xl font-black text-gray-900 mb-2 tracking-wide">鐵道與神話</div>
                     <div class="text-xl font-bold text-gray-500 font-mono mb-2">KKday: 181723</div>
-                    <div class="text-2xl font-bold text-teal-600 bg-teal-50 px-6 py-2 rounded-full mt-2 mb-6 md:mb-0">NT$ 1,600 起</div>
+                    <div class="text-2xl font-bold text-teal-600 bg-teal-50 px-6 py-2 rounded-full mt-2 mb-6 lg:mb-0">NT$ 1,600 起</div>
                 </div>
                 
-                <div class="md:w-2/3 w-full flex flex-col h-full">
+                <div class="lg:w-3/4 w-full flex flex-col h-full">
                     <div class="mb-5 inline-block w-fit bg-teal-50 border-2 border-teal-200 text-teal-800 px-5 py-3 rounded-2xl shadow-sm">
-                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-teal-500 mr-2"></i>KKday 官方行程說明</span>
+                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-teal-500 mr-2"></i>最大亮點：搭乘超高空「露天小火車」！</span>
                     </div>
 
-                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-8">
-                        <div class="text-xl text-gray-800 leading-relaxed space-y-4">
-                            <p>福岡出發，前往宮崎縣高千穂峽，這是十萬多年前附近阿蘇山火山爆發後形成的峽谷。在神秘的高千穗峽谷體驗一場大自然帶來的心靈之旅。</p>
-                            <p>您可以選擇體驗<strong>【高千穗鐵道天照小火車（Grand Super Cart）】</strong>，在高度 105m 的鐵道上欣賞壯麗景色！</p>
-                            <p>之後前往<strong>【天安河原】</strong>，相傳天照大神躲在岩洞時，八百萬天神聚集於此商議對策，還有疊石頭祈願的習俗，蔚為一景。最後回到福岡的博多站，結束這一天豐富的行程。</p>
-                        </div>
-                        <div class="mt-6 pt-5 border-t-2 border-gray-200 flex items-center text-xl text-gray-700 font-bold">
-                            <i class="fas fa-clock text-blue-500 mr-3 text-3xl"></i> 總花費時間：大約 10.5 小時
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>吹風看風景的觀光小火車，好玩不累</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>高千穗峽谷散步看絕美瀑布</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>參拜天安河原神秘石洞</li>
+                    </ul>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
+                        <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這個行程除了看風景，還有好玩的設施！
+
+主要是去高千穗峽谷散步，以及神秘的天安河原洞窟。
+
+最特別的是會帶您去搭乘非常受歡迎的【露天天空小火車】。小火車沒有車頂，開在很高很高的鐵橋上，吹著風看風景非常舒服，不用擔心走路走太累。</p>
+                    </div>
+
+                     <!-- 時間軸區塊 -->
+                     <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
+                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間表 (約 10.5 小時)</h4>
+                        <div class="timeline-container text-xl text-gray-800 font-medium">
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">07:50</strong> 集合：博多站筑紫口旁LAWSON便利商店前
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">11:00</strong> 抵達 高千穗峽 (約停留 90 分鐘)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">13:00</strong> 體驗 高千穗小火車 (門票需現場自費購買約2000日幣)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">15:00</strong> 抵達 天安河原 (約停留 60 分鐘)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">18:00</strong> 預計返回 博多站 解散
+                            </div>
+                            <p class="text-base text-gray-500 mt-3">* 小火車每月第三個星期四停駛，將改去高千穗神社。</p>
                         </div>
                     </div>
 
@@ -189,29 +301,54 @@
             </div>
 
             <!-- 3. Myth Shrine (150994) -->
-            <div id="card-myth-shrine" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-green-100 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start transition-all duration-300">
-                <div class="md:w-1/3 w-full text-center flex flex-col items-center justify-center md:border-r-2 border-gray-100 md:pr-6 md:sticky top-24">
-                    <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-5xl text-green-600 mb-4 shadow-inner mt-4">
-                        <i class="fas fa-hot-tub"></i>
+            <div id="card-myth-shrine" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-green-100 p-6 md:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start transition-all duration-300">
+                <div class="lg:w-1/4 w-full text-center flex flex-col items-center justify-center lg:border-r-2 border-gray-100 lg:pr-6 lg:sticky top-24">
+                    <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-6xl mb-4 shadow-inner mt-4">
+                        ⛩️
                     </div>
                     <div class="text-3xl font-black text-gray-900 mb-2 tracking-wide">秘境與溫泉</div>
                     <div class="text-xl font-bold text-gray-500 font-mono mb-2">KKday: 150994</div>
-                    <div class="text-2xl font-bold text-green-600 bg-green-50 px-6 py-2 rounded-full mt-2 mb-6 md:mb-0">NT$ 1,900 起</div>
+                    <div class="text-2xl font-bold text-green-600 bg-green-50 px-6 py-2 rounded-full mt-2 mb-6 lg:mb-0">NT$ 1,900 起</div>
                 </div>
                 
-                <div class="md:w-2/3 w-full flex flex-col h-full">
+                <div class="lg:w-3/4 w-full flex flex-col h-full">
                     <div class="mb-5 inline-block w-fit bg-green-50 border-2 border-green-200 text-green-800 px-5 py-3 rounded-2xl shadow-sm">
-                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-green-500 mr-2"></i>KKday 官方行程說明</span>
+                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-green-500 mr-2"></i>最大亮點：漫步森林神社 ＋ 黑川溫泉！</span>
                     </div>
                     
-                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-8">
-                        <div class="text-xl text-gray-800 leading-relaxed space-y-4">
-                            <p>前往被翠綠包圍的神祕異世界，IG打卡熱門景點：<strong>【上色見熊野座神社】</strong>！漫步在無盡的綠色空間，感受神秘氛圍。</p>
-                            <p>途中會經過<strong>【阿蘇草千里】</strong>，欣賞烏帽子岳與大池塘的壯麗景觀（本行程不前往火山口）。</p>
-                            <p>下午前往充滿江戶時代風情、被大自然包圍的<strong>【黑川溫泉鄉】</strong>。這裡不僅有許多特色美食，您還可以購買「入湯手形」，自由挑選三間喜愛的露天溫泉泡湯，讓疲憊的身心在熱氣蒸騰的世外桃源中放鬆。</p>
-                        </div>
-                        <div class="mt-6 pt-5 border-t-2 border-gray-200 flex items-center text-xl text-gray-700 font-bold">
-                            <i class="fas fa-clock text-blue-500 mr-3 text-3xl"></i> 總花費時間：大約 10 小時
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>參觀深山裡的上色見熊野座神社</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>日本最美「黑川溫泉街」散步吃甜點</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>行程步調較慢，非常放鬆療癒</li>
+                    </ul>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
+                        <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">這是一個不趕時間、舒舒服服的行程。
+
+早上先帶您去森林裡的【上色見熊野座神社】慢慢走、深呼吸。
+
+下午的時間會留在日本非常美的【黑川溫泉街】。您可以買個小點心吃，或者花一點錢去泡個舒服的溫泉，享受日本鄉下的慢活時光。</p>
+                    </div>
+
+                     <!-- 時間軸區塊 (一般預估) -->
+                     <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
+                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間概覽 (約 10 小時)</h4>
+                        <div class="timeline-container text-xl text-gray-800 font-medium">
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">早上</strong> 從福岡博多車站出發
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">上午</strong> 抵達 上色見熊野座神社 (感受神聖氛圍)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-gray-600">中午</strong> 車遊途經 阿蘇草千里 (欣賞風景不爬山)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">下午</strong> 抵達 黑川溫泉鄉 (充足時間散步、吃點心或自費泡湯)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">傍晚</strong> 預計返回 福岡解散
+                            </div>
                         </div>
                     </div>
 
@@ -222,29 +359,54 @@
             </div>
 
             <!-- 4. Unique (268144) -->
-            <div id="card-unique" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-orange-100 p-6 md:p-8 flex flex-col md:flex-row gap-6 md:gap-8 items-start transition-all duration-300">
-                <div class="md:w-1/3 w-full text-center flex flex-col items-center justify-center md:border-r-2 border-gray-100 md:pr-6 md:sticky top-24">
-                    <div class="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center text-5xl text-orange-500 mb-4 shadow-inner mt-4">
-                        <i class="fas fa-eye"></i>
+            <div id="card-unique" class="tour-item bg-white rounded-3xl shadow-lg border-4 border-orange-100 p-6 md:p-8 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start transition-all duration-300">
+                <div class="lg:w-1/4 w-full text-center flex flex-col items-center justify-center lg:border-r-2 border-gray-100 lg:pr-6 lg:sticky top-24">
+                    <div class="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center text-6xl mb-4 shadow-inner mt-4">
+                        🙏
                     </div>
                     <div class="text-3xl font-black text-gray-900 mb-2 tracking-wide">大臥佛與海景</div>
                     <div class="text-xl font-bold text-gray-500 font-mono mb-2">KKday: 268144</div>
-                    <div class="text-2xl font-bold text-orange-600 bg-orange-50 px-6 py-2 rounded-full mt-2 mb-6 md:mb-0">NT$ 2,100 起</div>
+                    <div class="text-2xl font-bold text-orange-600 bg-orange-50 px-6 py-2 rounded-full mt-2 mb-6 lg:mb-0">NT$ 2,100 起</div>
                 </div>
                 
-                <div class="md:w-2/3 w-full flex flex-col h-full">
+                <div class="lg:w-3/4 w-full flex flex-col h-full">
                     <div class="mb-5 inline-block w-fit bg-orange-50 border-2 border-orange-200 text-orange-800 px-5 py-3 rounded-2xl shadow-sm">
-                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-orange-500 mr-2"></i>KKday 官方行程說明</span>
+                        <span class="font-black text-2xl tracking-wide"><i class="fas fa-bullseye text-orange-500 mr-2"></i>最大亮點：看超壯觀臥佛 ＋ 海邊美照！</span>
+                    </div>
+                    
+                    <ul class="text-xl text-gray-700 space-y-4 mb-6 font-medium ml-2">
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>震撼視覺！世界最大青銅臥佛像</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>前往海邊打卡「櫻井二見浦夫婦岩」</li>
+                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3 text-2xl"></i>走進宛如童話場景的「龍貓森林」</li>
+                    </ul>
+
+                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-6">
+                        <p class="text-xl text-gray-700 leading-relaxed whitespace-pre-line mb-4">如果您不想跑山路，這個看佛像跟看海的行程最適合！
+
+早上前往【南藏院】，那裡有一尊長達 41 公尺的世界最大青銅臥佛，看起來非常壯觀祥和。
+
+下午帶您去海邊的【糸島】，除了看海上的白色大鳥居，還會去一條長得很像龍貓電影場景的神祕森林小徑散步。</p>
                     </div>
 
-                    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-8">
-                        <div class="text-xl text-gray-800 leading-relaxed space-y-4">
-                            <p>探索福岡近郊的神祕景點！<strong>【南藏院】</strong>位於福岡縣糟屋郡，以世界最大的青銅釋迦涅槃像（臥佛）而聞名。這座臥佛長 41 公尺、高 11 公尺，重達 300 噸，規模宏大令人震撼。</p>
-                            <p>下午前往福岡縣西部的糸島市，這裡是擁有美麗海岸線的度假勝地。造訪絕景<strong>【櫻井二見浦】</strong>的白色海中鳥居與夫婦岩。</p>
-                            <p>最後前往被稱為「龍貓森林」的<strong>【芥屋大門公園】</strong>，穿梭在神秘的樹林隧道中，彷彿進入宮崎駿的童話世界。</p>
-                        </div>
-                        <div class="mt-6 pt-5 border-t-2 border-gray-200 flex items-center text-xl text-gray-700 font-bold">
-                            <i class="fas fa-clock text-blue-500 mr-3 text-3xl"></i> 總花費時間：大約 9 小時
+                     <!-- 時間軸區塊 (一般預估) -->
+                     <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6 mb-8">
+                        <h4 class="text-2xl font-bold text-blue-900 mb-4 border-b-2 border-blue-200 pb-2"><i class="far fa-clock mr-2"></i>行程時間概覽 (約 9 小時)</h4>
+                        <div class="timeline-container text-xl text-gray-800 font-medium">
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">早上</strong> 從福岡出發
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">上午</strong> 抵達 南藏院 (看長達41公尺的世界最大臥佛)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">下午</strong> 前往 糸島地區 (看櫻井二見浦海中鳥居)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">隨後</strong> 散步於 芥屋大門 (網美最愛的龍貓森林步道)
+                            </div>
+                            <div class="timeline-item">
+                                <strong class="text-blue-700">傍晚</strong> 預計返回 福岡解散
+                            </div>
                         </div>
                     </div>
 
@@ -256,8 +418,8 @@
 
         </div>
         
-        <div class="mt-8 text-center text-gray-500 text-lg">
-            <p>※ 金額為預估參考，實際價格會隨匯率與季節波動，請依 KKday 官網即時資訊為主。</p>
+        <div class="mt-8 text-center text-gray-500 text-lg font-bold">
+            <p>※ 費用與時間為預估參考，實際會隨匯率與當天交通狀況變動，請依 KKday 官網為準。</p>
         </div>
 
     </div>
