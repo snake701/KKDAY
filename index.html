@@ -81,12 +81,9 @@
             height: 100%;
             object-fit: cover;
         }
-        .spot-img-fallback {
-            color: #64748b;
-            font-size: 1.25rem;
-            font-weight: bold;
-            text-align: center;
-            padding: 1rem;
+        /* 讓跨兩欄的圖片稍微高一點 */
+        .spot-card.md\:col-span-2 .spot-img-container {
+            height: 250px; 
         }
     </style>
 </head>
@@ -189,7 +186,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040333_1pZzH/jpg" alt="阿蘇中岳火山口" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">阿蘇中岳火山口</h5>
@@ -198,7 +195,7 @@
                             </div>
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040316_O6Q0a/jpg" alt="阿蘇草千里" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">阿蘇草千里</h5>
@@ -207,7 +204,7 @@
                             </div>
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040306_w1A9A/jpg" alt="熊本城" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">熊本城 (A方案)</h5>
@@ -216,7 +213,7 @@
                             </div>
                              <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_175701/20240321040356_l1Z1S/jpg" alt="黑川溫泉" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">黑川溫泉 (B方案)</h5>
@@ -325,7 +322,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_32511/20191206030948_gMngb/jpg" alt="上色見熊野座神社" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">上色見熊野座神社</h5>
@@ -334,7 +331,7 @@
                             </div>
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_32511/20191206030939_B0zYv/jpg" alt="天安河原" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">天安河原</h5>
@@ -342,8 +339,8 @@
                                 </div>
                             </div>
                              <div class="spot-card md:col-span-2">
-                                <div class="spot-img-container" style="height: 250px;">
-                                    
+                                <div class="spot-img-container">
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_32511/20191206030953_4cRjV/jpg" alt="高千穗峽" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">高千穗峽</h5>
@@ -417,7 +414,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_181723/20240723062325_K6aXm/jpg" alt="天空小火車" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">天空小火車 (天照鐵道)</h5>
@@ -426,7 +423,7 @@
                             </div>
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_181723/20240723062328_jZ6Qp/jpg" alt="天安河原洞窟" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">天安河原洞窟</h5>
@@ -500,7 +497,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_150994/20230822013054_rV1o7/jpg" alt="上色見熊野座神社" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">上色見熊野座神社</h5>
@@ -509,7 +506,7 @@
                             </div>
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_150994/20230822013149_0hX2i/jpg" alt="黑川溫泉街" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">黑川溫泉街</h5>
@@ -584,8 +581,8 @@
                         <h4 class="text-2xl font-bold text-orange-900 mb-4 border-b-2 border-orange-200 pb-2"><i class="fas fa-camera retro mr-2"></i>沿途美景搶先看</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="spot-card md:col-span-2">
-                                <div class="spot-img-container" style="height: 250px;">
-                                    
+                                <div class="spot-img-container">
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_268144/20250212030141_w7kQ8/jpg" alt="南藏院大臥佛" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">南藏院 大臥佛</h5>
@@ -594,7 +591,7 @@
                             </div>
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_268144/20250212030154_1E0n2/jpg" alt="櫻井二見浦" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">櫻井二見浦</h5>
@@ -603,7 +600,7 @@
                             </div>
                             <div class="spot-card">
                                 <div class="spot-img-container">
-                                    
+                                    <img src="https://image.kkday.com/v2/image/get/w_960%2Cc_fit%2Cq_55%2Ct_webp/s1.kkday.com/product_268144/20250212030152_hZ3p8/jpg" alt="龍貓森林" loading="lazy">
                                 </div>
                                 <div class="p-4">
                                     <h5 class="font-bold text-lg text-gray-900 mb-1">龍貓森林 (芥屋大門)</h5>
